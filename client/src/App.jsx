@@ -1,6 +1,8 @@
+import ClientAdd from "./components/ClientAdd/ClientAdd"
+
 function App() {
   return (
-   <p>hello</p>
+   <ClientAdd />
   );
 }
 

@@ -30,18 +30,18 @@ const clientSchema = mongoose.Schema({
   comments: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Comments",
+      ref: "Comment",
     },
   ],
   orders: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Orders",
+      ref: "Order",
     },
   ],
   creator: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Users",
+    ref: "User",
   },
 });
 

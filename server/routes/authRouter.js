@@ -1,13 +1,14 @@
 const { Router } = require("express");
-const User = require("../models/user.model");
-const bcrypt = require("bcrypt");
+const User = require("../db/models/userModel");
+
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
 
 const { google } = require("googleapis");
 const { OAuth2 } = google.auth;
 
-const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, DB_HOST, PORT } = process.env;
+const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, DB_HOST, PORT, REFRESH_TOKEN } =
+  process.env;
 
 const oAuth2Client = new OAuth2(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET);
 
@@ -15,7 +16,7 @@ oAuth2Client.setCredentials({
   refresh_token: REFRESH_TOKEN,
 });
 
-const saltRounds = 10;
+// const saltRounds = 10;
 
 const router = Router();
 
@@ -24,13 +25,26 @@ passport.use(
     {
       clientID: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_CLIENT_SECRET,
-      callbackURL: `http://${DB_HOST}:${PORT}/auth/google/callback`,
+      // callbackURL: `http://${DB_HOST}:${PORT}/auth/google/callback`,
+      callbackURL: "http://localhost:3001/auth/google/callback",
       passReqToCallback: true,
     },
-    function (request, accessToken, refreshToken, profile, done) {
-      // console.log(profile);
-      // console.log('request.session.passport.user===>', request.session.passport.user.displayName);
-      return done(null, profile);
+    // function (request, accessToken, refreshToken, profile, done) {
+    //   return done(null, profile);
+    // }
+    async (request, accessToken, refreshToken, profile, cb) => {
+      const defaultUser = {
+        name: `${profile.name.givenName} ${profile.name.familyName}`,
+        email: profile.emails[0].value,
+        // picture: profile.photos[0].value,
+        googleId: profile.id,
+      };
+
+      const user = await User.create(defaultUser).catch((err) => {
+        console.log("ERROR SIGNING", err);
+        cb(err, null);
+      });
+      if (user && user[0]) return cb(null, user && user[0]);
     }
   )
 );

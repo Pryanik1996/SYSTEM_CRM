@@ -6,6 +6,8 @@ const cors = require("cors");
 const MongoStore = require("connect-mongo");
 const { dbConnectionURL, connect } = require("./db/config/config");
 const authRouter = require ('./routes/authRouter')
+const passport = require("passport");
+
 
 const app = express();
 
@@ -15,12 +17,13 @@ connect();
 
 app.set("cookieName", COOKIE_NAME);
 
-app.use(
-  cors({
-    origin: true,
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: true,
+//     credentials: true,
+//   })
+// );
+app.use(cors())
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -43,6 +46,7 @@ app.use(
 );
 
 app.use("/auth", authRouter);
+
 
 app.listen(PORT, () => {
   console.log("Server has been started on PORT ", PORT);

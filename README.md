@@ -1,2 +1,2 @@
-# SYSTEM_SRM
-System SRM for a furniture company.
+# SYSTEM_CRM
+System CRM for a furniture company.

@@ -1,47 +1,93 @@
-import React, { useState } from 'react';
-import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
-import useInput from "../../hooks/inputHook"
-
+import React, { useState } from "react";
+import TextField from "@material-ui/core/TextField";
+import { makeStyles } from "@material-ui/core/styles";
+import { useForm } from "react-hook-form";
+import { FormHelperText } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+import { useDispatch } from "react-redux";
+import { getClient } from "../../redux/actions/clients.action";
+import { useHistory, useLocation } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      width: '25ch',
+    "& .MuiTextField-root": {
+      margin: theme.spacing(2),
+      width: "25ch",
     },
   },
 }));
 
 export default function ClientAdd() {
   const classes = useStyles();
-  const inputs = [
-  useInput({ label: "Имя", type: "text" }), 
-  useInput({ label: "Фамилия", type: "text" }),
-  useInput({ label: "Отчество", type: "text" }),
-  useInput({ label: "email", type: "text" }),
-  useInput({ label: "Номер телефона", type: "text" }),
-  useInput({ label: "Адрес клиента", type: "text" })];
+  let history = useHistory();
+  const dispatch = useDispatch();
 
-  const initialForm = {title: ''}
-const [formState, setFormState] = useState(initialForm)
+  const {
+    register,
+    handleSubmit,
+    watch, //отслеживание содержимого инпута
+    formState: { errors, submitCount },
+  } = useForm({ mode: "onChange" });
 
-const changeHandler = (e) => {
-const wantedField = e.target.getAttribute('name')
-const newValue = e.target.value
-setFormState(setFormState(prev => ({...prev, [wantedField]: newValue})))
-console.log(wantedField)
-}
-
+  const onSubmit = (data) => {
+    dispatch(getClient(data, history));
+  };
 
   return (
-    <form className={classes.root} noValidate autoComplete="off">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className={classes.root}
+      noValidate
+      autoComplete="off"
+    >
+      <br />
+      <h1>Добавить клиента</h1>
+      <hr />
+      {errors.name && <p>Обязательное поле, не более 15 символов</p>}
+      <TextField
+        label="Имя"
+        type="text"
+        id="standard-required"
+        {...register("name", { required: true, maxLength: 15 })}
+      />
+      <TextField
+        label="Фамилия"
+        type="text"
+        id="standard-required"
+        {...register("surname")}
+      />
+      <TextField
+        label="Отчество"
+        type="text"
+        id="standard-required"
+        {...register("patronymic")}
+      />
+      <TextField
+        label="email"
+        type="email"
+        id="standard-required"
+        {...register("email")}
+      />
+      <TextField
+        placeholder="..."
+        defaultValue="+7"
+        label="Номер телефона"
+        type="text"
+        id="standard-required"
+        {...register("phone")}
+      />
+      <TextField
+        label="Адрес клиента"
+        type="text"
+        id="standard-required"
+        {...register("address")}
+      />
       <div>
-        {inputs.map((el, i) => (
-          <TextField onChange={changeHandler} name='title' key={i} {...el.tagAttrs} value={formState.title} required id="standard-required" defaultValue="" />
-        ))}
+        <br />
+        <Button type="submit" variant="contained" color="primary">
+          Отправить
+        </Button>
       </div>
-    <button type="submit">Send</button>
     </form>
   );
 }

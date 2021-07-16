@@ -14,9 +14,6 @@ const { DB_HOST, DB_NAME, DB_PORT } = process.env;
 
 const dbConnectionURL = `mongodb+srv://${DB_HOST}:${DB_PORT}/${DB_NAME}`;
 
-
-
-
 function connect() {
   mongoose.connect(dbConnectionURL, options, (err) => {
     if (err) console.error("ERROR WITH DB");

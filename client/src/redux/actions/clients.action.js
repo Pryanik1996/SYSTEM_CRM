@@ -3,7 +3,7 @@ import { CLIENT_ADD, CLIENT_ADD_ALL } from "../types";
 
 export const setAllClient = (clients) => ({
   type: CLIENT_ADD_ALL,
-  payload: clients
+  payload: clients,
 })
 
 export const setClient = (clients) => ({
@@ -35,9 +35,8 @@ export const getClient = (data, history) => async (dispatch) => {
   if (response.status === 200) {
     const res = await response.json();
     dispatch(setClient(res));
-  }
-    // history.replaceState("/clients");
+  //   history.replaceState("/clients");
   // } else {
-    // history.replaceState("/clients/new");
-  // }
+  //   history.replaceState("/clients/new");
+  }
 }

@@ -46,11 +46,8 @@ app.use(
 
 
 app.use('/clients', clientsRouter)
-<<<<<<< HEAD
 app.use('/admin', adminRouter)
-=======
 app.use('/orders', ordersRouter)
->>>>>>> f9fca160774a282aa70e9379c0a5ad16fb29666a
 
 app.listen(PORT, () => {
   console.log("Server has been started on PORT ", PORT);

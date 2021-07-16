@@ -37,61 +37,30 @@ function App() {
   }, []);
 
   return (
-    // <>
-    // <Container component="div" style={{  height: '100vh' }} maxWidth="sm">
-    // <Router>
-    //   <Switch>
-    // <Route exact path="/clients/new">
-    //   <ClientAdd />
-    // </Route>
-
-    // <Route exact path="/orders/new">
-    //   <OrderAdd/>
-    // </Route>
-    //   </Switch>
-    // </Router>
-    // </Container>
-    // </>
-
-    <>
+    <Router>
+      {state.user && <Header />}
       <React.Fragment>
-        {state.user && <Header />}
-        <Container component="div" style={{ height: "100vh" }} maxWidth="lg">
-          <Router>
-            <Switch>
-              <Route exact path="/clients/new">
-                <ClientAdd />
-              </Route>
-              <Route exact path="/admin/workers">
-                <ListOfWorkers />
-              </Route>
-              <Route exact path="/admin/clients">
-                <ListOfDEletedClients />
-              </Route>
-              <Route exact path="/admin/items">
-                <ListOfDEletedItems />
-              </Route>
-              <Route exact path="/orders/new">
-                <OrderAdd />
-              </Route>
-
-              <Route exact path="/">
-                <Main />
-              </Route>
-              <Route exact path="/auth/signout">
-                <SignOut />
-              </Route>
-              <Route exact path="/clients/new">
-                <ClientAdd />
-              </Route>
-              <Route exact path="/orders/new">
-                <OrderAdd />
-              </Route>
-            </Switch>
-          </Router>
+        <Container maxWidth="lg">
+          <Switch>
+            <Route exact path="/">
+              <Main />
+            </Route>
+            <Route exact path="/auth/signout">
+              <SignOut />
+            </Route>
+            <Route exact path="/admin/workers">
+              <ListOfWorkers />
+            </Route>
+            <Route exact path="/admin/clients">
+              <ListOfDEletedClients />
+            </Route>
+            <Route exact path="/admin/items">
+              <ListOfDEletedItems />
+            </Route>
+          </Switch>
         </Container>
       </React.Fragment>
-    </>
+    </Router>
   );
 }
 

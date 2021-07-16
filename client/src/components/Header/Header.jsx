@@ -1,12 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-
+import React from "react";
+import PropTypes from "prop-types";
+import { makeStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -36,14 +37,14 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `scrollable-auto-tab-${index}`,
-    'aria-controls': `scrollable-auto-tabpanel-${index}`,
+    "aria-controls": `scrollable-auto-tabpanel-${index}`,
   };
 }
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    width: '100%',
+    width: "100%",
     backgroundColor: theme.palette.background.paper,
   },
 }));
@@ -51,6 +52,9 @@ const useStyles = makeStyles((theme) => ({
 export default function ScrollableTabsButtonAuto() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+
+  const userName = useSelector((state) => state.user?.name);
+  const userPicture = useSelector((state) => state.user?.picture);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -68,33 +72,32 @@ export default function ScrollableTabsButtonAuto() {
           scrollButtons="auto"
           aria-label="scrollable auto tabs example"
         >
-          <Tab label="клиенты" {...a11yProps(0)} />
-          <Tab label="заказы" {...a11yProps(1)} />
-          <Tab label="добавить клиента" {...a11yProps(2)} />
-          <Tab label="создать заказ" {...a11yProps(3)} />
+          <Link exact to="/clients">
+            <Tab label="клиенты" {...a11yProps(0)} />
+          </Link>
+          <Link exact to="/orders">
+            <Tab label="заказы" {...a11yProps(1)} />
+          </Link>
+          <Link exact to="/clients/new">
+            <Tab label="добавить клиента" {...a11yProps(2)} />
+          </Link>
+          <Link exact to="/orders/new">
+            <Tab label="создать заказ" {...a11yProps(3)} />
+          </Link>
+          {userName && (
+            <>
+              {" "}
+              <span>
+                Вы авторизованы как <b>{userName}</b>{" "}
+              </span>
+              <img src={userPicture} alt="" />
+              <Link exact to="/auth/signout">
+                выйти{" "}
+              </Link>
+            </>
+          )}
         </Tabs>
       </AppBar>
-      {/* <TabPanel value={value} index={0}>
-        Item One
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        Item Two
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        Item Three
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        Item Four
-      </TabPanel>
-      <TabPanel value={value} index={4}>
-        Item Five
-      </TabPanel>
-      <TabPanel value={value} index={5}>
-        Item Six
-      </TabPanel>
-      <TabPanel value={value} index={6}>
-        Item Seven
-      </TabPanel> */}
     </div>
   );
 }

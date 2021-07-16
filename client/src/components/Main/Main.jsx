@@ -1,46 +1,38 @@
 import React from "react";
-import { makeStyles } from '@material-ui/core/styles';
-import Link from '@material-ui/core/Link';
+import { makeStyles } from "@material-ui/core/styles";
+import Link from "@material-ui/core/Link";
+import GoogleButton from "react-google-button";
+import { useDispatch } from "react-redux";
+import { getUserFromServer } from "../../redux/actions/userAction";
+
 // import { Link } from "react-router-dom";
 
-import Typography from '@material-ui/core/Typography';
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    '& > * + *': {
+    "& > * + *": {
       marginLeft: theme.spacing(2),
     },
   },
 }));
 
 export default function Main() {
-  // const signinHandler = () => {
-  //   fetch("http://localhost:3001/auth/signinwithgoogle", {
-  //     // credentials: "include",
-  //     headers: {
-  //       "Access-Control-Allow-Origin": "*",
-  //     },
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => console.log(data));
-  // };
-  // return (
-  //   <Button onClick={signinHandler} variant="contained">
-  //     войти
-  //   </Button>
-  // );
+  const dispatch = useDispatch();
+
   const classes = useStyles();
+
+  const signinHandler = () => {
+    window.open("http://localhost:3001/auth/signinwithgoogle");
+    // dispatch(getUserFromServer());
+  };
 
   return (
     <div className="hello">
       <h3>Добро пожаловать в CRM систему</h3>
       <Typography className={classes.root}>
-      <Link href="/auth/signin">
-        Авторизация
-      </Link>
-    </Typography>
+        <GoogleButton onClick={() => signinHandler()} />
+      </Typography>
     </div>
-  )
+  );
 }
-
-

@@ -16,13 +16,13 @@ connect();
 
 app.set("cookieName", COOKIE_NAME);
 
-// app.use(
-//   cors({
-//     origin: true,
-//     credentials: true,
-//   })
-// );
-app.use(cors());
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  })
+);
+// app.use(cors());
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -46,6 +46,9 @@ app.use(
 
 app.use("/auth", authRouter);
 
+app.get("/clients", (req, res) => {
+  res.send("тут будут клиенты");
+});
 
 app.listen(PORT, () => {
   console.log("Server has been started on PORT ", PORT);

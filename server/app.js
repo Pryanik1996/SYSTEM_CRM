@@ -6,7 +6,7 @@ const cors = require("cors");
 const MongoStore = require("connect-mongo");
 const { dbConnectionURL, connect } = require("./db/config/config");
 const clientsRouter = require('./routes/clients.router')
-
+const ordersRouter = require('./routes/orders.router')
 
 const app = express();
 
@@ -42,6 +42,7 @@ app.use(
 
 
 app.use('/clients', clientsRouter)
+app.use('/orders', ordersRouter)
 
 app.listen(PORT, () => {
   console.log("Server has been started on PORT ", PORT);

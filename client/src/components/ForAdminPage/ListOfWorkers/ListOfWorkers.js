@@ -8,6 +8,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import InputForNewWorker from "../InputForNewWorker/InputForNewWorker"
 const useStyles = makeStyles((theme) => ({
   
   root: {
@@ -35,14 +36,16 @@ const useStyles = makeStyles((theme) => ({
 export default function ListOfWorkers() {
   useEffect(()=>{
     fetch(`http://localhost:3001/admin/workers`)})
-  const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
-
-  return (
+    const classes = useStyles();
+    const [expanded, setExpanded] = React.useState(false);
+    
+    const handleExpandClick = () => {
+      setExpanded(!expanded);
+    };
+    
+    return (
+      <>
+    <InputForNewWorker/>
     <Card className={classes.root}>
       <CardHeader
         avatar={
@@ -115,5 +118,6 @@ export default function ListOfWorkers() {
         </CardContent>
       </Collapse>
     </Card>
+    </>
   );
 }

@@ -6,11 +6,8 @@ const cors = require("cors");
 const MongoStore = require("connect-mongo");
 const { dbConnectionURL, connect } = require("./db/config/config");
 const clientsRouter = require('./routes/clients.router')
-<<<<<<< HEAD
 const adminRouter = require('./routes/admin.router')
-=======
 const ordersRouter = require('./routes/orders.router')
->>>>>>> f9fca160774a282aa70e9379c0a5ad16fb29666a
 
 const app = express();
 

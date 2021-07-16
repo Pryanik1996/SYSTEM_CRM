@@ -1,23 +1,11 @@
 import ClientAdd from "./components/ClientAdd/ClientAdd"
 import Container from '@material-ui/core/Container';
-<<<<<<< HEAD
-import AllClients from './components/AllClients/AllClients'
-=======
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import OrderAdd from "./components/OrderAdd/OrderAdd";
->>>>>>> origin/test
 
 function App() {
   return (
     <>
-<<<<<<< HEAD
-    {/* <CssBaseline />
-    <Container component="div" style={{  height: '100vh' }} maxWidth="sm">
-    <ClientAdd />
-    </Container> */}
-    <AllClients />
-  </>
-=======
     <Container component="div" style={{  height: '100vh' }} maxWidth="sm">
     <Router>
       <Switch>
@@ -32,7 +20,6 @@ function App() {
     </Router>
     </Container>
     </>
->>>>>>> origin/test
   );
 }
 

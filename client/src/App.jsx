@@ -38,9 +38,13 @@ function App() {
 
   return (
     <>
+      <React.Fragment>
     <Container component="div" style={{  height: '100vh' }} maxWidth="sm">
+        {/* <Container maxWidth="lg"> */}
+        
     <Router>
       <Switch>
+      {state.user && <Header />}
     <Route exact path="/clients/new">   
       <ClientAdd />
     </Route>
@@ -53,23 +57,11 @@ function App() {
     <Route exact path="/admin/items">   
     <ListOfDEletedItems />
     </Route>
-    {/* <Route exact path="/admin/worker">   
-    <InputForNewWorker/>
-    </Route> */}
     <Route exact path="/orders/new">
       <OrderAdd/>
     </Route>
-      </Switch>
-    </Router>
-    </Container>
-
-
 
     
-      {state.user && <Header />}
-      <React.Fragment>
-        <Container maxWidth="lg">
-          <Switch>
             <Route exact path="/">
               <Main />
             </Route>
@@ -77,6 +69,7 @@ function App() {
               <SignOut />
             </Route>
           </Switch>
+    </Router>
         </Container>
       </React.Fragment>
     </>

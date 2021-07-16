@@ -23,7 +23,9 @@
     "mongoose": "^5.13.2",
     "mongoose-findorcreate": "^3.0.0",
     "passport": "^0.4.1",
+    "passport-google": "^0.3.0",
     "passport-google-oauth2": "^0.2.0",
+    "passport-google-oauth20": "^2.0.0",
     "path": "^0.12.7"
   },
   "devDependencies": {

@@ -57,6 +57,12 @@ function App() {
             <Route exact path="/admin/items">
               <ListOfDEletedItems />
             </Route>
+            <Route exact path="/clients/new">
+              <ClientAdd />
+            </Route>
+            <Route exact path="/orders/new">
+              <OrderAdd />
+            </Route>
           </Switch>
         </Container>
       </React.Fragment>

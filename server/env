@@ -2,6 +2,6 @@ COOKIE_SECRET=e1d322030d13b4d27cac8244491c65f4e86aab35819c8b922618b9ad0f6e846a49
 COOKIE_NAME=cookieName
 PORT=3001
 
-DB_HOST=localhost
-DB_NAME=CRM
-DB_PORT=27017
+DB_HOST=elbrus
+DB_NAME=FINALCRM?retryWrites=true&w=majority
+DB_PORT=1234@cluster0.txh4g.mongodb.net

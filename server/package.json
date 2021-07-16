@@ -12,12 +12,18 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.21.1",
+    "bcrypt": "^5.0.1",
     "connect-mongo": "^4.4.1",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
+    "googleapis": "^81.0.0",
     "mongoose": "^5.13.2",
+    "mongoose-findorcreate": "^3.0.0",
+    "passport": "^0.4.1",
+    "passport-google-oauth2": "^0.2.0",
     "path": "^0.12.7"
   },
   "devDependencies": {

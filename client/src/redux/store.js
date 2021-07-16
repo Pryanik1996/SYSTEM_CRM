@@ -7,6 +7,8 @@ import { composeWithDevTools } from "redux-devtools-extension";
 
 const store = createStore(reducer, initialState, composeWithDevTools(applyMiddleware(thunk)));
 
-
+// store.subscribe(() => {
+//   window.localStorage.setItem('redux', JSON.stringify(store.getState()))
+// })
 
 export default store;

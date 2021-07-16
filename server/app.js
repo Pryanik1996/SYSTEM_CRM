@@ -1,12 +1,14 @@
 require("dotenv").config();
 const express = require("express");
 const session = require("express-session");
-const morgan = require('morgan')
+const morgan = require("morgan");
 const cors = require("cors");
 const MongoStore = require("connect-mongo");
 const { dbConnectionURL, connect } = require("./db/config/config");
-const clientsRouter = require('./routes/clients.router')
-const ordersRouter = require('./routes/orders.router')
+const clientsRouter = require("./routes/clients.router");
+const ordersRouter = require("./routes/orders.router");
+const authRouter = require("./routes/authRouter");
+const passport = require("passport");
 
 const app = express();
 
@@ -22,6 +24,10 @@ app.use(
     credentials: true,
   })
 );
+// app.use(cors());
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(express.json());
 app.use(
   session({
@@ -40,9 +46,13 @@ app.use(
   })
 );
 
+app.use("/clients", clientsRouter);
+app.use("/orders", ordersRouter);
+app.use("/auth", authRouter);
 
-app.use('/clients', clientsRouter)
-app.use('/orders', ordersRouter)
+app.get("/clients", (req, res) => {
+  res.send("тут будут клиенты");
+});
 
 app.listen(PORT, () => {
   console.log("Server has been started on PORT ", PORT);

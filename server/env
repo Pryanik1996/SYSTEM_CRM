@@ -5,3 +5,8 @@ PORT=3001
 DB_HOST=elbrus
 DB_NAME=FINALCRM?retryWrites=true&w=majority
 DB_PORT=1234@cluster0.txh4g.mongodb.net
+
+
+GOOGLE_CLIENT_ID=67886921877-9ge6e6hve3pku943fe2mibtm8ogg9ud2.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=sKwx5yj7rYfslUvcxLe9huWR
+REFRESH_TOKEN=1//04xd45K947j7dCgYIARAAGAQSNwF-L9IrIFOPtAEgD__RBORjUe2Y2_RFFBlHC5yBqqwbf9h9fZsBLfBKQWCzAZZoDvF9_uh0p-A

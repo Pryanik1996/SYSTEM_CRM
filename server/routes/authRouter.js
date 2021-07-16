@@ -1,6 +1,6 @@
 const { Router } = require("express");
-const User = require("../db/models/userModel");
 
+const User = require("../db/models/userModel");
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
 
@@ -10,16 +10,16 @@ const { OAuth2 } = google.auth;
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, DB_HOST, PORT, REFRESH_TOKEN } =
   process.env;
 
-const oAuth2Client = new OAuth2(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET);
+// const oAuth2Client = new OAuth2(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET);
 
-oAuth2Client.setCredentials({
-  refresh_token: REFRESH_TOKEN,
-});
+// oAuth2Client.setCredentials({
+//   refresh_token: REFRESH_TOKEN,
+// });
 
 // const saltRounds = 10;
 
 const router = Router();
-
+let defaultUser;
 passport.use(
   new GoogleStrategy(
     {
@@ -32,19 +32,29 @@ passport.use(
     // function (request, accessToken, refreshToken, profile, done) {
     //   return done(null, profile);
     // }
-    async (request, accessToken, refreshToken, profile, cb) => {
-      const defaultUser = {
+    async (request, accessToken, refreshToken, profile, done) => {
+      defaultUser = {
         name: `${profile.name.givenName} ${profile.name.familyName}`,
         email: profile.emails[0].value,
-        // picture: profile.photos[0].value,
+        picture: profile.photos[0].value,
         googleId: profile.id,
       };
+      
+      console.log("defaultUser", defaultUser);
 
-      const user = await User.create(defaultUser).catch((err) => {
-        console.log("ERROR SIGNING", err);
-        cb(err, null);
+      const user = await User.findOrCreate(profile._json, (err, user) => {
+        if (err) {
+          return done(err);
+        }
+        done(null, user);
       });
-      if (user && user[0]) return cb(null, user && user[0]);
+
+      // const user = await User.findOrCreate(defaultUser).catch((err) => {
+      //   console.log("ERROR SIGNING", err);
+      //   done(err, null);
+      // });
+
+      // if (user && user[0]) return cb(null, user && user[0]);
     }
   )
 );
@@ -67,13 +77,18 @@ router.get(
 router.get(
   "/google/callback",
   passport.authenticate("google", {
-    successRedirect: "/",
+    successRedirect: "/auth/user",
     failureRedirect: "/auth/google/failure",
   })
 );
 
 router.get("/google/failure", (req, res) => {
   res.send("Failed to authenticate..");
+});
+
+router.get("/user", (req, res) => {
+  console.log("getting user data!");
+  res.send(defaultUser);
 });
 
 // router.route("/signup/:msg").get((req, res) => {

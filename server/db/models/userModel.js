@@ -1,18 +1,19 @@
 const mongoose = require("mongoose");
+const findOrCreate = require("mongoose-findorcreate");
 
 const userSchema = mongoose.Schema({
   name: {
     type: String,
-    required: true,
+    // required: true,
   },
   email: {
     type: String,
-    required: true,
+    // required: true,
     unique: true,
   },
   password: {
     type: String,
-    required: true,
+    // required: true,
     min: 1,
   },
   isAdmin: {
@@ -27,5 +28,7 @@ const userSchema = mongoose.Schema({
     type: String,
   },
 });
+
+userSchema.plugin(findOrCreate);
 
 module.exports = mongoose.model("User", userSchema);

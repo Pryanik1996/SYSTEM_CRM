@@ -5,9 +5,8 @@ const morgan = require("morgan");
 const cors = require("cors");
 const MongoStore = require("connect-mongo");
 const { dbConnectionURL, connect } = require("./db/config/config");
-const authRouter = require ('./routes/authRouter')
+const authRouter = require("./routes/authRouter");
 const passport = require("passport");
-
 
 const app = express();
 
@@ -23,7 +22,7 @@ app.set("cookieName", COOKIE_NAME);
 //     credentials: true,
 //   })
 // );
-app.use(cors())
+app.use(cors());
 app.use(passport.initialize());
 app.use(passport.session());
 

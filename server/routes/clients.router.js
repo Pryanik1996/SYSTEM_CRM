@@ -1,13 +1,12 @@
 const { Router } = require("express");
 const router = Router();
-const User = require("../db/models/userModel");
+const Client = require("../db/models/clientModel");
 
 router.post("/new", async (req, res) => {
   const { name } = req.body;
-  console.log(req.body)
   try {
     if (name) {
-    const newUser = await User.create(req.body);
+    const newUser = await Client.create(req.body);
     res.json(newUser)
     }
   } catch (err) {

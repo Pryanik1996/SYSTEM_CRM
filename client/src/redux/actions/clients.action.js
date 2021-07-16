@@ -34,6 +34,7 @@ export const getClient = (data, history) => async (dispatch) => {
   });
   if (response.status === 200) {
     const res = await response.json();
+    console.log(res)
     dispatch(setClient(res));
   //   history.replaceState("/clients");
   // } else {

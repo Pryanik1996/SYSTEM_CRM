@@ -6,7 +6,6 @@ const clientSchema = mongoose.Schema({
   },
   surname: {
     type: String,
-    
   },
   patronymic: {
     type: String,

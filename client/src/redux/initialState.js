@@ -1,6 +1,7 @@
 const initialState = {
-  clients: {},
-  workers: []
+  workers: [],
+  clients: [],
+  orders: []
 };
 
 

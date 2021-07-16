@@ -88,15 +88,25 @@ export default function OrderAdd() {
         {...register("priceDeliv")}
       />
 
-      <FormControl className={classes.formControl}>
-        <TextField
+      {/* <FormControl className={classes.formControl}> */}
+      <TextField
+          id="standard-required"
+          label="Дата доставки"
+        type="date"
+        className={classes.textField}
+        InputLabelProps={{
+          shrink: true,
+        }}
+        {...register("dateDeliv")}
+      />
+        {/* <TextField
           placeholder="..."
           type="date"
           id="standard-required"
           {...register("dateDeliv")}
         />
         <FormHelperText>Дата доставки</FormHelperText>
-        </FormControl>
+        </FormControl> */}
 
         <TextField
           label="Стоимость сборки"
@@ -105,14 +115,25 @@ export default function OrderAdd() {
           {...register("priceConstr")}
         />
 
-      <FormControl className={classes.formControl}>
+<TextField
+          id="standard-required"
+          label="Дата сборки"
+        type="date"
+        className={classes.textField}
+        InputLabelProps={{
+          shrink: true,
+        }}
+        {...register("dateConstr")}
+      />
+
+      {/* <FormControl className={classes.formControl}>
         <TextField
           type="date"
           id="standard-required"
           {...register("dateConstr")}
         />
         <FormHelperText>Дата сборки</FormHelperText>
-      </FormControl>
+      </FormControl> */}
 
       <TextField
         label="Бригада доставки"

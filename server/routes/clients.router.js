@@ -2,6 +2,7 @@ const { Router } = require("express");
 const router = Router();
 const Client = require("../db/models/clientModel");
 
+
 router.get("/new", async (req,res) => {
   User.find()
     .then((data) => res.json(data))

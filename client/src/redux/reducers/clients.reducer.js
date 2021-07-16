@@ -7,6 +7,8 @@ const clientReducer = (state = null, action) => {
       return payload
     }
     case CLIENT_ADD: {
+      // const { clients } = payload;
+      // return clients;
       return [...state, payload];
     }
     default: {

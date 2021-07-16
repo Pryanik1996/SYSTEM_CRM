@@ -8,7 +8,7 @@ export const setAllClient = (clients) => ({
 
 export const setClient = (clients) => ({
   type: CLIENT_ADD,
-  payload: clients,
+  payload: {clients},
 });
 
 export const getAllClient = () => (dispatch) => {
@@ -41,3 +41,4 @@ export const getClient = (data, history) => async (dispatch) => {
     // history.replaceState("/clients/new");
   // }
 }
+

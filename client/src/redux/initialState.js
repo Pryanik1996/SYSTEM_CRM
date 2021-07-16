@@ -1,4 +1,5 @@
 const initialState = {
+  workers: [],
   clients: [],
   orders: [],
   user: null,

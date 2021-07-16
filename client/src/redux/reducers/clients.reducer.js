@@ -4,7 +4,8 @@ const clientReducer = (state = null, action) => {
   const { type, payload } = action;
   switch (type) {
     case CLIENT_ADD: {
-      return payload;
+      const { clients } = payload;
+      return clients;
     }
     default: {
       return state;

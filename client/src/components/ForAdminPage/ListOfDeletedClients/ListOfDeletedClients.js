@@ -1,6 +1,19 @@
+import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
+import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
+
+import "./StyleListOfDeletedClients.css";
 import React from "react";
-import { Grid, AccordionSummary, Typography, AccordionDetails, Accordion, makeStyles  } from "@material-ui/core";
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import {
+  Grid,
+  AccordionSummary,
+  Typography,
+  AccordionDetails,
+  Accordion,
+  makeStyles,
+} from "@material-ui/core";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -41,6 +54,9 @@ export default function ListOfDEletedClients() {
             aria-controls="panel1bh-content"
             id="panel1bh-header"
           >
+            <IconButton aria-label="delete" className={classes.margin}>
+              <DeleteIcon fontSize="large" />
+            </IconButton>
             <Typography className={classes.heading}>
               General settings
             </Typography>
@@ -64,6 +80,9 @@ export default function ListOfDEletedClients() {
             aria-controls="panel2bh-content"
             id="panel2bh-header"
           >
+            <IconButton aria-label="delete" className={classes.margin}>
+              <DeleteIcon fontSize="large" />
+            </IconButton>
             <Typography className={classes.heading}>Users</Typography>
             <Typography className={classes.secondaryHeading}>
               You are currently not an owner
@@ -86,6 +105,9 @@ export default function ListOfDEletedClients() {
             aria-controls="panel3bh-content"
             id="panel3bh-header"
           >
+            <IconButton aria-label="delete" className={classes.margin}>
+              <DeleteIcon fontSize="large" />
+            </IconButton>
             <Typography className={classes.heading}>
               Advanced settings
             </Typography>
@@ -109,6 +131,9 @@ export default function ListOfDEletedClients() {
             aria-controls="panel4bh-content"
             id="panel4bh-header"
           >
+            <IconButton aria-label="delete" className={classes.margin}>
+              <DeleteIcon fontSize="large" />
+            </IconButton>
             <Typography className={classes.heading}>Personal data</Typography>
           </AccordionSummary>
           <AccordionDetails>

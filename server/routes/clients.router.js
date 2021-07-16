@@ -7,6 +7,7 @@ router.post("/new", async (req, res) => {
   try {
     if (name) {
     const newUser = await Client.create(req.body);
+    console.log(newUser);
     res.json(newUser)
     }
   } catch (err) {

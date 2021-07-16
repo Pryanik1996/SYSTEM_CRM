@@ -2,11 +2,11 @@ import { CLIENT_ADD } from "../types";
 
 export const setClient = (clients) => ({
   type: CLIENT_ADD,
-  payload: clients,
+  payload: {clients},
 });
 
 export const getClient = (data, history) => async (dispatch) => {
-  // console.log(data)
+  console.log(data)
   const response = await fetch(`http://localhost:3001/clients/new`, {
     method: "POST",
     headers: {
@@ -32,3 +32,4 @@ export const getClient = (data, history) => async (dispatch) => {
     // history.replaceState("/clients/new");
   // }
 }
+

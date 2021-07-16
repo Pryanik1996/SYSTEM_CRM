@@ -26,11 +26,13 @@ export default function ClientAdd() {
     register,
     handleSubmit,
     watch, //отслеживание содержимого инпута
-    formState: { errors, submitCount },
+    reset,
+    formState: { errors },
   } = useForm({ mode: "onChange" });
 
   const onSubmit = (data) => {
     dispatch(getClient(data, history));
+    reset();
   };
 
   return (
@@ -42,6 +44,7 @@ export default function ClientAdd() {
     >
       <br />
       <h1>Добавить клиента</h1>
+      <br />
       <hr />
       {errors.name && <p>Обязательное поле, не более 15 символов</p>}
       <TextField
@@ -82,10 +85,19 @@ export default function ClientAdd() {
         id="standard-required"
         {...register("address")}
       />
+      <TextField
+        label="Адрес клиента"
+        type="text"
+        id="standard-required"
+        {...register("address")}
+      />
+      <br />
+      <br />
+      <hr />
+      <br />
       <div>
-        <br />
         <Button type="submit" variant="contained" color="primary">
-          Отправить
+          Добавить
         </Button>
       </div>
     </form>

@@ -1,19 +1,21 @@
 const { Router } = require("express");
 const router = Router();
-const Client = require("../db/models/clientModel");
+const Order = require("../db/models/orderModel");
 
-router.get("/new", async (req, res) => {
-  Client.find()
+router.get("/new", (req,res) => {
+  Order.find()
     .then((data) => res.json(data))
     .catch((err) => res.sendStatus(404));
-});
+})
+
 
 router.post("/new", async (req, res) => {
-  const { name } = req.body;
+  const { number } = req.body;
+  console.log(req.body)
   try {
-    if (name) {
-      const newUser = await Client.create(req.body);
-      res.json(newUser);
+    if (number) {
+    const newOrder = await Order.create(req.body);
+    res.json(newOrder)
     }
   } catch (err) {
     return res.sendStatus(403);

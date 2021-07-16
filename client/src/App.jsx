@@ -18,10 +18,6 @@ import AllOrdersList from "./components/AllOrdersList/AllOrdersList";
 //yarn add @material-ui/icons
 import InputForNewWorker from "./components/ForAdminPage/InputForNewWorker/InputForNewWorker";
 
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import OrderAdd from "./components/OrderAdd/OrderAdd";
-import React from "react";
-import { useEffect } from "react";
 import Header from "./components/Header/Header";
 import { checkAuth, getUserFromServer } from "./redux/actions/userAction";
 import SignOut from "./components/SignOut/SignOut";
@@ -59,12 +55,10 @@ function App() {
 
     <>
       <React.Fragment>
+        {state.user && <Header />}
         <Container component="div" style={{ height: "100vh" }} maxWidth="lg">
-          {/* <Container maxWidth="lg"> */}
-
           <Router>
             <Switch>
-              {state.user && <Header />}
               <Route exact path="/clients/new">
                 <ClientAdd />
               </Route>

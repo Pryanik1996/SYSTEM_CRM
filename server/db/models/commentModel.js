@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const commentSchema = mongoose.Schema({
   author: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Users",
+    ref: "User",
   },
   body: {
     type: String,

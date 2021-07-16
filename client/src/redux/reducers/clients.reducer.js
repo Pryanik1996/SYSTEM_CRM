@@ -1,10 +1,13 @@
-import { CLIENT_ADD } from "../types";
+import { CLIENT_ADD, CLIENT_ADD_ALL } from "../types";
 
 const clientReducer = (state = null, action) => {
   const { type, payload } = action;
   switch (type) {
+    case CLIENT_ADD_ALL: {
+      return payload
+    }
     case CLIENT_ADD: {
-      return payload;
+      return [...state, payload];
     }
     default: {
       return state;

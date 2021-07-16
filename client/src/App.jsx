@@ -2,6 +2,7 @@ import ClientAdd from "./components/ClientAdd/ClientAdd"
 import Container from '@material-ui/core/Container';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import OrderAdd from "./components/OrderAdd/OrderAdd";
+import AllClients from "./components/AllClients/AllClients"
 
 function App() {
   return (
@@ -16,6 +17,11 @@ function App() {
     <Route exact path="/orders/new">
       <OrderAdd/>
     </Route>
+
+    <Route exact path="/clients">
+      <AllClients />
+    </Route>
+
       </Switch>
     </Router>
     </Container>

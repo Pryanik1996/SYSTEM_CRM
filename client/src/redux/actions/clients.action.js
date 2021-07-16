@@ -1,4 +1,4 @@
-import { CLIENT_ADD, CLIENT_ADD_ALL } from "../types";
+import { CLIENT_ADD, CLIENT_ADD_ALL, CLIENTS_GET_START, CLIENTS_GET_SUCCESS, CLIENTS_GET_ERROR } from "../types";
 
 
 export const setAllClient = (clients) => ({
@@ -41,3 +41,22 @@ export const getClient = (data, history) => async (dispatch) => {
     // history.replaceState("/clients/new");
   // }
 }
+
+
+//========
+
+
+const getAllClientsStart = () => ({ type: CLIENTS_GET_START });
+const getAllClientsSuccess = (payload) => ({ type: CLIENTS_GET_SUCCESS, payload });
+const getAllClientsError = (payload) => ({ type: CLIENTS_GET_ERROR, payload });
+
+export const getClients = () => async (dispatch) => {
+  dispatch(getAllClientsStart());
+  const response = await fetch("http://localhost:3001/clients/all");
+  if (response.ok) {
+    const parsedClients = await response.json();
+    return dispatch(getAllClientsSuccess(parsedClients));
+  }
+  const err = await response.json();
+  dispatch(getAllClientsError(err));
+};

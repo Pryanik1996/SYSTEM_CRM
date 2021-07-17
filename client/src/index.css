@@ -15,10 +15,20 @@ code {
 .hello {
   text-align: center;
 }
-.makeStyles-root-1 {
+/* .makeStyles-root-1 {
   display: flex;
   justify-content: center;
 }
 .MuiContainer-maxWidthLg {
   padding-top: 100px;
+} */
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+}
+.MuiAvatar-img {
+  width: 100px;
+  height: 100px;
 }

@@ -12,6 +12,7 @@ const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, DB_HOST, PORT, REFRESH_TOKEN } =
 
 const router = Router();
 let defaultUser;
+let user;
 passport.use(
   new GoogleStrategy(
     {
@@ -28,7 +29,21 @@ passport.use(
         picture: profile.photos[0].value,
         googleId: profile.id,
       };
-      const user = await User.findOne({ email: defaultUser.email });
+      user = await User.findOneAndUpdate(
+        { email: defaultUser.email },
+        {
+          name: defaultUser.name,
+          picture: defaultUser.picture,
+          googleId: defaultUser.googleId,
+        },
+        { new: true },
+        (err, user) => {
+          if (err) {
+            return done(err);
+          }
+          done(null, user);
+        }
+      );
       console.log("user===>", user);
 
       // const user = await User.findOrCreate(profile._json, (err, user) => {
@@ -68,8 +83,10 @@ router.get("/google/failure", (req, res) => {
 
 router.get("/user", (req, res) => {
   console.log("getting user data!");
-  // console.log(req.session?.passport.user);
-  return res.json(defaultUser);
+  if (user) {
+    return res.json(defaultUser);
+  }
+  return res.json(null);
 });
 
 router.route("/check").get(checkAuth, async (req, res) => {

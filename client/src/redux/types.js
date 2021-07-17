@@ -1,6 +1,7 @@
 
 export const CLIENT_ADD = "CLIENT_ADD"
 export const WORKER_ADD = "WORKER_ADD"
+export const ALL_WORKERS = "ALL_WORKERS"
 export const CLIENT_ADD_ALL = "CLIENT_ADD_ALL"
 
 

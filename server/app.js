@@ -5,9 +5,9 @@ const morgan = require("morgan");
 const cors = require("cors");
 const MongoStore = require("connect-mongo");
 const { dbConnectionURL, connect } = require("./db/config/config");
-const clientsRouter = require('./routes/clients.router')
-const adminRouter = require('./routes/admin.router')
-const ordersRouter = require('./routes/orders.router')
+const clientsRouter = require("./routes/clients.router");
+const adminRouter = require("./routes/admin.router");
+const ordersRouter = require("./routes/orders.router");
 const authRouter = require("./routes/authRouter");
 const passport = require("passport");
 
@@ -47,10 +47,16 @@ app.use(
   })
 );
 
+const isAdmin = function(req, res, next){
+    if (!req.session?.passport?.user.isAdmin) {
+      res.redirect('/')
+    };
+    next();
+}
 
-app.use('/clients', clientsRouter)
-app.use('/admin', adminRouter)
-app.use('/orders', ordersRouter)
+app.use("/clients", clientsRouter);
+app.use("/admin", isAdmin, adminRouter);
+app.use("/orders", ordersRouter);
 app.use("/auth", authRouter);
 
 app.get("/clients", (req, res) => {

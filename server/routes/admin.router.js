@@ -4,12 +4,11 @@ const User = require("../db/models/userModel")
 
 router.get('/workers', async (req,res)=>{
   const workers = await User.find()
-  console.log(workers);
+  res.json(workers)
 })
 
 router.post("/workers/new", async (req, res) => {
-  const { email } = req.body;
-  console.log(req.body);
+  const { email } = req?.body;
   try {
     if (email) {
     const newUser = await User.create(req.body);

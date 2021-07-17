@@ -9,6 +9,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import InputForNewWorker from "../InputForNewWorker/InputForNewWorker"
+import { useDispatch } from 'react-redux';
 const useStyles = makeStyles((theme) => ({
   
   root: {
@@ -34,9 +35,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ListOfWorkers() {
+  const dispatch = useDispatch()
   useEffect(()=>{
-    fetch(`http://localhost:3001/admin/workers`)})
-    const classes = useStyles();
+    fetch("http://localhost:3001/admin/workers")
+    .then((response) => response.json())
+    .then((data) => dispatch((data)))
+  },[] )
+  const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
     
     const handleExpandClick = () => {

@@ -5,6 +5,12 @@ export const addWorker = (workers) => ({
   payload: { workers },
 });
 
+export const allworkers = (workers)=>({
+  type: WORKER_ADD,
+  payload: { workers },
+
+})
+
 export const addWorkerEmail = (data, history) => async (dispatch) => {
   // console.log(data)
   const response = await fetch(`http://localhost:3001/admin/workers/new`, {

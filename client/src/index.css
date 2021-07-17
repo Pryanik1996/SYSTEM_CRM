@@ -14,6 +14,7 @@ code {
 
 .hello {
   text-align: center;
+ padding-top: 100px;
 }
 /* .makeStyles-root-1 {
   display: flex;
@@ -28,7 +29,8 @@ code {
   align-items: center;
   padding: 10px 0;
 }
-.MuiAvatar-img {
-  width: 100px;
-  height: 100px;
+.googleButton {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
 }

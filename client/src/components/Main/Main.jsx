@@ -9,6 +9,7 @@ import { useHistory } from "react-router-dom";
 // import { Link } from "react-router-dom";
 
 import Typography from "@material-ui/core/Typography";
+import { FormHelperText } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,7 +35,9 @@ export default function Main() {
     <div className="hello">
       <h3>Добро пожаловать в CRM систему</h3>
       <Typography className={classes.root}>
-        <GoogleButton onClick={() => signinHandler()} />
+        <div className="googleButton">
+          <GoogleButton onClick={() => signinHandler()} />
+        </div>
       </Typography>
     </div>
   );

@@ -25,6 +25,7 @@ import Main from "./components/Main/Main";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
 import { useDispatch, useSelector } from "react-redux";
+import AllClients from "./components/AllClients/AllClients";
 
 function App() {
   const dispatch = useDispatch();
@@ -62,6 +63,9 @@ function App() {
             </Route>
             <Route exact path="/orders/new">
               <OrderAdd />
+            </Route>
+            <Route exact path="/clients">
+              <AllClients />
             </Route>
           </Switch>
         </Container>

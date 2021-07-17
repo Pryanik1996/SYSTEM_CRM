@@ -20,4 +20,16 @@ router.post("/new", async (req, res) => {
   }
 });
 
+//====
+
+router.get("/all", async (req, res) => {
+  try {
+    const allClients = await Client.find()
+    res.json(allClients)
+  } catch (err) {
+    res.sendStatus(400)
+  }
+
+})
+
 module.exports = router;

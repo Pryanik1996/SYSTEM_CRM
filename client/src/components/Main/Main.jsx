@@ -4,6 +4,7 @@ import Link from "@material-ui/core/Link";
 import GoogleButton from "react-google-button";
 import { useDispatch } from "react-redux";
 import { getUserFromServer } from "../../redux/actions/userAction";
+import { useHistory } from "react-router-dom";
 
 // import { Link } from "react-router-dom";
 
@@ -18,13 +19,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Main() {
+  const history = useHistory();
+  console.log("history==>", history);
   const dispatch = useDispatch();
 
   const classes = useStyles();
 
   const signinHandler = () => {
     window.open("http://localhost:3001/auth/signinwithgoogle");
-    // dispatch(getUserFromServer());
+    // dispatch(getUserFromServer(history));
   };
 
   return (

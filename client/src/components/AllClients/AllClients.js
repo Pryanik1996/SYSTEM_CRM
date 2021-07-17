@@ -29,9 +29,9 @@ export default function AllClients() {
             <ul>
               {clients?.map((cl) => (
                 <div>
-                <a key={cl._id} href="/">
-                  {cl.name} {cl.surname} {cl.email} {cl.phone}
-                </a>
+                  <a key={cl._id} href="/">
+                    {cl.name} {cl.surname} {cl.email} {cl.phone}
+                  </a>
                 </div>
               ))}
             </ul>

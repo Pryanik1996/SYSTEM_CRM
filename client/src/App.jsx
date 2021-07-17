@@ -28,9 +28,10 @@ import { useDispatch, useSelector } from "react-redux";
 import AllClients from "./components/AllClients/AllClients";
 
 function App() {
+  // const history = useHistory();
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
-  console.log(state);
+  // console.log("history===>", history);
 
   useEffect(() => {
     // dispatch(checkAuth());

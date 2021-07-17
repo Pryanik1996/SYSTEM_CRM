@@ -55,7 +55,7 @@ router.get(
 router.get(
   "/google/callback",
   passport.authenticate("google", {
-    successRedirect: "/clients",
+    successRedirect: "http://localhost:3000/clients",
     failureRedirect: "/auth/google/failure",
   })
 );
@@ -84,19 +84,6 @@ router.route("/check").get(checkAuth, async (req, res) => {
 });
 
 router.route("/signout").get((req, res) => {
-  // console.log(12345);
-  // console.log("req.session", req.session);
-  // req.session.destroy();
-
-  // res.clearCookie(req.app.get("cookieName"));
-  // // res.redirect("/");
-  // res.sendStatus(200);
-  // req.session.destroy((err) => {
-  //   if (err) return res.sendStatus(500);
-  //   res.clearCookie(req.app.get("cookieName"));
-  //   return res.sendStatus(200);
-  // });
-
   req.session.destroy((err) => {
     if (err) return res.sendStatus(500);
     defaultUser = null;

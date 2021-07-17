@@ -1,12 +1,13 @@
 import { DELETE_USER, SET_USER } from "../types/userTypes";
 
-export const getUserFromServer = () => async (dispatch) => {
+export const getUserFromServer = (history) => async (dispatch) => {
   const response = await fetch(`http://localhost:3001/auth/user`, {
     credentials: "include",
     headers: { "Access-Control-Allow-Origin": "*" },
   });
   if (response.status === 200) {
     const currentUser = await response.json();
+    console.log(currentUser);
     dispatch(setUser(currentUser));
   }
 };

@@ -12,6 +12,7 @@ const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, DB_HOST, PORT, REFRESH_TOKEN } =
 
 const router = Router();
 let defaultUser;
+let user;
 passport.use(
   new GoogleStrategy(
     {
@@ -28,13 +29,29 @@ passport.use(
         picture: profile.photos[0].value,
         googleId: profile.id,
       };
-
-      const user = await User.findOrCreate(profile._json, (err, user) => {
-        if (err) {
-          return done(err);
+      user = await User.findOneAndUpdate(
+        { email: defaultUser.email },
+        {
+          name: defaultUser.name,
+          picture: defaultUser.picture,
+          googleId: defaultUser.googleId,
+        },
+        { new: true },
+        (err, user) => {
+          if (err) {
+            return done(err);
+          }
+          done(null, user);
         }
-        done(null, user);
-      });
+      );
+      console.log("user===>", user);
+
+      // const user = await User.findOrCreate(profile._json, (err, user) => {
+      //   if (err) {
+      //     return done(err);
+      //   }
+      //   done(null, user);
+      // });
     }
   )
 );
@@ -55,7 +72,7 @@ router.get(
 router.get(
   "/google/callback",
   passport.authenticate("google", {
-    successRedirect: "/clients",
+    successRedirect: "http://localhost:3000/clients",
     failureRedirect: "/auth/google/failure",
   })
 );
@@ -66,8 +83,10 @@ router.get("/google/failure", (req, res) => {
 
 router.get("/user", (req, res) => {
   console.log("getting user data!");
-  // console.log(req.session?.passport.user);
-  return res.json(defaultUser);
+  if (user) {
+    return res.json(defaultUser);
+  }
+  return res.json(null);
 });
 
 router.route("/check").get(checkAuth, async (req, res) => {
@@ -84,19 +103,6 @@ router.route("/check").get(checkAuth, async (req, res) => {
 });
 
 router.route("/signout").get((req, res) => {
-  // console.log(12345);
-  // console.log("req.session", req.session);
-  // req.session.destroy();
-
-  // res.clearCookie(req.app.get("cookieName"));
-  // // res.redirect("/");
-  // res.sendStatus(200);
-  // req.session.destroy((err) => {
-  //   if (err) return res.sendStatus(500);
-  //   res.clearCookie(req.app.get("cookieName"));
-  //   return res.sendStatus(200);
-  // });
-
   req.session.destroy((err) => {
     if (err) return res.sendStatus(500);
     defaultUser = null;

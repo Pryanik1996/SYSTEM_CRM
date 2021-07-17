@@ -1,14 +1,15 @@
-const state = {
-
+const initialState = {
   workers: [],
   clients: [],
   orders: [],
   user: null,
 };
 
-const initialState = () => {
-  const stateFromLS = JSON.parse(window.localStorage.getItem("redux"));
-  return stateFromLS ? stateFromLS : state;
-};
+// const getInitState = () => {
+//   const stateFromLS = JSON.parse(window.localStorage.getItem("redux"));
+//   return stateFromLS ? stateFromLS : initialState;
+// };
+
+// export default getInitState;
 
 export default initialState;

@@ -28,13 +28,15 @@ passport.use(
         picture: profile.photos[0].value,
         googleId: profile.id,
       };
+      const user = await User.findOne({ email: defaultUser.email });
+      console.log("user===>", user);
 
-      const user = await User.findOrCreate(profile._json, (err, user) => {
-        if (err) {
-          return done(err);
-        }
-        done(null, user);
-      });
+      // const user = await User.findOrCreate(profile._json, (err, user) => {
+      //   if (err) {
+      //     return done(err);
+      //   }
+      //   done(null, user);
+      // });
     }
   )
 );

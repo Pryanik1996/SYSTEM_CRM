@@ -4,24 +4,11 @@ const clientReducer = (state = null, action) => {
   const { type, payload } = action;
   switch (type) {
     case CLIENT_ADD_ALL: {
-      return payload
+      return {...state, clients: payload}
     }
-    case CLIENT_ADD: {
-      // const { clients } = payload;
-      // return clients;
-      return [...state, payload];
-    }
-    case CLIENTS_GET_START: {
-      return { ...state, loading: true };
-    }
-
-    case CLIENTS_GET_SUCCESS: {
-      return { ...state, values: payload, loading: false, error: null };
-    }
-
-    case CLIENTS_GET_ERROR: {
-      return { ...state, error: payload, loading: false };
-    }
+    // case CLIENT_ADD: {
+    //   return [...state, payload];
+    // }
     default: {
       return state;
     }

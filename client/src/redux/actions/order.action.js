@@ -41,9 +41,8 @@ export const getOrder = (data, history) => async (dispatch) => {
     const res = await response.json();
     console.log(res)
     dispatch(setOrder(res));
-  }
-    // history.replaceState("/clients");
+  //   history.replaceState("/clients");
   // } else {
-    // history.replaceState("/clients/new");
-  // }
+  //   history.replaceState("/clients/new");
+  }
 }

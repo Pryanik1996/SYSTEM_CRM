@@ -12,7 +12,6 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiTextField-root": {
@@ -43,7 +42,7 @@ export default function OrderAdd() {
   } = useForm({ mode: "onChange" });
 
   const onSubmit = (data) => {
-    console.log(data)
+    console.log(data);
     dispatch(getOrder(data, history));
     reset();
   };
@@ -66,15 +65,14 @@ export default function OrderAdd() {
         id="standard-required"
         {...register("number", { required: true, maxLength: 15 })}
       />
-      
+
       <TextField
         label="Тип мебели"
         type="text"
         id="standard-required"
         {...register("typeFurn")}
       />
-      
-      
+
       <TextField
         label="Стоимость мебели"
         type="text"
@@ -88,31 +86,33 @@ export default function OrderAdd() {
         {...register("priceDeliv")}
       />
 
-      <FormControl className={classes.formControl}>
-        <TextField
-          placeholder="..."
-          type="date"
-          id="standard-required"
-          {...register("dateDeliv")}
-        />
-        <FormHelperText>Дата доставки</FormHelperText>
-        </FormControl>
+      <TextField
+        id="standard-required"
+        label="Дата доставки"
+        type="date"
+        className={classes.textField}
+        InputLabelProps={{
+          shrink: true,
+        }}
+        {...register("dateDeliv")}
+      />
+      <TextField
+        label="Стоимость сборки"
+        type="text"
+        id="standard-required"
+        {...register("priceConstr")}
+      />
 
-        <TextField
-          label="Стоимость сборки"
-          type="text"
-          id="standard-required"
-          {...register("priceConstr")}
-        />
-
-      <FormControl className={classes.formControl}>
-        <TextField
-          type="date"
-          id="standard-required"
-          {...register("dateConstr")}
-        />
-        <FormHelperText>Дата сборки</FormHelperText>
-      </FormControl>
+      <TextField
+        id="standard-required"
+        label="Дата сборки"
+        type="date"
+        className={classes.textField}
+        InputLabelProps={{
+          shrink: true,
+        }}
+        {...register("dateConstr")}
+      />
 
       <TextField
         label="Бригада доставки"
@@ -120,7 +120,7 @@ export default function OrderAdd() {
         id="standard-required"
         {...register("teamDeliv")}
       />
-      
+
       <TextField
         label="Бригада сборки"
         type="text"
@@ -128,23 +128,20 @@ export default function OrderAdd() {
         {...register("teamConstr")}
       />
 
-<FormControl className={classes.formControl}>
-      <InputLabel id="demo-simple-select-label">Статус заказа</InputLabel>
-      <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        {...register("status")}
-
-      >
-        <MenuItem value={"Ожидание поставки"}>Ожидание поставки</MenuItem>
-        <MenuItem value={"В работе"}>В работе</MenuItem>
-        <MenuItem value={"Собран"}>Собран</MenuItem>
-        <MenuItem value={"Доставлен"}>Доставлен</MenuItem>
-        <MenuItem value={"Рекламация"}>Рекламация</MenuItem>
-
-      </Select>
-      <FormHelperText>Выберите статус заказа</FormHelperText>
-    </FormControl>
+      <FormControl className={classes.formControl}>
+        <InputLabel id="demo-simple-select-label">Статус заказа</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          {...register("status")}
+        >
+          <MenuItem value={"Ожидание поставки"}>Ожидание поставки</MenuItem>
+          <MenuItem value={"В работе"}>В работе</MenuItem>
+          <MenuItem value={"Собран"}>Собран</MenuItem>
+          <MenuItem value={"Доставлен"}>Доставлен</MenuItem>
+          <MenuItem value={"Рекламация"}>Рекламация</MenuItem>
+        </Select>
+      </FormControl>
 
       <TextField
         label="Комментарий к заказу"

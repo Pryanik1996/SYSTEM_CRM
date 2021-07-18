@@ -8,6 +8,7 @@ import Container from "@material-ui/core/Container";
 import ListOfDEletedClients from "./components/ForAdminPage/ListOfDeletedClients/ListOfDeletedClients";
 import ListOfDEletedItems from "./components/ForAdminPage/ListOfDeletedItems/ListOfDeletedItems";
 import ListOfWorkers from "./components/ForAdminPage/ListOfWorkers/ListOfWorkers";
+import CardsClients from "./components/CardsClients/CardsClients"
 import AllOrdersList from "./components/AllOrdersList/AllOrdersList";
 //yarn add @material-ui/x-grid
 // ClientAdd форма для добавления клиента
@@ -26,6 +27,8 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
 import { useDispatch, useSelector } from "react-redux";
 import AllClients from "./components/AllClients/AllClients";
+
+
 
 function App() {
   // const history = useHistory();
@@ -67,6 +70,9 @@ function App() {
             </Route>
             <Route exact path="/clients">
               <AllClients />
+            </Route>
+            <Route exact path="/clients/card">
+            <CardsClients />
             </Route>
           </Switch>
         </Container>

@@ -85,12 +85,15 @@ export default function ClientAdd() {
         id="standard-required"
         {...register("address")}
       />
+<<<<<<< HEAD
       <TextField
         label="Адрес клиента"
         type="text"
         id="standard-required"
         {...register("address")}
       />
+=======
+>>>>>>> c393f4ac9ba5dda00732da7fd075b69669b986dd
       <br />
       <br />
       <hr />

@@ -9,6 +9,18 @@ const clientReducer = (state = null, action) => {
     // case CLIENT_ADD: {
     //   return [...state, payload];
     // }
+    case CLIENTS_GET_START: {
+      return { ...state, loading: true };
+    }
+
+    case CLIENTS_GET_SUCCESS: {
+      return { ...state, values: payload, loading: false, error: null };
+    }
+
+    case CLIENTS_GET_ERROR: {
+      return { ...state, error: payload, loading: false };
+    }
+
     default: {
       return state;
     }

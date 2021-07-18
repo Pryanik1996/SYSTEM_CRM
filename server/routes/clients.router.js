@@ -30,6 +30,7 @@ router.post("/new", async (req, res) => {
 });
 
 router.get("/all", async (req, res) => {
+  console.log(11111)
   try {
     const allClients = await Client.find()
     res.json(allClients)

@@ -1,4 +1,4 @@
-import { ORDER_ADD, ORDER_ADD_ALL } from "../types";
+import { ORDER_ADD, ORDER_ADD_ALL, ORDERS_GET_START, ORDERS_GET_SUCCESS, ORDERS_GET_ERROR } from "../types";
 
 
 export const setAllOrder = (orders) => ({
@@ -46,3 +46,24 @@ export const getOrder = (data, history) => async (dispatch) => {
   //   history.replaceState("/clients/new");
   }
 }
+
+
+// ============== /oreders
+
+const getAllOrdersStart = () => ({ type: ORDERS_GET_START });
+const getAllOrdersSuccess = (payload) => ({
+  type: ORDERS_GET_SUCCESS,
+  payload,
+});
+const getAllOrdersError = (payload) => ({ type: ORDERS_GET_ERROR, payload });
+
+export const getOrders = () => async (dispatch) => {
+  dispatch(getAllOrdersStart());
+  const response = await fetch("http://localhost:3001/orders/all");
+  if (response.ok) {
+    const parsedOrders = await response.json();
+    return dispatch(getAllOrdersSuccess(parsedOrders));
+  }
+  const err = await response.json();
+  dispatch(getAllOrdersError(err));
+};

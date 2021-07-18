@@ -22,4 +22,15 @@ router.post("/new", async (req, res) => {
   }
 });
 
+//========= /orders
+
+router.get("/all", async (req, res) => {
+  try {
+    const allOrders = await Order.find()
+    res.json(allOrders)
+  } catch (err) {
+    res.sendStatus(400)
+  }
+})
+
 module.exports = router;

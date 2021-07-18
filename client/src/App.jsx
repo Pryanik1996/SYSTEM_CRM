@@ -1,5 +1,6 @@
 import ClientAdd from "./components/ClientAdd/ClientAdd";
 import OrderAdd from "./components/OrderAdd/OrderAdd";
+import AllOrders from "./components/AllOrders/AllOrders"
 import React from "react";
 import { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
@@ -73,6 +74,9 @@ function App() {
             </Route>
             <Route exact path="/clients/card">
             <CardsClients />
+            </Route>
+            <Route exact path="/orders">
+              <AllOrders />
             </Route>
           </Switch>
         </Container>

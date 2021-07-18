@@ -1,14 +1,9 @@
-import { ORDER_ADD, ORDER_ADD_ALL, ORDER_ONE } from "../types";
+import { ORDER_ONE } from "../types";
 
 const orderReducer = (state = null, action) => {
   const { type, payload } = action;
+  console.log("PAYLOAD===>", action);
   switch (type) {
-    case ORDER_ADD_ALL: {
-      return payload;
-    }
-    case ORDER_ADD: {
-      return [...state, payload];
-    }
     case ORDER_ONE: {
       return payload;
     }

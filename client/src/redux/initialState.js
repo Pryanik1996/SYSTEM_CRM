@@ -3,6 +3,7 @@ const initialState = {
   clients: [],
   orders: [],
   user: null,
+  currentOrder: null,
 };
 
 // const getInitState = () => {

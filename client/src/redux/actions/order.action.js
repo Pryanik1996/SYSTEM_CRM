@@ -1,10 +1,9 @@
-import { ORDER_ADD, ORDER_ADD_ALL } from "../types";
-
+import { ORDER_ADD, ORDER_ADD_ALL, ORDER_ONE } from "../types";
 
 export const setAllOrder = (orders) => ({
   type: ORDER_ADD_ALL,
   payload: orders,
-})
+});
 
 export const setOrder = (orders) => ({
   type: ORDER_ADD,
@@ -12,9 +11,10 @@ export const setOrder = (orders) => ({
 });
 
 export const getAllOrder = () => (dispatch) => {
-  fetch(`http://localhost:3001/orders/new`)
-.then(data => dispatch(setAllOrder(data)))
-}
+  fetch(`http://localhost:3001/orders/new`).then((data) =>
+    dispatch(setAllOrder(data))
+  );
+};
 
 export const getOrder = (data, history) => async (dispatch) => {
   const response = await fetch(`http://localhost:3001/orders/new`, {
@@ -34,15 +34,15 @@ export const getOrder = (data, history) => async (dispatch) => {
       teamDeliv: data.teamDeliv,
       teamConstr: data.teamConstr,
       status: data.status,
-      commentsWhenCreate: data.commentsWhenCreate
+      commentsWhenCreate: data.commentsWhenCreate,
     }),
   });
   if (response.status === 200) {
     const res = await response.json();
-    console.log(res)
+    console.log(res);
     dispatch(setOrder(res));
-  //   history.replaceState("/clients");
-  // } else {
-  //   history.replaceState("/clients/new");
+    history.push("/orders");
+  } else {
+    history.push("/orders/new");
   }
-}
+};

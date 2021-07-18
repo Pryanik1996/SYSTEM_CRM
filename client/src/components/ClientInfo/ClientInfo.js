@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { useDispatch } from 'react-redux';
+import Modal from "../Modal/Modal";
 
-const useStyles = makeStyles({
+
+const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 275,
   },
@@ -22,40 +23,73 @@ const useStyles = makeStyles({
   pos: {
     marginBottom: 12,
   },
-});
+  '& > *': {
+    margin: theme.spacing(1),
+  },
+}));
 
 
-export default function ClientInfo() {
 
+export default function ClientInfo({name, surname, patronymic, email, phone, address}) {
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
+  const [modalActive, setModalActive] = useState(false);
 
-  const dispatch = useDispatch()
-  const clients
-  const {clients, isLoading, error} = 
+  const handleSubmit = (e) => {
+e.preventDefault()
 
+  }
 
-  return (
-    <Card className={classes.root} variant="outlined">
-      <CardContent>
+    return (
+        <>
+        <CardContent>
+          <h5>Hello</h5>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
-          Word of the Day
+          {name} {surname} {patronymic}
         </Typography>
         <Typography variant="h5" component="h2">
-          be{bull}nev{bull}o{bull}lent
+          {email}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          adjective
+          {phone}
         </Typography>
         <Typography variant="body2" component="p">
-          well meaning and kindly.
+          {address}
           <br />
           {'"a benevolent smile"'}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Learn More</Button>
+        <Button onClick={() => setModalActive(true)} size="small">Редактировать</Button>
+        <Button size="small">Удалить</Button>
       </CardActions>
-    </Card>
-  );
+      <Modal active={modalActive} setActive={setModalActive}>
+        <form onSubmit={handleSubmit}>
+          <div className="card">
+            <div className="card-header">Редактирование карточки клиента</div>
+            <div className="card-body">
+              <h6>Имя</h6>
+              <input></input>
+              <h6>Фамилия</h6>
+              <input></input>
+              <h6>Отчество</h6>
+              <input></input>
+              <h6>email</h6>
+              <input></input>
+              <h6>Номер телефона</h6>
+              <input></input>
+              <h6>Адрес доставки</h6>
+              <input></input>
+              <hr/>
+              <span>
+              <Button onClick={() => setModalActive(false)}
+                type="submit" variant="contained" color="primary">
+                  Изменить
+              </Button>
+            </span>
+            </div>
+          </div>
+        </form>
+      </Modal>
+      </>
+    )
 }

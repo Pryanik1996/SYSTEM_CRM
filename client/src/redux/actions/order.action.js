@@ -1,4 +1,4 @@
-import { ORDER_ADD, ORDER_ADD_ALL } from "../types";
+import { ORDER_ADD, ORDER_ADD_ALL} from "../types";
 
 
 export const setAllOrder = (orders) => ({
@@ -41,8 +41,9 @@ export const getOrder = (data, history) => async (dispatch) => {
     const res = await response.json();
     console.log(res)
     dispatch(setOrder(res));
-  //   history.replaceState("/clients");
-  // } else {
-  //   history.replaceState("/clients/new");
+    history.push("/orders");
+  } else {
+    history.push("/orders/new");
   }
 }
+

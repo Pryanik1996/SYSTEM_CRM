@@ -71,9 +71,10 @@ function App() {
             <Route exact path="/clients">
               <AllClients />
             </Route>
-            <Route exact path="/clients/card">
+            <Route exact path="/clients/:id">
             <CardsClients />
             </Route>
+            
           </Switch>
         </Container>
       </React.Fragment>

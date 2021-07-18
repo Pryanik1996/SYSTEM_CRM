@@ -10,11 +10,11 @@ router.get("/new", (req,res) => {
 
 
 router.post("/new", async (req, res) => {
-  const { number } = req.body;
-  console.log(req.body)
+  const { number, typeFurn, priceFurn, priceDeliv, dateDeliv, priceConstr, dateConstr, teamDeliv, teamConstr, status, commentsWhenCreate } = req.body;
+  const id = req.session.passport.user._id
   try {
     if (number) {
-    const newOrder = await Order.create(req.body);
+    const newOrder = await Order.create({number, typeFurn, priceFurn, priceDeliv, dateDeliv, priceConstr, dateConstr, teamDeliv, teamConstr, status, commentsWhenCreate, creator: id });
     res.json(newOrder)
     }
   } catch (err) {

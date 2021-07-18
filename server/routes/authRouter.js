@@ -82,7 +82,7 @@ router.get("/google/failure", (req, res) => {
 });
 
 router.get("/user", (req, res) => {
-  console.log("getting user data!");
+
   if (user) {
     return res.json(defaultUser);
   }

@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const router = Router();
 const Order = require("../db/models/orderModel");
+const Comment = require("../db/models/commentModel");
 
 router.get("/new", (req, res) => {
   Order.find()
@@ -21,6 +22,17 @@ router.post("/new", async (req, res) => {
   }
 });
 
+//========= /orders
+
+router.get("/all", async (req, res) => {
+  try {
+    const allOrders = await Order.find();
+    res.json(allOrders);
+  } catch (err) {
+    res.sendStatus(400);
+  }
+});
+
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
@@ -30,15 +42,43 @@ router.get("/:id", async (req, res) => {
     return res.sendStatus(400);
   }
 });
-//========= /orders
-
-router.get("/all", async (req, res) => {
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
   try {
-    const allOrders = await Order.find()
-    res.json(allOrders)
-  } catch (err) {
-    res.sendStatus(400)
+    await Order.findByIdAndDelete(id);
+    res.sendStatus(200);
+  } catch (error) {
+    return res.sendStatus(400);
   }
-})
+});
+router.post("/:id", async (req, res) => {
+  const { id } = req.params;
+  const { comment } = req.body;
+  console.log('333333=>>>', comment);
+  let dat = new Date();
+  let options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+  };
+  let dateNow = dat.toLocaleString("ru-RU", options);
+  try {
+    const newComment = await Comment.create({
+      author: req.session.passport.user._id,
+      body: comment,
+      date: dateNow,
+    });
+    const updOrder = await Order.findByIdAndUpdate(
+      id,
+      { $push: { comments: newComment._id } },
+      { new: true }
+    );
+    console.log('newComment=======>', newComment);
+  } catch (error) {
+    console.log(eror);
+  }
+});
 
 module.exports = router;

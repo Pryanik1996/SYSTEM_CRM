@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getClients } from "../../redux/actions/clients.action";
+import { Link } from "react-router-dom";
 
 export default function AllClients() {
   const {
@@ -28,11 +29,13 @@ export default function AllClients() {
           ) : (
             <ul>
               {clients?.map((cl) => (
+                <Link to={`/clients/${cl._id}`}>
                 <div>
-                  <a key={cl._id} href="/">
-                    {cl.name} {cl.surname} {cl.email} {cl.phone}
-                  </a>
+                <h7 key={cl._id} >
+                  {cl.name} {cl.surname} {cl.email} {cl.phone}
+                </h7>
                 </div>
+                </Link>
               ))}
             </ul>
           )}

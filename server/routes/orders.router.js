@@ -36,7 +36,7 @@ router.get("/all", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const currentOrder = await Order.findById(id);
+    const currentOrder = await Order.findById(id).populate("comments");
     res.json(currentOrder);
   } catch (error) {
     return res.sendStatus(400);
@@ -54,7 +54,7 @@ router.delete("/:id", async (req, res) => {
 router.post("/:id", async (req, res) => {
   const { id } = req.params;
   const { comment, userName } = req.body;
-  console.log("333333=>>>", comment);
+  // console.log("333333=>>>", comment);
   let dat = new Date();
   let options = {
     year: "numeric",
@@ -75,11 +75,15 @@ router.post("/:id", async (req, res) => {
       { $push: { comments: newComment._id } },
       { new: true }
     ).populate("comments");
-    console.log("updOrder=======>", updOrder);
+    // console.log("updOrder=======>", updOrder);
     res.json({ newComment, updOrder });
   } catch (error) {
     console.log(error);
   }
 });
+// router.patch("/:id/comments", async (req, res) => {
+//   const { id } = req.body;
+//   console.log('12344444--->', id);
+// });
 
 module.exports = router;

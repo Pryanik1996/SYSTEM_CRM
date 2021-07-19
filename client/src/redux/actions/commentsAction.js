@@ -17,10 +17,25 @@ export const addCommentToOrder =
         body: JSON.stringify({ comment, userName }),
       });
       const data = await response.json();
-      console.log('DAAAATAAAAA=>>>', data);
       dispatch(addComment(data.newComment));
-      dispatch(commentOrder(data.updOrder))
+      dispatch(commentOrder(data.updOrder));
     } catch (error) {
       console.log(error);
     }
   };
+
+export const deleteCurrentComment = (id) => async (dispatch) => {
+  try {
+    const response = await fetch(
+      `http://localhost:3001/orders/${id}/comments`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id }),
+      }
+    );
+    const data = await response.json();
+  } catch (error) {}
+};

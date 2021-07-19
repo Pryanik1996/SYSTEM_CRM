@@ -25,7 +25,7 @@ export default function ClientAdd() {
   const {
     register,
     handleSubmit,
-    watch, //отслеживание содержимого инпута
+    watch,
     reset,
     formState: { errors },
   } = useForm({ mode: "onChange" });

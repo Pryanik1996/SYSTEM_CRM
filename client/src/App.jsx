@@ -1,6 +1,5 @@
 import ClientAdd from "./components/ClientAdd/ClientAdd";
 import OrderAdd from "./components/OrderAdd/OrderAdd";
-import AllOrders from "./components/AllOrders/AllOrders"
 import React from "react";
 import { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
@@ -21,7 +20,6 @@ import AllOrdersList from "./components/AllOrdersList/AllOrdersList";
 import InputForNewWorker from "./components/ForAdminPage/InputForNewWorker/InputForNewWorker";
 
 import Header from "./components/Header/Header";
-import Order from "./components/Order/Order";
 import { checkAuth, getUserFromServer } from "./redux/actions/userAction";
 import SignOut from "./components/SignOut/SignOut";
 import Main from "./components/Main/Main";
@@ -71,14 +69,8 @@ function App() {
             <Route exact path="/clients">
               <AllClients />
             </Route>
-            <Route exact path="/clients/card">
+            <Route exact path="/clients/:id">
               <CardsClients />
-            </Route>
-            <Route exact path="/orders/:id">
-              <Order />
-            </Route>
-            <Route exact path="/orders">
-              <AllOrders />
             </Route>
           </Switch>
         </Container>

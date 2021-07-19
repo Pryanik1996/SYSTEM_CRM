@@ -5,6 +5,7 @@ const initialState = {
   user: null,
   currentOrder: null,
   comments: []
+  // currentClient: []
 };
 
 // const getInitState = () => {

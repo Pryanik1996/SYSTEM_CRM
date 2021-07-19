@@ -8,6 +8,11 @@ export const ORDER_ONE = "ORDER_ONE";
 export const ORDER_DELETE = "ORDER_DELETE";
 
 //======= /clients
+// export const WORKER_ADD = "WORKER_ADD"
+export const CLIENT_EDIT = "CLIENT_EDIT"
+// export const CLIENT_ADD_ALL = "CLIENT_ADD_ALL"
+export const CLIENT_DELETE = "CLIENT_DELETE"
+export const COMMENTS_ADD = "COMMENTS_ADD"
 
 export const CLIENTS_GET_START = "CLIENT_GET_START";
 export const CLIENTS_GET_SUCCESS = "CLIENT_GET_SUCCESS";

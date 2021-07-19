@@ -1,7 +1,8 @@
 const { Router } = require("express");
 const router = Router();
 const Client = require('../db/models/clientModel')
-
+const Comment = require('../db/models/commentModel')
+const User = require('../db/models/userModel')
 
 router.get("/card", async (req, res) => {
   try {
@@ -14,13 +15,12 @@ router.get("/card", async (req, res) => {
 })
 
 router.post("/new", async (req, res) => {
-  const { name } = req.body;
-  // console.log(name)
+  const { name, surname, patronymic, email, phone, address} = req.body;
+  const id = req.session.passport.user._id
+  console.log(id, '<<<<<<<<<<<<')
   try {
     if (name) {
-      // console.log('88888')
-      const newClient = await Client.create(req.body);
-      console.log(newClient)
+      const newClient = await Client.create({name, surname, patronymic, email, phone, address, creator: id});
       res.json(newClient)
     }
   } catch (err) {
@@ -36,7 +36,55 @@ router.get("/all", async (req, res) => {
   } catch (err) {
     res.sendStatus(400)
   }
-
 })
 
+
+router.patch("/:id", async (req, res) => {
+  const {id} = req.params
+  const {name, surname, patronymic, email, phone, address} = req.body
+  const data = await Client.findByIdAndUpdate(id, {name, surname, patronymic, email, phone, address})
+  const response = await Client.find({_id: id})
+  await res.json(response)
+})
+
+router.get("/:id", async (req, res) => {
+  const {id} = req.params
+  try {
+    const client = await Client.find({_id: id}).populate('comments')
+    console.log(client)
+    res.json(client)
+  }
+  catch(err) {
+    console.log(err)
+  }
+})
+
+router.delete('/delete/:id', async (req, res) => {
+  const {id} = req.params
+  await Client.findByIdAndDelete(id)
+  const client = await Client.find()
+  res.json(client)
+})
+
+
+router.post("/:id", async (req, res) => {
+  const {body, userId, userName} = req.body
+  const cardId = req.params.id
+  const author = await User.findById(userId)
+  let dat = new Date();
+  let options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+  };
+  let dateNow = dat.toLocaleString("ru-RU", options);
+  const newComment = await Comment.create({author: userId, authorName: userName, body, date: dateNow, card: cardId})
+  const authorComment = await Comment.find({author: userId})
+  const idAuthor = author._id
+  const commentClient = await Client.findByIdAndUpdate(cardId, {$push: {comments: newComment._id}}, {new: true}).populate('comments')
+  console.log('======>>>>>', commentClient)
+  res.json(commentClient)
+});
 module.exports = router;

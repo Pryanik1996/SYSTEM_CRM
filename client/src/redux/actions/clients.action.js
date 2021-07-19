@@ -32,6 +32,7 @@ export const getClient = (data, history) => async (dispatch) => {
 }
 
 const getAllClientsStart = () => ({ type: CLIENTS_GET_START });
+
 const getAllClientsSuccess = (payload) => ({
   type: CLIENTS_GET_SUCCESS,
   payload,

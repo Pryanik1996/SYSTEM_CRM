@@ -8,6 +8,11 @@ export const ORDER_ONE = "ORDER_ONE";
 export const ORDER_DELETE = "ORDER_DELETE";
 
 //======= /clients
+// export const CLIENT_ADD = "CLIENT_ADD"
+// export const WORKER_ADD = "WORKER_ADD"
+export const ALL_WORKERS = "ALL_WORKERS"
+// export const CLIENT_ADD_ALL = "CLIENT_ADD_ALL"
+export const CHANGE_ADMIN = "CHANGE_ADMIN"
 
 export const CLIENT_EDIT = "CLIENT_EDIT";
 export const CLIENT_DELETE = "CLIENT_DELETE";
@@ -28,3 +33,11 @@ export const ORDERS_GET_ERROR = "ORDERS_GET_ERROR";
 export const COMMENT_ADD = "COMMENT_ADD";
 export const ORDER_COMMENT = "ORDER_COMMENT";
 export const COMMENT_DELETE = "COMMENT_DELETE";
+// export const CLIENTS_GET_START = "CLIENT_GET_START"
+// export const CLIENTS_GET_SUCCESS = "CLIENT_GET_SUCCESS"
+// export const CLIENTS_GET_ERROR = "CLIENT_GET_ERROR"
+
+
+export const LIST_OF_DELETED_ITEMS = "LIST_OF_DELETED_ITEMS"
+export const DELETE_ITEM ="DELETE_ITEM"
+export const CHANGE_STATUS = "CHANGE_STATUS"

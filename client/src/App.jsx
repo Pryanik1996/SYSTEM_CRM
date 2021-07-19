@@ -25,10 +25,9 @@ import Order from "./components/Order/Order";
 import { checkAuth, getUserFromServer } from "./redux/actions/userAction";
 import SignOut from "./components/SignOut/SignOut";
 import Main from "./components/Main/Main";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Typography from "@material-ui/core/Typography";
 import { useDispatch, useSelector } from "react-redux";
 import AllClients from "./components/AllClients/AllClients";
+import BlocktoShowElemensToDelete from "./components/ForAdminPage/BlockToShowElementsToDelete/BlockToShowElementsToDelete";
 
 function App() {
   // const history = useHistory();
@@ -59,7 +58,7 @@ function App() {
             <Route exact path="/admin/clients">
               <ListOfDEletedClients />
             </Route>
-            <Route exact path="/admin/items">
+            <Route exact path="/admin/orders">
               <ListOfDEletedItems />
             </Route>
             <Route exact path="/clients/new">
@@ -82,6 +81,9 @@ function App() {
             </Route>
             <Route exact path="/clients/:id">
               <CardsClients />
+            </Route>
+            <Route exact path="/admin">
+              <BlocktoShowElemensToDelete />
             </Route>
           </Switch>
         </Container>

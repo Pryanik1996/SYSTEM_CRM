@@ -65,7 +65,7 @@ export default function Order() {
   const currentOrder = useSelector((state) => state.currentOrder);
   const orderId = useSelector((state) => state.currentOrder?._id);
   const userName = useSelector((state) => state.user?.name);
-  console.log("44444444=>", userName);
+  // console.log("44444444=>", userName);
 
   useEffect(() => {
     dispatch(getOneOrder(id));
@@ -97,11 +97,12 @@ export default function Order() {
   const handleSubmitComment = (e) => {
     e.preventDefault();
     dispatch(addCommentToOrder(orderId, comment, userName));
+    setComment("");
     setAddComment(!addComment);
   };
 
   // console.log("COMMMMMENT=>", comment);
-  console.log("0000=>>>", userName);
+  // console.log("0000=>>>", userName);
   return (
     <div className="orderInfo">
       <h5>Подробнее о заказе № {currentOrder?.number}</h5>

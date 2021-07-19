@@ -88,11 +88,11 @@ router.delete("/:id/comments", async (req, res) => {
     id,
     { $pull: { comments: commentId } },
     { new: true }
-  ).populate('comments');
+  ).populate("comments");
   await Comment.findByIdAndDelete(commentId);
-console.log('====>currentOrder===>', currentOrder);
+  // console.log('====>currentOrder===>', currentOrder);
   res.json(currentOrder);
-  console.log("commentId--->", commentId);
+  // console.log("commentId--->", commentId);
 });
 
 module.exports = router;

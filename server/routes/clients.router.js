@@ -29,14 +29,16 @@ router.post("/new", async (req, res) => {
   }
 });
 
+//========= /clients
+
 router.get("/all", async (req, res) => {
+  console.log(res.locals.id)
   try {
     const allClients = await Client.find()
     res.json(allClients)
   } catch (err) {
     res.sendStatus(400)
   }
-
 })
 
 module.exports = router;

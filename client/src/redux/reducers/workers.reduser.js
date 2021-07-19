@@ -1,4 +1,4 @@
-import { WORKER_ADD, ALL_WORKERS } from "../types";
+import { WORKER_ADD, ALL_WORKERS, CHANGE_ADMIN } from "../types";
 
 const workersReducer = (state = [], action) => {
   const { type, payload } = action;
@@ -10,6 +10,10 @@ const workersReducer = (state = [], action) => {
     case ALL_WORKERS:{
       const { workers } = payload;
       return workers;
+    }
+    case CHANGE_ADMIN:{
+      const { id } = payload;
+      return state.filter((el) => el._id !== id)
     }
 
     default: {

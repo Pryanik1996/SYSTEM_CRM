@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
+import "./Header.css"
+
 import {
   AppBar,
   Avatar,
@@ -9,6 +11,10 @@ import {
   Typography,
   Box,
   Container,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Select
 } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -58,6 +64,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+export function SimpleSelect() {
+  const classes = useStyles();
+  const [age, setAge] = React.useState('');
+
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
+}
+
 export default function ScrollableTabsButtonAuto() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
@@ -95,17 +111,77 @@ export default function ScrollableTabsButtonAuto() {
               to="/orders"
               {...a11yProps(1)}
             />
+
+
+
+
+<FormControl indicatorColor="primary"
+onChange={handleChange} 
+            textColor="primary"
+            scrollButtons="auto"
+            aria-label="scrollable auto tabs example" 
+            className={classes.formControl}>
+       
+        <Select
+
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          onChange={handleChange}
+        >
+           <Tabs
+            onChange={handleChange}
+            indicatorColor="primary"
+            textColor="primary"
+            aria-label="scrollable auto tabs example"
+          >
+
+          <MenuItem><Tab
+              label="удаленные клиенты"
+              component={Link}
+              to="/admin/clients"
+              {...a11yProps(4)}
+            /></MenuItem>
+          <MenuItem ><Tab
+              label="удаленные заказы"
+              component={Link}
+              to="/admin/orders"
+              {...a11yProps(5)}
+            /></MenuItem>
+          </Tabs>
+        </Select>
+      </FormControl>
+
+
+
             <Tab
               label="добавить клиента"
               component={Link}
               to="/clients/new"
               {...a11yProps(2)}
             />
-            <Tab
+            {/* <Tab
               label="создать заказ"
               component={Link}
               to="/orders/new"
               {...a11yProps(3)}
+            />
+             <Tab
+              label="удаленные клиенты"
+              component={Link}
+              to="/admin/clients"
+              {...a11yProps(4)}
+            /> */}
+             {/* <Tab
+              label="удаленные заказы"
+              component={Link}
+              to="/admin/items"
+              {...a11yProps(5)}
+            /> */}
+             <Tab
+              label="работники"
+              component={Link}
+              to="/admin/workers"
+              {...a11yProps(6)}
             />
             {userName && (
               <div className="userInfo">

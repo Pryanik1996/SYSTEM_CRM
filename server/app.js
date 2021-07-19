@@ -48,7 +48,7 @@ app.use(
 );
 
 const isAdmin = function(req, res, next){
-    if (!req.session?.passport?.user.isAdmin) {
+    if (!req.session?.passport?.user?.isAdmin) {
       res.redirect('/')
     };
     next();

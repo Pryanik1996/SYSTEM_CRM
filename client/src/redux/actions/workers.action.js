@@ -1,4 +1,4 @@
-import { WORKER_ADD } from "../types";
+import { WORKER_ADD, ALL_WORKERS, CHANGE_ADMIN } from "../types";
 
 export const addWorker = (workers) => ({
   type: WORKER_ADD,
@@ -6,9 +6,13 @@ export const addWorker = (workers) => ({
 });
 
 export const allworkers = (workers)=>({
-  type: WORKER_ADD,
+  type: ALL_WORKERS,
   payload: { workers },
 
+})
+export const changeAdmin = (id)=>({
+  type: CHANGE_ADMIN,
+  payload :{id}
 })
 
 export const addWorkerEmail = (data, history) => async (dispatch) => {

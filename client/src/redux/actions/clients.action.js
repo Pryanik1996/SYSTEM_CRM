@@ -6,11 +6,6 @@ export const setAllClient = (clients) => ({
   payload: clients,
 })
 
-// export const setClient = (clients) => ({
-//   type: CLIENT_ADD,
-//   payload: clients,
-// });
-
 
 export const getClient = (data, history) => async (dispatch) => {
   const response = await fetch(`http://localhost:3001/clients/new`, {
@@ -30,7 +25,6 @@ export const getClient = (data, history) => async (dispatch) => {
   });
   if (response.status === 200) {
     const res = await response.json();
-    // dispatch(setClient(res));
     history.push("/clients/card");
   } else {
     history.push("/clients/new");
@@ -56,15 +50,11 @@ export const getClients = () => async (dispatch) => {
   dispatch(getAllClientsError(err));
 };
 
-// export const editClient = (client) => ({
-//   type: CLIENT_EDIT,
-//   payload: client,
-// })
-
 
 export const getCardClient = (id) => async(dispatch) => {
   const response = await fetch(`http://localhost:3001/clients/${id}`)
   const data = await response.json()
+  console.log( '333333',data)
   dispatch(setAllClient(data))
 }
 
@@ -95,7 +85,6 @@ export const deleteClient = (clients) => ({
 })
 
 export const getDeleteClient = (id) => async (dispatch) => {
-  console.log(id, 'IDID')
   const response = await fetch(`http://localhost:3001/clients/delete/${id}`, {
     method: "DELETE",
     headers: {
@@ -107,21 +96,21 @@ export const getDeleteClient = (id) => async (dispatch) => {
 }
 
 
-
 export const setComments = (comments) => ({
   type: COMMENTS_ADD,
   payload: comments,
 })
 
-export const getComments = (data, id) => async (dispatch) => {
-  console.log(data)
+export const getComments = (data, id, userId, userName) => async (dispatch) => {
+  console.log('ACTION', userId)
   const response = await fetch(`http://localhost:3001/clients/${id}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({comments: data})
+    body: JSON.stringify({body: data.comments, userId, userName})
 })
   const res = await response.json()
+  console.log(res)
   dispatch(setComments(res))
 }

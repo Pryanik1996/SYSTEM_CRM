@@ -44,7 +44,8 @@ passport.use(
           done(null, user);
         }
       );
-      console.log("user===>", user);
+
+      // console.log("user===>", user);
 
       // const user = await User.findOrCreate(profile._json, (err, user) => {
       //   if (err) {
@@ -81,12 +82,26 @@ router.get("/google/failure", (req, res) => {
   res.send("Failed to authenticate..");
 });
 
+// router.get("/user", (req, res) => {
+//   if (user) {
+//     req.session.user = {
+//       id: user._id,
+//       name: user.name,
+//     };
+//     console.log("KKKKKKK+++++=====>>>", req.session.user);
+//     // return res.json(defaultUser);  !!!!!!!!!!!!
+//     return res.json(user);
+//   }
+//   return res.json(null);
+// });
+
 router.get("/user", (req, res) => {
-  console.log("getting user data!");
-  if (user) {
-    return res.json(defaultUser);
-  }
-  return res.json(null);
+  // return res.json(defaultUser);  !!!!!!!!!!!!
+  // req.session.user = {
+  //   id: user?._id,
+  //   name: user.name,
+  // };
+  return res.json(user);
 });
 
 router.route("/check").get(checkAuth, async (req, res) => {
@@ -95,7 +110,7 @@ router.route("/check").get(checkAuth, async (req, res) => {
       { googleId: req.session.passport.user.googleId },
       { password: 0 }
     );
-    console.log("!!!!", user);
+    // console.log("!!!!", user);
     return res.json(user);
   } catch (error) {
     return res.sendStatus(500);
@@ -105,7 +120,7 @@ router.route("/check").get(checkAuth, async (req, res) => {
 router.route("/signout").get((req, res) => {
   req.session.destroy((err) => {
     if (err) return res.sendStatus(500);
-    defaultUser = null;
+    // defaultUser = null;
     res.clearCookie(req.app.get("cookieName"));
     return res.sendStatus(200);
   });

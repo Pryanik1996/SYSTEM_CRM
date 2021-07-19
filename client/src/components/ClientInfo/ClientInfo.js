@@ -7,9 +7,10 @@ import Typography from '@material-ui/core/Typography';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from "../Modal/Modal";
 import { useForm } from "react-hook-form";
-import { getComments, getEditClient } from '../../redux/actions/clients.action';
+import { getEditClient } from '../../redux/actions/clients.action';
 import { useParams } from "react-router-dom";
 import {getDeleteClient} from "../../redux/actions/clients.action"
+import CommentsClients from '../CommentsClients/CommentsClients';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -52,12 +53,9 @@ export default function ClientInfo({name, surname, patronymic, email, phone, add
 
   const {id} = useParams()
 
-  const submitHandler = (e) => {
-    e.preventDefault()
-
-    console.log(e.target.value)
-    // dispatch(getComments(data, id))
-  }
+  const user = useSelector(state => state.user)
+  const userId = user._id
+  console.log('121112121212', userId)
 
   const onSubmit = (data) => {
     dispatch(getEditClient(data, id));
@@ -88,11 +86,7 @@ export default function ClientInfo({name, surname, patronymic, email, phone, add
           <br />
           <br />
           <p>Оставить комментарий:</p>
-          <form onSubmit={submitHandler}>
-          <input></input>
-          <button type="submit">Добавить</button>
-          </form>
-        <div>Hello</div>
+          <CommentsClients />
         </Typography>
       </CardContent>
       <CardActions>

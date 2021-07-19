@@ -9,6 +9,10 @@ export const ORDER_DELETE = "ORDER_DELETE";
 
 //======= /clients
 
+export const CLIENT_EDIT = "CLIENT_EDIT";
+export const CLIENT_DELETE = "CLIENT_DELETE";
+export const COMMENTS_ADD = "COMMENTS_ADD";
+
 export const CLIENTS_GET_START = "CLIENT_GET_START";
 export const CLIENTS_GET_SUCCESS = "CLIENT_GET_SUCCESS";
 export const CLIENTS_GET_ERROR = "CLIENT_GET_ERROR";

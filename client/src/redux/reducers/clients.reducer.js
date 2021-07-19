@@ -1,4 +1,4 @@
-import { CLIENT_ADD, CLIENT_ADD_ALL, CLIENTS_GET_START, CLIENTS_GET_SUCCESS, CLIENTS_GET_ERROR } from "../types";
+import {CLIENT_EDIT, CLIENT_ADD_ALL, CLIENTS_GET_START, CLIENTS_GET_SUCCESS, CLIENTS_GET_ERROR, CLIENT_DELETE, COMMENTS_ADD } from "../types";
 
 const clientReducer = (state = null, action) => {
   const { type, payload } = action;
@@ -20,7 +20,17 @@ const clientReducer = (state = null, action) => {
     case CLIENTS_GET_ERROR: {
       return { ...state, error: payload, loading: false };
     }
-
+    case CLIENT_EDIT: {
+      return {...state, clients: payload}
+    }
+    case CLIENT_DELETE: {
+      return {...state, clients: payload}
+    }
+    case COMMENTS_ADD: {
+      console.log(111,state);
+      console.log(222,payload);
+      return {...state, comments: payload.comments}
+    }
     default: {
       return state;
     }

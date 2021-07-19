@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
-import "./Header.css"
+import "./Header.css";
 
 import {
   AppBar,
@@ -14,7 +14,7 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
-  Select
+  Select,
 } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -64,10 +64,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 export function SimpleSelect() {
   const classes = useStyles();
-  const [age, setAge] = React.useState('');
+  const [age, setAge] = React.useState("");
 
   const handleChange = (event) => {
     setAge(event.target.value);
@@ -87,8 +86,7 @@ export default function ScrollableTabsButtonAuto() {
 
   return (
     <div className={classes.root}>
-      
-        <AppBar position="static" color="default">
+      <AppBar position="static" color="default">
         <Container maxWidth="lg">
           <Tabs
             value={value}
@@ -112,49 +110,53 @@ export default function ScrollableTabsButtonAuto() {
               {...a11yProps(1)}
             />
 
-
-
-
-<FormControl indicatorColor="primary"
-onChange={handleChange} 
-            textColor="primary"
-            scrollButtons="auto"
-            aria-label="scrollable auto tabs example" 
-            className={classes.formControl}>
-       
-        <Select
-
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          onChange={handleChange}
-        >
-           <Tabs
-            onChange={handleChange}
-            indicatorColor="primary"
-            textColor="primary"
-            aria-label="scrollable auto tabs example"
-          >
-
-          <MenuItem><Tab
-              label="удаленные клиенты"
-              component={Link}
-              to="/admin/clients"
-              {...a11yProps(4)}
-            /></MenuItem>
-          <MenuItem ><Tab
-              label="удаленные заказы"
-              component={Link}
-              to="/admin/orders"
-              {...a11yProps(5)}
-            /></MenuItem>
-          </Tabs>
-        </Select>
-      </FormControl>
-
-
+            <FormControl
+              indicatorColor="primary"
+              onChange={handleChange}
+              textColor="primary"
+              scrollButtons="auto"
+              aria-label="scrollable auto tabs example"
+              className={classes.formControl}
+            >
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                onChange={handleChange}
+              >
+                <Tabs
+                  onChange={handleChange}
+                  indicatorColor="primary"
+                  textColor="primary"
+                  aria-label="scrollable auto tabs example"
+                >
+                  <MenuItem>
+                    <Tab
+                      label="удаленные клиенты"
+                      component={Link}
+                      to="/admin/clients"
+                      {...a11yProps(4)}
+                    />
+                  </MenuItem>
+                  <MenuItem>
+                    <Tab
+                      label="удаленные заказы"
+                      component={Link}
+                      to="/admin/orders"
+                      {...a11yProps(5)}
+                    />
+                  </MenuItem>
+                </Tabs>
+              </Select>
+            </FormControl>
 
             <Tab
               label="добавить клиента"
+              component={Link}
+              to="/clients/new"
+              {...a11yProps(2)}
+            />
+            <Tab
+              label="добавить заказ"
               component={Link}
               to="/clients/new"
               {...a11yProps(2)}
@@ -171,13 +173,13 @@ onChange={handleChange}
               to="/admin/clients"
               {...a11yProps(4)}
             /> */}
-             {/* <Tab
+            {/* <Tab
               label="удаленные заказы"
               component={Link}
               to="/admin/items"
               {...a11yProps(5)}
             /> */}
-             <Tab
+            <Tab
               label="работники"
               component={Link}
               to="/admin/workers"
@@ -186,7 +188,11 @@ onChange={handleChange}
             {userName && (
               <div className="userInfo">
                 Вы авторизованы как <b>&nbsp;{userName}</b>{" "}
-                <Avatar alt={userName} src={userPicture} className={classes.large} />
+                <Avatar
+                  alt={userName}
+                  src={userPicture}
+                  className={classes.large}
+                />
                 <Tab
                   label="выйти"
                   component={Link}
@@ -196,8 +202,8 @@ onChange={handleChange}
               </div>
             )}
           </Tabs>
-      </Container>
-        </AppBar>
+        </Container>
+      </AppBar>
     </div>
   );
 }

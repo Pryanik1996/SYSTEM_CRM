@@ -15,7 +15,7 @@ router.get("/card", async (req, res) => {
 
 router.post("/new", async (req, res) => {
   const { name } = req.body;
-  console.log(name)
+  // console.log(name)
   try {
     if (name) {
       // console.log('88888')

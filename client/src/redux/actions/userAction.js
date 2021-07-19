@@ -7,7 +7,7 @@ export const getUserFromServer = (history) => async (dispatch) => {
   });
   if (response.status === 200) {
     const currentUser = await response.json();
-    console.log(currentUser);
+    // console.log("!!!currentUser!!!>", currentUser);
     dispatch(setUser(currentUser));
   }
 };

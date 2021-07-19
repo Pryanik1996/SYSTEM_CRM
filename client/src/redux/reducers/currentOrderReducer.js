@@ -1,4 +1,4 @@
-import { ORDER_ONE, ORDER_DELETE } from "../types";
+import { ORDER_ONE, ORDER_DELETE, ORDER_COMMENT } from "../types";
 
 const orderReducer = (state = null, action) => {
   const { type, payload } = action;
@@ -9,6 +9,9 @@ const orderReducer = (state = null, action) => {
     }
     case ORDER_DELETE: {
       return null;
+    }
+    case ORDER_COMMENT: {
+      return payload;
     }
     default: {
       return state;

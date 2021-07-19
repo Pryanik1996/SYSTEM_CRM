@@ -9,8 +9,8 @@ import { useHistory, useLocation } from "react-router";
 import {
   getOneOrder,
   deleteCurrentOrder,
-  addCommentToOrder,
 } from "../../redux/actions/currentOrderAction";
+import { addCommentToOrder } from "../../redux/actions/commentsAction";
 
 import Button from "@material-ui/core/Button";
 import Modal from "../Modal/Modal";
@@ -53,9 +53,6 @@ export default function Order() {
   const deleteOrder = () => {
     dispatch(deleteCurrentOrder(id, history));
   };
-  // const addCommentStatus = () => {
-  //   dispatch(addCommentToOrder(id));
-  // };
 
   const addCommentStatus = () => {
     setAddComment(!addComment);
@@ -63,6 +60,9 @@ export default function Order() {
 
   const currentOrder = useSelector((state) => state.currentOrder);
   const orderId = useSelector((state) => state.currentOrder?._id);
+  const userName = useSelector((state) => state.user?.name);
+  console.log("44444444=>", userName);
+
   useEffect(() => {
     dispatch(getOneOrder(id));
   }, []);
@@ -90,11 +90,13 @@ export default function Order() {
       setComment("");
     }
   };
-  const handleSubmitComment = () => {
-    dispatch(addCommentToOrder(orderId, comment))
-  }
+  const handleSubmitComment = (e) => {
+    e.preventDefault();
+    dispatch(addCommentToOrder(orderId, comment, userName));
+    setAddComment(!addComment);
+  };
 
-  console.log('COMMMMMENT=>', comment);
+  // console.log("COMMMMMENT=>", comment);
 
   return (
     <div className="orderInfo">
@@ -124,12 +126,37 @@ export default function Order() {
         Статус заказа: <b>{currentOrder?.status}</b>{" "}
       </div>
       <div>
-        Комментарии при заказе: <b>{currentOrder?.teamConstr}</b>{" "}
+        Комментарий при заказе: <b>{currentOrder?.teamConstr}</b>{" "}
+      </div>
+      <div>
+        Комментарии сотрудников:{" "}
+        {currentOrder?.comments.length ? (
+          <ul className="commentsList">
+            {currentOrder?.comments.map((el) => (
+              <li>
+                <p>{el.body}</p>
+                <p>Автор: {el.author}</p>
+                <p>Дата: {el.date}</p>
+                <Button variant="contained">удалить комментарий</Button>
+                <hr />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>Комментариев пока нет</p>
+        )}
       </div>
       {addComment ? (
-        <form onSubmit={()=> handleSubmitComment()}>
-         <input placeholder="Ваш комментарий" type="text" value={comment} onChange={handleComment} />
-          <Button variant="contained">Подтвердить</Button>{" "}
+        <form onSubmit={(e) => handleSubmitComment(e)}>
+          <input
+            placeholder="Ваш комментарий"
+            type="text"
+            value={comment}
+            onChange={handleComment}
+          />
+          <Button type="submit" variant="contained">
+            Подтвердить
+          </Button>{" "}
         </form>
       ) : (
         <>

@@ -18,3 +18,8 @@ export const CLIENTS_GET_ERROR = "CLIENT_GET_ERROR";
 export const ORDERS_GET_START = "ORDERS_GET_START";
 export const ORDERS_GET_SUCCESS = "ORDERS_GET_SUCCESS";
 export const ORDERS_GET_ERROR = "ORDERS_GET_ERROR";
+
+//======= /comments
+
+export const COMMENT_ADD = "COMMENT_ADD";
+export const ORDER_COMMENT = "ORDER_COMMENT"

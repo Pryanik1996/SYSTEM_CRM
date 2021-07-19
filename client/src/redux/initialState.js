@@ -4,6 +4,7 @@ const initialState = {
   orders: [],
   user: null,
   currentOrder: null,
+  comments: []
 };
 
 // const getInitState = () => {

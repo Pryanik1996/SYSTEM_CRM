@@ -11,7 +11,7 @@ router.get("/new", (req, res) => {
 
 router.post("/new", async (req, res) => {
   const { number } = req.body;
-  console.log(req.body);
+  // console.log(req.body);
   try {
     if (number) {
       const newOrder = await Order.create(req.body);
@@ -53,8 +53,8 @@ router.delete("/:id", async (req, res) => {
 });
 router.post("/:id", async (req, res) => {
   const { id } = req.params;
-  const { comment } = req.body;
-  console.log('333333=>>>', comment);
+  const { comment, userName } = req.body;
+  console.log("333333=>>>", comment);
   let dat = new Date();
   let options = {
     year: "numeric",
@@ -66,7 +66,7 @@ router.post("/:id", async (req, res) => {
   let dateNow = dat.toLocaleString("ru-RU", options);
   try {
     const newComment = await Comment.create({
-      author: req.session.passport.user._id,
+      author: userName,
       body: comment,
       date: dateNow,
     });
@@ -74,10 +74,11 @@ router.post("/:id", async (req, res) => {
       id,
       { $push: { comments: newComment._id } },
       { new: true }
-    );
-    console.log('newComment=======>', newComment);
+    ).populate("comments");
+    console.log("updOrder=======>", updOrder);
+    res.json({ newComment, updOrder });
   } catch (error) {
-    console.log(eror);
+    console.log(error);
   }
 });
 

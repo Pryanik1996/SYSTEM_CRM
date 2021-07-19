@@ -22,4 +22,5 @@ export const ORDERS_GET_ERROR = "ORDERS_GET_ERROR";
 //======= /comments
 
 export const COMMENT_ADD = "COMMENT_ADD";
-export const ORDER_COMMENT = "ORDER_COMMENT"
+export const ORDER_COMMENT = "ORDER_COMMENT";
+export const COMMENT_DELETE = "COMMENT_DELETE";

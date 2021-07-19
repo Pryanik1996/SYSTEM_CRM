@@ -81,9 +81,18 @@ router.post("/:id", async (req, res) => {
     console.log(error);
   }
 });
-// router.patch("/:id/comments", async (req, res) => {
-//   const { id } = req.body;
-//   console.log('12344444--->', id);
-// });
+router.delete("/:id/comments", async (req, res) => {
+  const { id } = req.params;
+  const { commentId } = req.body;
+  const currentOrder = await Order.findByIdAndUpdate(
+    id,
+    { $pull: { comments: commentId } },
+    { new: true }
+  ).populate("comments");
+  await Comment.findByIdAndDelete(commentId);
+  // console.log('====>currentOrder===>', currentOrder);
+  res.json(currentOrder);
+  // console.log("commentId--->", commentId);
+});
 
 module.exports = router;

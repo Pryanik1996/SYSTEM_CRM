@@ -101,6 +101,7 @@ router.get("/user", (req, res) => {
   //   id: user?._id,
   //   name: user.name,
   // };
+  // console.log('!!!!!=))))=>>>', user);
   return res.json(user);
 });
 
@@ -120,7 +121,7 @@ router.route("/check").get(checkAuth, async (req, res) => {
 router.route("/signout").get((req, res) => {
   req.session.destroy((err) => {
     if (err) return res.sendStatus(500);
-    // defaultUser = null;
+    user = null;
     res.clearCookie(req.app.get("cookieName"));
     return res.sendStatus(200);
   });

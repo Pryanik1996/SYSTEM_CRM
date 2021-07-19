@@ -10,12 +10,38 @@ router.get("/new", (req, res) => {
 });
 
 router.post("/new", async (req, res) => {
-  const { number, typeFurn, priceFurn, priceDeliv, dateDeliv, priceConstr, dateConstr, teamDeliv, teamConstr, status, commentsWhenCreate } = req.body;
-  const id = req.session.passport.user._id
+  const {
+    number,
+    typeFurn,
+    priceFurn,
+    priceDeliv,
+    dateDeliv,
+    priceConstr,
+    dateConstr,
+    teamDeliv,
+    teamConstr,
+    status,
+    commentsWhenCreate,
+  } = req.body;
+  const id = req.session.passport.user._id;
+
   try {
     if (number) {
-    const newOrder = await Order.create({number, typeFurn, priceFurn, priceDeliv, dateDeliv, priceConstr, dateConstr, teamDeliv, teamConstr, status, commentsWhenCreate, creator: id });
-    res.json(newOrder)
+      const newOrder = await Order.create({
+        number,
+        typeFurn,
+        priceFurn,
+        priceDeliv,
+        dateDeliv,
+        priceConstr,
+        dateConstr,
+        teamDeliv,
+        teamConstr,
+        status,
+        commentsWhenCreate,
+        creator: id,
+      });
+      res.json(newOrder);
     }
   } catch (err) {
     return res.sendStatus(403);
@@ -26,7 +52,7 @@ router.post("/new", async (req, res) => {
 
 router.get("/all", async (req, res) => {
   try {
-    const allOrders = await Order.find();
+    const allOrders = await Order.find().populate("creator");
     res.json(allOrders);
   } catch (err) {
     res.sendStatus(400);

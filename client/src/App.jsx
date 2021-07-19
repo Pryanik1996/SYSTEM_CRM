@@ -37,9 +37,10 @@ function App() {
   // console.log("history===>", history);
 
   useEffect(() => {
+    console.log("useeffect");
     // dispatch(checkAuth());
     dispatch(getUserFromServer());
-  }, []);
+  }, [dispatch]);
 
   return (
     <Router>

@@ -1,4 +1,9 @@
-import { ORDER_ONE, ORDER_DELETE, ORDER_COMMENT } from "../types";
+import {
+  ORDER_ONE,
+  ORDER_DELETE,
+  ORDER_COMMENT,
+  COMMENT_DELETE,
+} from "../types";
 
 export const oneOrder = (res) => ({
   type: ORDER_ONE,
@@ -57,8 +62,32 @@ export const commentOrder = (data) => ({
 //       },
 //       body: JSON.stringify({ comment }),
 //     });
-    
+
 //   } catch (error) {
 //     console.log(error);
 //   }
 // };
+
+export const deleteComment = (data) => ({
+  type: COMMENT_DELETE,
+  payload: data,
+});
+
+export const deleteCurrentComment = (commentId, id) => async (dispatch) => {
+  try {
+    const response = await fetch(
+      `http://localhost:3001/orders/${id}/comments`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ commentId }),
+      }
+    );
+    const data = await response.json();
+    dispatch(deleteComment(data));
+  } catch (error) {
+    console.log(error);
+  }
+};

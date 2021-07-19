@@ -1,4 +1,4 @@
-import { COMMENT_ADD } from "../types";
+import { COMMENT_ADD, COMMENT_DELETE } from "../types";
 import { commentOrder } from "./currentOrderAction";
 
 export const addComment = (data) => ({
@@ -24,18 +24,26 @@ export const addCommentToOrder =
     }
   };
 
-export const deleteCurrentComment = (id) => async (dispatch) => {
-  try {
-    const response = await fetch(
-      `http://localhost:3001/orders/${id}/comments`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id }),
-      }
-    );
-    const data = await response.json();
-  } catch (error) {}
-};
+// export const deleteComment = () => ({
+//   type: COMMENT_DELETE,
+// });
+
+// export const deleteCurrentComment = (commentId, id) => async (dispatch) => {
+//   try {
+//     const response = await fetch(
+//       `http://localhost:3001/orders/${id}/comments`,
+//       {
+//         method: "DELETE",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify({ commentId }),
+//       }
+//     );
+//     if (response.status === 200) {
+//       dispatch(deleteComment());
+//     }
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };

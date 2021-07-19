@@ -22,7 +22,7 @@ export const signOut = () => async (dispatch) => {
     credentials: "include",
     headers: { "Access-Control-Allow-Origin": "*" },
   });
-  console.log(response);
+  // console.log(response);
   if (response.status === 200) {
     dispatch(deleteUser());
   }

@@ -1,10 +1,8 @@
 import {
-  CLIENT_DELETE,
   CLIENT_ADD_ALL,
   CLIENTS_GET_START,
   CLIENTS_GET_SUCCESS,
   CLIENTS_GET_ERROR,
-  COMMENTS_ADD,
 } from "../types";
 
 export const setAllClient = (clients) => ({
@@ -30,10 +28,9 @@ export const getClient = (data, history, value) => async (dispatch) => {
     }),
   });
   if (response.status === 200) {
-    const res = await response.json();
+    await response.json();
     history.push("/clients");
-  }
-   else {
+  } else {
     history.push("/clients/new");
   }
 };
@@ -57,13 +54,6 @@ export const getClients = () => async (dispatch) => {
   dispatch(getAllClientsError(err));
 };
 
-export const getCardClient = (id) => async (dispatch) => {
-  const response = await fetch(`http://localhost:3001/clients/${id}`);
-  const data = await response.json();
-  // console.log("333333", data);
-  dispatch(setAllClient(data));
-};
-
 export const getEditClient = (data, id) => async (dispatch) => {
   const response = await fetch(`http://localhost:3001/clients/${id}`, {
     method: "PATCH",
@@ -81,39 +71,4 @@ export const getEditClient = (data, id) => async (dispatch) => {
   });
   const res = await response.json();
   dispatch(setAllClient(res));
-};
-
-export const deleteClient = (clients) => ({
-  type: CLIENT_DELETE,
-  payload: clients,
-});
-
-export const getDeleteClient = (id) => async (dispatch) => {
-  const response = await fetch(`http://localhost:3001/clients/delete/${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ id }),
-  });
-  dispatch(deleteClient(response));
-};
-
-export const setComments = (comments) => ({
-  type: COMMENTS_ADD,
-  payload: comments,
-});
-
-export const getComments = (data, id, userId, userName) => async (dispatch) => {
-  console.log("ACTION", userId);
-  const response = await fetch(`http://localhost:3001/clients/${id}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ body: data.comments, userId, userName }),
-  });
-  const res = await response.json();
-  console.log(res);
-  dispatch(setComments(res));
 };

@@ -6,6 +6,7 @@ import commentsReducer from "./commentsReducer";
 import workersReducer from "./workers.reduser";
 import orderReducer from "./order.reducer";
 import adminsItemsReducer from "./adminsReducer";
+import currentClientReducer from "./currentClient.reducer"
 
 const reducer = combineReducers({
   clients: clientReducer,
@@ -15,5 +16,6 @@ const reducer = combineReducers({
   currentOrder: currentOrderReducer,
   comments: commentsReducer,
   items: adminsItemsReducer,
+  currentClient: currentClientReducer,
 });
 export default reducer;

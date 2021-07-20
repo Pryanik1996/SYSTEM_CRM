@@ -10,6 +10,7 @@ const initialState = {
   currentOrder: null,
   comments: [],
   items: [],
+  currentClient: {}
 };
 
 // const getInitState = () => {

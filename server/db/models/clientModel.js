@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const clientSchema = mongoose.Schema({
+  isDelete: {
+    type: Boolean,
+    default: false
+  },
   name: {
     type: String
   },

@@ -15,7 +15,6 @@ export default function AllClients() {
     dispatch(getClients());
   }, [dispatch]);
 
-  console.log("3333", clients)
 
   return (
     <div>

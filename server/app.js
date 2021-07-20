@@ -9,6 +9,7 @@ const clientsRouter = require('./routes/clients.router')
 const adminRouter = require('./routes/admin.router')
 const ordersRouter = require('./routes/orders.router')
 const authRouter = require("./routes/authRouter");
+const commentsRouter = require("./routes/comments.router")
 const passport = require("passport");
 
 const app = express();
@@ -52,7 +53,7 @@ app.use('/clients', clientsRouter)
 app.use('/admin', adminRouter)
 app.use('/orders', ordersRouter)
 app.use("/auth", authRouter);
-
+app.use("/comments", commentsRouter)
 app.get("/clients", (req, res) => {
   res.send("тут будут клиенты");
 });

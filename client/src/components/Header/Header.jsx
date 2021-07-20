@@ -84,6 +84,12 @@ export default function ScrollableTabsButtonAuto() {
             aria-label="scrollable auto tabs example"
           >
             <Tab
+              label="на главную"
+              component={Link}
+              to="/"
+              {...a11yProps(0)}
+            />
+            <Tab
               label="клиенты"
               component={Link}
               to="/clients"

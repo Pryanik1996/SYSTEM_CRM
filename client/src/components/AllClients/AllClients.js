@@ -155,7 +155,6 @@ export default function AllClients() {
     setValue("");
   };
 
-<<<<<<< HEAD
 //============== STARS 
 
   const check = true
@@ -167,17 +166,11 @@ export default function AllClients() {
 
 
 
-=======
->>>>>>> origin/testTuesday
   return (
     <div>
       <h1>Все клиенты</h1>
 
-<<<<<<< HEAD
-      <form onSubmit={() => clearInput() } className="search_form">
-=======
       <form onSubmit={() => clearInput()} className="search_form">
->>>>>>> origin/testTuesday
         <input
           onChange={(event) => setValue(event.target.value)}
           type="text"
@@ -197,7 +190,6 @@ export default function AllClients() {
           ) : (
             <ul className="clientsList">
               {filtredClients?.map((cl) => (
-<<<<<<< HEAD
                 <div key={cl._id}>
                   <button
                     type="button"
@@ -208,14 +200,7 @@ export default function AllClients() {
                     </span>
                   </button>
 
-                  <Link to={`/clients/${cl._id}`}>
-                    <h7>
-                      {cl.name} {cl.surname} {cl.patronymic} {cl.email}{" "}
-                      {cl.phone}
-                    </h7>
-                  </Link>
-                </div>
-=======
+
                 <li>
                   <Link key={cl._id} to={`/clients/${cl._id}`}>
                     <div className="clientsItem">
@@ -224,7 +209,7 @@ export default function AllClients() {
                     </div>
                   </Link>
                 </li>
->>>>>>> origin/testTuesday
+                </div>
               ))}
             </ul>
           )}

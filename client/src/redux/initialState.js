@@ -1,15 +1,11 @@
 const initialState = {
   workers: [],
   clients: [],
-<<<<<<< HEAD
-  orders: {},
-=======
   orders: {
     loading: false,
     error: null,
     values: [],
   },
->>>>>>> origin/testTuesday
   user: null,
   currentOrder: null,
   comments: [],

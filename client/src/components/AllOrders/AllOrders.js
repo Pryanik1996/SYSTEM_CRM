@@ -114,16 +114,10 @@ export default function AllOrders() {
     
     return answer;
   }
-<<<<<<< HEAD
   
   let keyCl = ["number", "client", "status", "creator"];
   
-  let filtredOrders = orders;
-=======
-  // console.log("orders===>", orders);
   let filtredOrders = values;
-
->>>>>>> origin/testTuesday
   const [value, setValue] = useState("");
   if (value) {
     function helpMePlease(item) {
@@ -136,12 +130,7 @@ export default function AllOrders() {
         return true;
       if (item?.status.toLowerCase().includes(value.toLowerCase().trim()))
         return true;
-<<<<<<< HEAD
-        console.log(item.creator)
-      if (item?.creator.toLowerCase().includes(value.toLowerCase().trim()))
-=======
       if (item?.creator?.name.toLowerCase().includes(value.toLowerCase().trim()))
->>>>>>> origin/testTuesday
         return true;
 
       if (
@@ -157,11 +146,7 @@ export default function AllOrders() {
       )
         return true;
       if (
-<<<<<<< HEAD
-        translit(item?.creator.toLowerCase()).includes(
-=======
         translit(item?.creator?.name.toLowerCase()).includes(
->>>>>>> origin/testTuesday
           value.toLowerCase().trim()
         )
       )
@@ -201,11 +186,7 @@ export default function AllOrders() {
                 <Link to={`/orders/${or._id}`}>
                   <div>
                     <h7 key={or._id}>
-<<<<<<< HEAD
-                      {or.number} {or.client} {or.status} {or?.creator?.name}
-=======
                       {or.number} {or.client} {or.status} {or.creator?.name}
->>>>>>> origin/testTuesday
                     </h7>
                   </div>
                 </Link>

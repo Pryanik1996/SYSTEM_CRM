@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
-import "./Header.css"
+import "./Header.css";
 
 import {
   AppBar,
@@ -14,7 +14,7 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
-  Select
+  Select,
 } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -65,10 +65,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 export function SimpleSelect() {
   const classes = useStyles();
-  const [age, setAge] = React.useState('');
+  const [age, setAge] = React.useState("");
 
   const handleChange = (event) => {
     setAge(event.target.value);
@@ -88,8 +87,7 @@ export default function ScrollableTabsButtonAuto() {
 
   return (
     <div className={classes.root}>
-      
-        <AppBar position="static" color="default">
+      <AppBar position="static" color="default">
         <Container maxWidth="lg">
           <Tabs
             value={value}
@@ -113,11 +111,16 @@ export default function ScrollableTabsButtonAuto() {
               {...a11yProps(1)}
             />
 
-
             <Tab
               label="добавить клиента"
               component={Link}
               to="/clients/new"
+              {...a11yProps(2)}
+            />
+            <Tab
+              label="создать заказ"
+              component={Link}
+              to="/orders/new"
               {...a11yProps(2)}
             />
             {/* <Tab
@@ -132,13 +135,13 @@ export default function ScrollableTabsButtonAuto() {
               to="/admin/clients"
               {...a11yProps(4)}
             /> */}
-             {/* <Tab
+            {/* <Tab
               label="удаленные заказы"
               component={Link}
               to="/admin/items"
               {...a11yProps(5)}
             /> */}
-             <Tab
+            <Tab
               label="работники"
               component={Link}
               to="/admin/workers"
@@ -146,8 +149,12 @@ export default function ScrollableTabsButtonAuto() {
             />
             {userName && (
               <div className="userInfo">
-                 <b>&nbsp;{userName}</b>{" "}
-                <Avatar alt={userName} src={userPicture} className={classes.large} />
+                <b>{userName}&nbsp;</b>{" "}
+                <Avatar
+                  alt={userName}
+                  src={userPicture}
+                  className={classes.large}
+                />
               </div>
             )}
             <LongMenu />
@@ -158,8 +165,8 @@ export default function ScrollableTabsButtonAuto() {
               {...a11yProps(3)}
             />
           </Tabs>
-      </Container>
-        </AppBar>
+        </Container>
+      </AppBar>
     </div>
   );
 }

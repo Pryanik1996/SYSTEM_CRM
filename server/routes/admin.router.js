@@ -8,7 +8,8 @@ const { findById } = require("../db/models/userModel");
 router.get("/workers", async (req, res) => {
   // making look on admin
   const workers = await User.find();
-  return res.json(workers);
+  console.log("WORKERS==>", workers);
+  return res.json({ array: workers });
 });
 
 router.post("/workers/:id", async (req, res) => {

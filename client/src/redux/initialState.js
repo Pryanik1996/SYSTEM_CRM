@@ -4,7 +4,7 @@ const initialState = {
   orders: [],
   user: null,
   currentOrder: null,
-  comments: []
+  comments: [],
   items:[],
 };
 

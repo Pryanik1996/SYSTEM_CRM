@@ -4,7 +4,7 @@ import AllOrders from "./components/AllOrders/AllOrders";
 import React from "react";
 import { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-
+import NewOrderForClient from "./components/NewOrderForClient/NewOrderForClient";
 import Container from "@material-ui/core/Container";
 import ListOfDEletedClients from "./components/ForAdminPage/ListOfDeletedClients/ListOfDeletedClients";
 import ListOfDEletedItems from "./components/ForAdminPage/ListOfDeletedItems/ListOfDeletedItems";
@@ -85,7 +85,10 @@ function App() {
             </Route>
             <Route exact path="/admin">
               <BlocktoShowElemensToDelete />
-              </Route>
+            </Route>
+            <Route exact path="/orders/new/:id">
+              <NewOrderForClient />
+            </Route>
           </Switch>
         </Container>
       </React.Fragment>

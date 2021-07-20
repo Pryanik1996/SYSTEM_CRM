@@ -27,9 +27,6 @@ router.post("/new", async (req, res) => {
         address,
         creator: id,
       });
-      const newClient = await Client.findById(tmpClient._id).populate(
-        "creator"
-      );
 
       res.json(newClient);
     }

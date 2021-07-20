@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const commentSchema = mongoose.Schema({
   author: {
     type: String,
+  },
   authorId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -21,7 +22,7 @@ const commentSchema = mongoose.Schema({
   card: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Client",
-  }
+  },
 });
 
 module.exports = mongoose.model("Comment", commentSchema);

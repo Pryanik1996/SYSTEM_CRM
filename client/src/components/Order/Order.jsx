@@ -131,7 +131,7 @@ export default function Order() {
         Статус заказа: <b>{currentOrder?.status}</b>{" "}
       </div>
       <div>
-        Комментарий при заказе: <b>{currentOrder?.teamConstr}</b>{" "}
+        Комментарий при заказе: <b>{currentOrder?.commentsWhenCreate}</b>{" "}
       </div>
       <div>
         Комментарии сотрудников:{" "}

@@ -109,7 +109,7 @@ router.post("/:id", async (req, res) => {
     { $push: { comments: newComment._id } },
     { new: true }
   ).populate("comments");
-  console.log("======>>>>>", commentClient);
+  // console.log("======>>>>>", commentClient);
   res.json(commentClient);
 });
 module.exports = router;

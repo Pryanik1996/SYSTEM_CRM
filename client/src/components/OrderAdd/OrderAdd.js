@@ -42,7 +42,6 @@ export default function OrderAdd() {
   } = useForm({ mode: "onChange" });
 
   const onSubmit = (data) => {
-    console.log("aaaaaaa", data);
     dispatch(getOrder(data, history));
     reset();
   };

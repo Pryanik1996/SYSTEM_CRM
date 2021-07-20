@@ -173,7 +173,7 @@ export default function AllOrders() {
                 <Link to={`/orders/${or._id}`}>
                   <div>
                     <h7 key={or._id}>
-                      {or.number} {or.client} {or.status} {or.creator.name}
+                      {or.number} {or.client} {or.status} {or.creator?.name}
                     </h7>
                   </div>
                 </Link>

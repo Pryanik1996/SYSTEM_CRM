@@ -6,17 +6,29 @@ import { ORDER_ADD } from "../../redux/types";
 import { useState } from "react";
 
 export default function AllOrders() {
-  const {
-    values: orders,
-    error,
-    loading,
-  } = useSelector((state) => state.orders);
-  const dispatch = useDispatch();
+  const [arr, setArr] = useState([]);
+
+  const { values, error, loading } = useSelector((state) => state.orders);
+
+  // const state =  useSelector((state) => state)
+
+  console.log("222222=>>>>>", values);
 
   useEffect(() => {
     dispatch(getOrders());
-  }, [dispatch]);
+  }, []);
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (values?.length) {
+      const tmp = values?.filter((el) => el.isDelete === false);
+      console.log("TMP===>", tmp);
+      setArr(tmp);
+    }
+  }, [values]);
+
+  console.log("111111=>", arr);
   //============== SEARCH
 
   
@@ -102,10 +114,16 @@ export default function AllOrders() {
     
     return answer;
   }
+<<<<<<< HEAD
   
   let keyCl = ["number", "client", "status", "creator"];
   
   let filtredOrders = orders;
+=======
+  // console.log("orders===>", orders);
+  let filtredOrders = values;
+
+>>>>>>> origin/testTuesday
   const [value, setValue] = useState("");
   if (value) {
     function helpMePlease(item) {
@@ -118,8 +136,12 @@ export default function AllOrders() {
         return true;
       if (item?.status.toLowerCase().includes(value.toLowerCase().trim()))
         return true;
+<<<<<<< HEAD
         console.log(item.creator)
       if (item?.creator.toLowerCase().includes(value.toLowerCase().trim()))
+=======
+      if (item?.creator?.name.toLowerCase().includes(value.toLowerCase().trim()))
+>>>>>>> origin/testTuesday
         return true;
 
       if (
@@ -135,13 +157,17 @@ export default function AllOrders() {
       )
         return true;
       if (
+<<<<<<< HEAD
         translit(item?.creator.toLowerCase()).includes(
+=======
+        translit(item?.creator?.name.toLowerCase()).includes(
+>>>>>>> origin/testTuesday
           value.toLowerCase().trim()
         )
       )
         return true;
     }
-    filtredOrders = orders.filter(helpMePlease);
+    filtredOrders = values.filter(helpMePlease);
   }
 
   const clearInput = () => {
@@ -167,7 +193,7 @@ export default function AllOrders() {
         <p>Ошибка базы данных</p>
       ) : (
         <>
-          {orders.length === 0 ? (
+          {arr?.length === 0 ? (
             <p>Заказов нет</p>
           ) : (
             <ul>
@@ -175,7 +201,11 @@ export default function AllOrders() {
                 <Link to={`/orders/${or._id}`}>
                   <div>
                     <h7 key={or._id}>
+<<<<<<< HEAD
                       {or.number} {or.client} {or.status} {or?.creator?.name}
+=======
+                      {or.number} {or.client} {or.status} {or.creator?.name}
+>>>>>>> origin/testTuesday
                     </h7>
                   </div>
                 </Link>

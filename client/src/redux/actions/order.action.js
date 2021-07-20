@@ -1,5 +1,10 @@
-import { ORDER_ADD, ORDER_ADD_ALL, ORDERS_GET_START, ORDERS_GET_SUCCESS, ORDERS_GET_ERROR } from "../types";
-
+import {
+  ORDER_ADD,
+  ORDER_ADD_ALL,
+  ORDERS_GET_START,
+  ORDERS_GET_SUCCESS,
+  ORDERS_GET_ERROR,
+} from "../types";
 
 export const setAllOrder = (orders) => ({
   type: ORDER_ADD_ALL,
@@ -40,14 +45,14 @@ export const getOrder = (data, history) => async (dispatch) => {
   });
   if (response.status === 200) {
     const res = await response.json();
-    console.log(res);
+    console.log("1234567899===>", res);
+    // console.log(res);
     dispatch(setOrder(res));
     history.push("/orders");
   } else {
     history.push("/orders/new");
   }
-}
-
+};
 
 // ============== /oreders
 
@@ -63,6 +68,7 @@ export const getOrders = () => async (dispatch) => {
   const response = await fetch("http://localhost:3001/orders/all");
   if (response.ok) {
     const parsedOrders = await response.json();
+    console.log(parsedOrders);
     return dispatch(getAllOrdersSuccess(parsedOrders));
   }
   const err = await response.json();

@@ -37,10 +37,17 @@ const clientSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
+<<<<<<< HEAD
   addstar: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
+=======
+  isDelete: {
+    type: Boolean,
+    default: false
+  }
+>>>>>>> origin/testTuesday
 });
 
 module.exports = mongoose.model("Client", clientSchema);

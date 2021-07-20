@@ -86,7 +86,7 @@ export default function ScrollableTabsButtonAuto() {
             <Tab
               label="на главную"
               component={Link}
-              to="/"
+              to="/clients"
               {...a11yProps(0)}
             />
             <Tab

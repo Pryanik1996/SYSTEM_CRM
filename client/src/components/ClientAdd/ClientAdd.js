@@ -7,6 +7,9 @@ import Button from "@material-ui/core/Button";
 import { useDispatch } from "react-redux";
 import { getClient } from "../../redux/actions/clients.action";
 import { useHistory, useLocation } from "react-router";
+import { AddressSuggestions } from "react-dadata";
+import "react-dadata/dist/react-dadata.css";
+import "./ClientAdd.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,7 +24,8 @@ export default function ClientAdd() {
   const classes = useStyles();
   let history = useHistory();
   const dispatch = useDispatch();
-
+  const [value, setValue] = useState();
+  console.log("!!!!==>", value);
   const {
     register,
     handleSubmit,
@@ -31,7 +35,7 @@ export default function ClientAdd() {
   } = useForm({ mode: "onChange" });
 
   const onSubmit = (data) => {
-    dispatch(getClient(data, history));
+    dispatch(getClient(data, history, value));
     reset();
   };
 
@@ -79,11 +83,18 @@ export default function ClientAdd() {
         id="standard-required"
         {...register("phone")}
       />
-      <TextField
+      {/* <TextField
         label="Адрес клиента"
         type="text"
         id="standard-required"
         {...register("address")}
+        
+      /> */}
+      <AddressSuggestions
+        className="address"
+        token="43f3a1a6e2e0bd7b18d5f3d1d16a515b2055ee55"
+        value={value}
+        onChange={setValue}
       />
       <br />
       <br />

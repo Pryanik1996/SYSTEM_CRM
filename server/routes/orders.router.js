@@ -24,7 +24,7 @@ router.post("/new", async (req, res) => {
     commentsWhenCreate,
   } = req.body;
   const id = req.session.passport.user._id;
-
+  console.log("1==>", req.body);
   try {
     if (number) {
       const newOrder = await Order.create({
@@ -52,7 +52,7 @@ router.post("/new", async (req, res) => {
 
 router.get("/all", async (req, res) => {
   try {
-    const allOrders = await Order.find().populate("creator");
+    const allOrders = await Order.find().populate("creator").sort({ _id: -1 });
     res.json(allOrders);
   } catch (err) {
     res.sendStatus(400);

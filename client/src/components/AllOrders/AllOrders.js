@@ -6,17 +6,29 @@ import { ORDER_ADD } from "../../redux/types";
 import { useState } from "react";
 
 export default function AllOrders() {
-  const {
-    values: orders,
-    error,
-    loading,
-  } = useSelector((state) => state.orders);
-  const dispatch = useDispatch();
+  const [arr, setArr] = useState([]);
+
+  const { values, error, loading } = useSelector((state) => state.orders);
+
+  // const state =  useSelector((state) => state)
+
+  console.log("222222=>>>>>", values);
 
   useEffect(() => {
     dispatch(getOrders());
-  }, [dispatch]);
+  }, []);
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (values?.length) {
+      const tmp = values?.filter((el) => el.isDelete === false);
+      console.log("TMP===>", tmp);
+      setArr(tmp);
+    }
+  }, [values]);
+
+  console.log("111111=>", arr);
   //============== SEARCH
 
   let keyCl = ["number", "client", "status", "creator"];
@@ -103,8 +115,9 @@ export default function AllOrders() {
 
     return answer;
   }
+  // console.log("orders===>", orders);
+  let filtredOrders = values;
 
-  let filtredOrders = orders;
   const [value, setValue] = useState("");
   if (value) {
     function helpMePlease(item) {
@@ -117,7 +130,7 @@ export default function AllOrders() {
         return true;
       if (item.status.toLowerCase().includes(value.toLowerCase().trim()))
         return true;
-      if (item.creator.toLowerCase().includes(value.toLowerCase().trim()))
+      if (item?.creator?.name.toLowerCase().includes(value.toLowerCase().trim()))
         return true;
 
       if (
@@ -133,13 +146,13 @@ export default function AllOrders() {
       )
         return true;
       if (
-        translit(item.creator.toLowerCase()).includes(
+        translit(item?.creator?.name.toLowerCase()).includes(
           value.toLowerCase().trim()
         )
       )
         return true;
     }
-    filtredOrders = orders.filter(helpMePlease);
+    filtredOrders = values.filter(helpMePlease);
   }
 
   const clearInput = () => {
@@ -165,7 +178,7 @@ export default function AllOrders() {
         <p>Ошибка базы данных</p>
       ) : (
         <>
-          {orders.length === 0 ? (
+          {arr?.length === 0 ? (
             <p>Заказов нет</p>
           ) : (
             <ul>

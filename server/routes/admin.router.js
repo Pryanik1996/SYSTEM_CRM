@@ -3,6 +3,7 @@ const router = Router();
 const User = require("../db/models/userModel");
 const Clients = require("../db/models/clientModel");
 const Orders = require("../db/models/orderModel");
+const { findById } = require("../db/models/userModel");
 
 router.get("/workers", async (req, res) => {
   // making look on admin
@@ -10,20 +11,23 @@ router.get("/workers", async (req, res) => {
   return res.json(workers);
 });
 
-// router.post("/workers/:id", async (req, res) => {
-//   const {id:_id} = req.params
-//   console.log(req.params);
-//   try {
-//       const nowAdmin = await User.findByIdAndUpdate(_id,{
-//         isAdmin: !isAdmin });
-//       console.log(nowAdmin);
-//       res.json(nowAdmin)
+router.post("/workers/:id", async (req, res) => {
+  const { id: _id } = req.params;
 
-//   } catch (err) {
-
-//     return res.sendStatus(403);
-//   }
-// });
+  try {
+    const user = await User.findById(_id);
+    const nowAdmin = await User.findByIdAndUpdate(
+      _id,
+      {
+        isAdmin: !user.isAdmin,
+      },
+      { new: true }
+    );
+    res.json(nowAdmin);
+  } catch (err) {
+    return res.sendStatus(403);
+  }
+});
 
 router.post("/workers/new", async (req, res) => {
   const { email } = req?.body;

@@ -10,7 +10,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import InputForNewWorker from "../InputForNewWorker/InputForNewWorker"
 import { useDispatch, useSelector } from 'react-redux';
-import { allworkers } from '../../../redux/actions/workers.action';
+import { allworkers, changeAdmin } from '../../../redux/actions/workers.action';
 
 import { withStyles } from '@material-ui/core/styles';
 import { purple } from '@material-ui/core/colors';
@@ -109,25 +109,26 @@ export default function ListOfWorkers() {
     .then((data) => dispatch(allworkers(data)))
   },[] )
   const classes = useStyles();
-   
-    // const changeAdmin=(e)=>{
-    //   const id= e.target._id
-    //   useEffect(()=>{
-    //     fetch("http://localhost:3001/admin/workers",{
-    //       method:"POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       credentials: "include",
-    //       body: JSON.stringify({
-    //         id
-    //       }),
-    //     })
-    //     .then((response) => response.json())
-    //     .then((data) => dispatch(allworkers(data)))
-    //   },[] )
-    // }
-    
+  const ChangeAdmin=async(e)=>{
+    e.preventDefault();
+    const idcard = e.target.id;
+
+    const response = await fetch(`http://localhost:3001/admin/workers/${idcard}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({
+        idcard,
+      }),
+      credentials: "include",
+    });
+    const result = await response.json();
+    console.log(result);
+    await dispatch(changeAdmin(result))
+  }
+  
     return (
       <>
     <InputForNewWorker/>
@@ -154,15 +155,14 @@ export default function ListOfWorkers() {
       title="Paella dish"
       />
       <ChooseAdmin isAdmin={e.isAdmin} id= {e._id}/>
-      {/* <CardContent>
+       <CardContent>
         <Typography  variant="body2" color="textSecondary" component="p">
-          {e.isAdmin ?  "Администратор" : "Пользователь"}
-          <FormControlLabel
-        control={<IOSSwitch  id={e._id} onChange={changeAdmin} name="checkedB" />}
-        label="iOS style"
-      />
+          
+          <button onClick={ChangeAdmin} id={e._id} className="btn btn-primary">
+              Status:{e.isAdmin ?  "Администратор" : "Пользователь"}
+            </button> 
         </Typography>
-      </CardContent> */}
+      </CardContent> 
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />

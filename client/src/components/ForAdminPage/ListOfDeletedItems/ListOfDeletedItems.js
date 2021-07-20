@@ -3,6 +3,7 @@ import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import CachedIcon from '@material-ui/icons/Cached';
 import React from "react";
 import {
   Grid,
@@ -47,6 +48,9 @@ export default function ListOfDEletedItems() {
   const cardDelete = (id) => (event) => {
     dispatch(deleteThisOrder(id));
   };
+  const elementRemove = (id) => (event) => {
+    dispatch(deleteThisOrder(id));
+  };
   const handleChange = (panel) => (event, isExpanded) => {
     if (event.target?.id !== panel) {
       setExpanded(isExpanded ? panel : false);
@@ -88,6 +92,13 @@ export default function ListOfDEletedItems() {
                 >
                   <DeleteIcon fontSize="large" />
                 </IconButton>
+                <CachedIcon
+                  onClick={elementRemove(e._id)}
+                  id="remove"
+                  className={classes.margin}
+                >
+                  <DeleteIcon fontSize="large" />
+                </CachedIcon>
               </div>
               <Typography>{e.phone}</Typography>
             </AccordionDetails>

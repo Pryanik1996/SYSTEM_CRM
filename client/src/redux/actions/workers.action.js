@@ -5,18 +5,16 @@ export const addWorker = (workers) => ({
   payload: { workers },
 });
 
-export const allworkers = (workers)=>({
+export const allworkers = (workers) => ({
   type: ALL_WORKERS,
   payload: { workers },
-
-})
-export const changeAdmin = (id)=>({
+});
+export const changeAdmin = (workers) => ({
   type: CHANGE_ADMIN,
-  payload :{id}
-})
+  payload: workers,
+});
 
 export const addWorkerEmail = (data, history) => async (dispatch) => {
-  // console.log(data)
   const response = await fetch(`http://localhost:3001/admin/workers/new`, {
     method: "POST",
     headers: {

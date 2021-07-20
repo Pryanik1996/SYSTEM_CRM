@@ -18,6 +18,7 @@ import {
 } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import LongMenu from "./AdminsHeader/AdminsHeader";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -113,46 +114,6 @@ export default function ScrollableTabsButtonAuto() {
             />
 
 
-
-
-<FormControl indicatorColor="primary"
-onChange={handleChange} 
-            textColor="primary"
-            scrollButtons="auto"
-            aria-label="scrollable auto tabs example" 
-            className={classes.formControl}>
-       
-        <Select
-
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          onChange={handleChange}
-        >
-           <Tabs
-            onChange={handleChange}
-            indicatorColor="primary"
-            textColor="primary"
-            aria-label="scrollable auto tabs example"
-          >
-
-          <MenuItem><Tab
-              label="удаленные клиенты"
-              component={Link}
-              to="/admin/clients"
-              {...a11yProps(4)}
-            /></MenuItem>
-          <MenuItem ><Tab
-              label="удаленные заказы"
-              component={Link}
-              to="/admin/orders"
-              {...a11yProps(5)}
-            /></MenuItem>
-          </Tabs>
-        </Select>
-      </FormControl>
-
-
-
             <Tab
               label="добавить клиента"
               component={Link}
@@ -164,8 +125,8 @@ onChange={handleChange}
               component={Link}
               to="/orders/new"
               {...a11yProps(3)}
-            />
-             <Tab
+              />
+              <Tab
               label="удаленные клиенты"
               component={Link}
               to="/admin/clients"
@@ -185,16 +146,17 @@ onChange={handleChange}
             />
             {userName && (
               <div className="userInfo">
-                Вы авторизованы как <b>&nbsp;{userName}</b>{" "}
+                 <b>&nbsp;{userName}</b>{" "}
                 <Avatar alt={userName} src={userPicture} className={classes.large} />
-                <Tab
-                  label="выйти"
-                  component={Link}
-                  to="/auth/signout"
-                  {...a11yProps(3)}
-                />
               </div>
             )}
+            <LongMenu />
+            <Tab
+              label="выйти"
+              component={Link}
+              to="/auth/signout"
+              {...a11yProps(3)}
+            />
           </Tabs>
       </Container>
         </AppBar>

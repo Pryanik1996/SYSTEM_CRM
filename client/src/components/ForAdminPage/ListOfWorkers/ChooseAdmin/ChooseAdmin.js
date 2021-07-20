@@ -5,7 +5,8 @@ import { withStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import { makeStyles } from '@material-ui/core/styles';
-import { changeAdmin } from '../../../../redux/actions/workers.action';
+import { allworkers, changeAdmin } from '../../../../redux/actions/workers.action';
+import { useDispatch } from 'react-redux';
 const useStyles = makeStyles((theme) => ({
   
   root: {
@@ -87,6 +88,7 @@ const IOSSwitch = withStyles((theme) => ({
 
 export default function ChooseAdmin(props){
   const {isAdmin, id} = props
+  const dispatch = useDispatch()
   const ChangeAdmin=async(e)=>{
     e.preventDefault();
     const idcard = e.target.id;
@@ -103,9 +105,9 @@ export default function ChooseAdmin(props){
       credentials: "include",
     });
     const result = await response.json();
-    console.log(result);
+    await dispatch(changeAdmin(result))
   }
-
+  
 
   return(
     <CardContent>

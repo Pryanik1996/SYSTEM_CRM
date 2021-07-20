@@ -1,7 +1,7 @@
 const initialState = {
   workers: [],
   clients: [],
-  orders: [],
+  orders: {},
   user: null,
   currentOrder: null,
   comments: []

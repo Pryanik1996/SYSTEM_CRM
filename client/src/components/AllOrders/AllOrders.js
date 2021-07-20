@@ -19,8 +19,7 @@ export default function AllOrders() {
 
   //============== SEARCH
 
-  let keyCl = ["number", "client", "status", "creator"];
-
+  
   function translit(word) {
     var answer = "";
     var converter = {
@@ -57,7 +56,7 @@ export default function AllOrders() {
       э: "e",
       ю: "yu",
       я: "ya",
-
+      
       А: "A",
       Б: "B",
       В: "V",
@@ -92,7 +91,7 @@ export default function AllOrders() {
       Ю: "Yu",
       Я: "Ya",
     };
-
+    
     for (var i = 0; i < word.length; ++i) {
       if (converter[word[i]] == undefined) {
         answer += word[i];
@@ -100,10 +99,12 @@ export default function AllOrders() {
         answer += converter[word[i]];
       }
     }
-
+    
     return answer;
   }
-
+  
+  let keyCl = ["number", "client", "status", "creator"];
+  
   let filtredOrders = orders;
   const [value, setValue] = useState("");
   if (value) {
@@ -111,29 +112,30 @@ export default function AllOrders() {
       for (let i = 0; i < keyCl.length; i++) {
         if (!item.hasOwnProperty(keyCl[i])) item[keyCl[i]] = "";
       }
-      if (item.number.toLowerCase().includes(value.toLowerCase().trim()))
+      if (item?.number.toLowerCase().includes(value.toLowerCase().trim()))
         return true;
-      if (item.client.toLowerCase().includes(value.toLowerCase().trim()))
+      if (item?.client.toLowerCase().includes(value.toLowerCase().trim()))
         return true;
-      if (item.status.toLowerCase().includes(value.toLowerCase().trim()))
+      if (item?.status.toLowerCase().includes(value.toLowerCase().trim()))
         return true;
-      if (item.creator.toLowerCase().includes(value.toLowerCase().trim()))
+        console.log(item.creator)
+      if (item?.creator.toLowerCase().includes(value.toLowerCase().trim()))
         return true;
 
       if (
-        translit(item.number.toLowerCase()).includes(value.toLowerCase().trim())
+        translit(item?.number.toLowerCase()).includes(value.toLowerCase().trim())
       )
         return true;
       if (
-        translit(item.client.toLowerCase()).includes(value.toLowerCase().trim())
+        translit(item?.client.toLowerCase()).includes(value.toLowerCase().trim())
       )
         return true;
       if (
-        translit(item.status.toLowerCase()).includes(value.toLowerCase().trim())
+        translit(item?.status.toLowerCase()).includes(value.toLowerCase().trim())
       )
         return true;
       if (
-        translit(item.creator.toLowerCase()).includes(
+        translit(item?.creator.toLowerCase()).includes(
           value.toLowerCase().trim()
         )
       )
@@ -173,7 +175,7 @@ export default function AllOrders() {
                 <Link to={`/orders/${or._id}`}>
                   <div>
                     <h7 key={or._id}>
-                      {or.number} {or.client} {or.status} {or.creator.name}
+                      {or.number} {or.client} {or.status} {or?.creator?.name}
                     </h7>
                   </div>
                 </Link>

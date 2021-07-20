@@ -16,7 +16,7 @@ router.get("/card", async (req, res) => {
 
 router.post("/new", async (req, res) => {
   const { name, surname, patronymic, email, phone, address } = req.body;
-  console.log('@@@@@===>', req.body);
+  // console.log('@@@@@===>', req.body);
   const id = req.session.passport.user._id;
   try {
     if (name) {
@@ -32,7 +32,7 @@ router.post("/new", async (req, res) => {
       const newClient = await Client.findById(tmpClient._id).populate(
         "creator"
       );
-      console.log('NEW CLIENTTTTT===>', newClient);
+      // console.log('NEW CLIENTTTTT===>', newClient);
       res.json(newClient);
     }
   } catch (err) {
@@ -69,7 +69,7 @@ router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const client = await Client.find({ _id: id }).populate("comments");
-    console.log(client);
+    // console.log(client);
     res.json(client);
   } catch (err) {
     console.log(err);

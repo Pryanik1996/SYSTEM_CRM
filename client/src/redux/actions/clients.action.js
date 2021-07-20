@@ -13,7 +13,7 @@ export const setAllClient = (clients) => ({
 });
 
 export const getClient = (data, history, value) => async (dispatch) => {
-  console.log('VALUE===>', value);
+  // console.log('VALUE===>', value);
   const response = await fetch(`http://localhost:3001/clients/new`, {
     method: "POST",
     headers: {
@@ -60,7 +60,7 @@ export const getClients = () => async (dispatch) => {
 export const getCardClient = (id) => async (dispatch) => {
   const response = await fetch(`http://localhost:3001/clients/${id}`);
   const data = await response.json();
-  console.log("333333", data);
+  // console.log("333333", data);
   dispatch(setAllClient(data));
 };
 

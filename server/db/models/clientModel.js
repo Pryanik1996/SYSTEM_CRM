@@ -37,6 +37,10 @@ const clientSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
+  isDelete: {
+    type: Boolean,
+    default: false
+  }
 });
 
 module.exports = mongoose.model("Client", clientSchema);

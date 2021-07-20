@@ -1,12 +1,20 @@
-import { WORKER_ADD } from "../types";
+import { WORKER_ADD, ALL_WORKERS, CHANGE_ADMIN } from "../types";
 
 export const addWorker = (workers) => ({
   type: WORKER_ADD,
   payload: { workers },
 });
 
+export const allworkers = (workers) => ({
+  type: ALL_WORKERS,
+  payload: { workers },
+});
+export const changeAdmin = (workers) => ({
+  type: CHANGE_ADMIN,
+  payload: workers,
+});
+
 export const addWorkerEmail = (data, history) => async (dispatch) => {
-  // console.log(data)
   const response = await fetch(`http://localhost:3001/admin/workers/new`, {
     method: "POST",
     headers: {

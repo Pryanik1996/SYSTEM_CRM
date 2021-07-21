@@ -14,10 +14,11 @@ export const deleteItem = (id) =>({
   payload: {id}
 })
 
-export const changeDeleteStatus = (id)=>({
+export const changeDeleteStatus = (items)=>({
   type: CHANGE_STATUS,
-  payload: {id}
+  payload: {items}
 })
+
 
 export const allDeletedClients = () => (dispatch) => {
   fetch(`http://localhost:3001/admin/clients`,{
@@ -35,23 +36,26 @@ export const allDeletedOrders = () => (dispatch) => {
   .then((data)=> dispatch(allDeletedItems(data)))
 };
 
-export const deleteThisItem = (id) =>(dispatch)=>{
-  console.log(345);
-  fetch(`http://localhost:3001/admin/clients/${id}`,{
-    method:"DELETE",
-    credentials: 'include'
+
+export const editThisItem = (url,id) => (dispatch)=>{
+  fetch(`${url}/${id}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    
+    body: JSON.stringify({
+      id,
+    }),
+    credentials: "include",
   })
-  .then((response) => {
-    if (response.ok) {
-      dispatch(deleteItem(id))
-    }
-  })
+  .then((response) => response.json())
+  .then((data)=> dispatch(changeDeleteStatus(data)))
   .catch((error) => console.log(error));
 }
 
-export const deleteThisOrder = (id) =>(dispatch)=>{
-  console.log(345);
-  fetch(`http://localhost:3001/admin/orders/${id}`,{
+export const deleteThisItem = (url,id) =>(dispatch)=>{
+  fetch(`${url}/${id}`,{
     method:"DELETE",
     credentials: 'include'
   })

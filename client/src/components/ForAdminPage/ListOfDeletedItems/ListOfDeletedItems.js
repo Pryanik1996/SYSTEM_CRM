@@ -19,6 +19,7 @@ import {
   allDeletedOrders,
   deleteThisItem,
   deleteThisOrder,
+  editThisItem,
 } from "../../../redux/actions/adminsElementsToDelete";
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,10 +47,10 @@ export default function ListOfDEletedItems() {
   }, [dispatch]);
 
   const cardDelete = (id) => (event) => {
-    dispatch(deleteThisOrder(id));
+    dispatch(deleteThisItem("http://localhost:3001/admin/orders",id));
   };
   const elementRemove = (id) => (event) => {
-    dispatch(deleteThisOrder(id));
+    dispatch(editThisItem('http://localhost:3001/admin/orders/new',id));
   };
   const handleChange = (panel) => (event, isExpanded) => {
     if (event.target?.id !== panel) {
@@ -97,7 +98,6 @@ export default function ListOfDEletedItems() {
                   id="remove"
                   className={classes.margin}
                 >
-                  <DeleteIcon fontSize="large" />
                 </CachedIcon>
               </div>
               <Typography>{e.phone}</Typography>

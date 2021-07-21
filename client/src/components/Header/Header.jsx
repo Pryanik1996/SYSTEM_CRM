@@ -33,7 +33,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box p={3}>
-          <Typography>{children}</Typography>
+          <Typography >{children}</Typography>
         </Box>
       )}
     </div>
@@ -48,6 +48,7 @@ TabPanel.propTypes = {
 
 function a11yProps(index) {
   return {
+    
     id: `scrollable-auto-tab-${index}`,
     "aria-controls": `scrollable-auto-tabpanel-${index}`,
   };
@@ -56,8 +57,7 @@ function a11yProps(index) {
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    width: "100%",
-    backgroundColor: theme.palette.background.paper,
+    width: "100%"
   },
   large: {
     width: theme.spacing(8),
@@ -87,12 +87,13 @@ export default function ScrollableTabsButtonAuto() {
   };
 
   return (
-    <div className={classes.root}>
+    <div color = "none" style={{backgroundColor: "none!important"}} className={classes.root}>
       
-        <AppBar position="static" color="default">
-        <Container maxWidth="lg">
+        <AppBar position="static" color="none">
+        <Container style={{backgroundColor: "none!important"}} maxWidth="lg">
           <Tabs
             value={value}
+            
             onChange={handleChange}
             indicatorColor="primary"
             textColor="primary"

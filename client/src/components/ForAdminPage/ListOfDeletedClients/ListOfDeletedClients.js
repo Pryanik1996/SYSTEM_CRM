@@ -15,7 +15,14 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { allDeletedClients, deleteThisItem } from "../../../redux/actions/adminsElementsToDelete";
+import CachedIcon from "@material-ui/icons/Cached";
+import {
+  changeDeleteStatus,
+  allDeletedClients,
+  deleteThisItem,
+  editThisItem,
+} from "../../../redux/actions/adminsElementsToDelete";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -35,22 +42,22 @@ export default function ListOfDEletedClients() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [expanded, setExpanded] = React.useState(false);
-  const items  = useSelector((state) => state.items);
-
-  useEffect(() => {
-    dispatch(allDeletedClients());
-  }, [dispatch]);
-
-  
-  const cardDelete = (id) => (event) =>{
-      dispatch(deleteThisItem(id))
-  }
+  const items = useSelector((state) => state.items);
+  const elementEdit = (id) => () => {
+    dispatch(editThisItem('http://localhost:3001/admin/clients/new',id));
+  };
+  const cardDelete = (id) => () => {
+    dispatch(deleteThisItem("http://localhost:3001/admin/clients",id));
+  };
   const handleChange = (panel) => (event, isExpanded) => {
-    if(event.target?.id !== panel){
+    if (event.target?.id !== panel) {
       setExpanded(isExpanded ? panel : false);
     }
   };
-  
+
+  useEffect(() => {
+    dispatch(allDeletedClients());
+  }, []);
 
   return (
     <Grid
@@ -59,40 +66,46 @@ export default function ListOfDEletedClients() {
       justifyContent="space-between"
       alignItems="stretch"
     >
-
-        <div className={classes.root}>
-      {items?.map((e)=>(
-        <Accordion
-          expanded={expanded === e._id}
-          onChange={handleChange(e._id)}
+      <div className={classes.root}>
+        {items?.map((e) => (
+          <Accordion
+            expanded={expanded === e._id}
+            onChange={handleChange(e._id)}
           >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1bh-content"
-            id="panel1bh-header"
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1bh-content"
+              id="panel1bh-header"
             >
-            <Typography className={classes.heading}>
-              {e.name} {e.patronymic}
-            </Typography>
-            <Typography className={classes.secondaryHeading}>
-              {e.email}
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <div id="delete">
-            <IconButton onClick={cardDelete(e._id)} id="delete" aria-label="delete" className={classes.margin}>
-              <DeleteIcon fontSize="large" />
-            </IconButton>
-          </div>
-            <Typography>
-             {e.phone}
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-        
+              <Typography className={classes.heading}>
+                {e.name} {e.patronymic}
+              </Typography>
+              <Typography className={classes.secondaryHeading}>
+                {e.email}
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <div id="remove">
+                <CachedIcon
+                  onClick={elementEdit(e._id)}
+                  className={classes.margin}
+                ></CachedIcon>
+              </div>
+              <div id="delete">
+                <IconButton
+                  onClick={cardDelete(e._id)}
+                  id="delete"
+                  aria-label="delete"
+                  className={classes.margin}
+                >
+                  <DeleteIcon fontSize="large" />
+                </IconButton>
+              </div>
+              <Typography>{e.phone}</Typography>
+            </AccordionDetails>
+          </Accordion>
         ))}
       </div>
     </Grid>
   );
 }
-

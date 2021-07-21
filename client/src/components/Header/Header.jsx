@@ -124,12 +124,12 @@ export default function ScrollableTabsButtonAuto() {
               to="/clients/new"
               {...a11yProps(2)}
             />
-            <Tab
+            {/* <Tab
               label="создать заказ"
               component={Link}
               to="/orders/new"
               {...a11yProps(2)}
-            />
+            /> */}
             {/* <Tab
               label="создать заказ"
               component={Link}
@@ -149,7 +149,7 @@ export default function ScrollableTabsButtonAuto() {
               {...a11yProps(5)}
             /> */}
             <Tab
-              label="работники"
+              label="сотрудники"
               component={Link}
               to="/admin/workers"
               {...a11yProps(6)}

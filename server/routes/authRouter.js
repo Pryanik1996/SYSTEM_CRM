@@ -74,12 +74,12 @@ router.get(
   "/google/callback",
   passport.authenticate("google", {
     successRedirect: "http://localhost:3000/clients",
-    failureRedirect: "/auth/google/failure",
+    failureRedirect: "http://localhost:3000/failure",
   })
 );
 
 router.get("/google/failure", (req, res) => {
-  res.send("Failed to authenticate..");
+  res.send('Go to admin=/');
 });
 
 // router.get("/user", (req, res) => {

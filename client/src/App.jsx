@@ -4,7 +4,7 @@ import AllOrders from "./components/AllOrders/AllOrders";
 import React from "react";
 import { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-
+import NewOrderForClient from "./components/NewOrderForClient/NewOrderForClient";
 import Container from "@material-ui/core/Container";
 import ListOfDEletedClients from "./components/ForAdminPage/ListOfDeletedClients/ListOfDeletedClients";
 import ListOfDEletedItems from "./components/ForAdminPage/ListOfDeletedItems/ListOfDeletedItems";
@@ -28,6 +28,7 @@ import Main from "./components/Main/Main";
 import { useDispatch, useSelector } from "react-redux";
 import AllClients from "./components/AllClients/AllClients";
 import BlocktoShowElemensToDelete from "./components/ForAdminPage/BlockToShowElementsToDelete/BlockToShowElementsToDelete";
+import Fail from "./components/Fail/Fail";
 
 function App() {
   // const history = useHistory();
@@ -85,7 +86,13 @@ function App() {
             </Route>
             <Route exact path="/admin">
               <BlocktoShowElemensToDelete />
-              </Route>
+            </Route>
+            <Route exact path="/orders/new/:id">
+              <NewOrderForClient />
+            </Route>
+            <Route exact path="/failure">
+              <Fail />
+            </Route>
           </Switch>
         </Container>
       </React.Fragment>

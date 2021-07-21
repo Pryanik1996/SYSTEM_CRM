@@ -43,6 +43,7 @@ export default function CardsClients() {
         email={items.email}
         phone={items.phone}
         address={items.address}
+        orders={items.orders}
       />
     </Card>
   );

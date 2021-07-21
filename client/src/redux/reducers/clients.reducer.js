@@ -18,8 +18,8 @@ const clientReducer = (state = null, action) => {
 
     case CLIENTS_GET_SUCCESS: {
       const newValue = payload.sort(function (a, b) {
-        var nameA = a.surname.toLowerCase(),
-          nameB = b.surname.toLowerCase();
+        var nameA = a.surname?.toLowerCase(),
+          nameB = b.surname?.toLowerCase();
         if (nameA < nameB) return -1;
         // if (nameA > nameB) return 1;
         // return 0;

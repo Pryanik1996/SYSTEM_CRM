@@ -69,7 +69,12 @@ router.patch("/:id", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const client = await Client.findById(id).populate("comments");
+    const client = await Client.findById(id)
+      .populate("comments")
+      .populate("orders");
+    // console.log(client);
+    console.log("QQQQQQ=>>>", client);
+
     res.json(client);
   } catch (err) {
     console.log(err);

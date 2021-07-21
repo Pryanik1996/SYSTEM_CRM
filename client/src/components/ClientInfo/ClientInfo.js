@@ -11,6 +11,7 @@ import { getEditClient } from "../../redux/actions/currentClient.action";
 import { getDeleteClient } from "../../redux/actions/currentClient.action";
 import { useParams } from "react-router-dom";
 import CommentsClients from "../CommentsClients/CommentsClients";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,11 +40,14 @@ export default function ClientInfo({
   email,
   phone,
   address,
+  orders,
 }) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [modalActive, setModalActive] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
+  // const item = useSelector((state) => state.clients);
+  // const { clients } = item;
 
   const {
     register,
@@ -56,6 +60,8 @@ export default function ClientInfo({
 
   const user = useSelector((state) => state.user);
   const userEmael = user?.email;
+  const userId = user._id;
+  // console.log('121112121212', userId)
 
   const onSubmit = (data) => {
     console.log(data, "petr");
@@ -90,12 +96,19 @@ export default function ClientInfo({
               Адрес доставки: {address}
               <br />
               <br />
+              <p>
+                Заказы:{" "}
+                {orders.map((el) => (
+                  <Link to={`/orders/${el._id}`}>{el.number},&nbsp;</Link>
+                ))}{" "}
+              </p>
               <p>Оставить комментарий:</p>
               <CommentsClients />
             </Typography>
           </CardContent>
 
           <CardActions>
+            <Link to={`/orders/new/${id}`}>Создать заказ</Link>
             <Button onClick={() => setModalActive(true)} size="small">
               Редактировать
             </Button>

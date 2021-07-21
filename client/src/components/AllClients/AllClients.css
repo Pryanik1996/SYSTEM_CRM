@@ -2,26 +2,64 @@
   margin-top: 10px;
   display: flex;
   flex-wrap: wrap;
+  margin-left: 0;
+  padding-left: 0;
+  margin: 0 -10px;
+  justify-content: space-between;
+  margin-top: 20px;
   /* margin: 0 -15px; */
 }
-li {
-  width: 33.33333%;
-  /* margin: 0 15px; */
+.clientsList li {
+  width: 24%;
+  margin: 15px 0;
+  background-color: #dbdbdb;
+  /* border-radius: 10px; */
+  box-shadow: 5px 5px 15px 3px #273d87;
+  padding-bottom: 15px;
+  /* margin: 0 10px; */
 }
+.clientsList li:hover {
+  opacity: 0.6;
+}
+
 .clientsItem {
   padding: 0 15px;
-  border: 1px solid black;
-  text-decoration: none;
-  border-radius: 10px;
-  /* box-shadow: 5px 5px 15px 3px #273d87; */
+  /* border: 1px solid black; */
+  /* text-decoration: none; */
   color: black;
   font-size: 20px;
   font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
-ul {
-  margin-left: 0;
-  padding-left: 0;
-}
+
 a {
   text-decoration: none;
 }
+.image {
+  background-color: #dbdbdb;
+
+  padding-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+.clientsInfo {
+  color: black;
+}
+.search_input {
+  width: 30%;
+  border: 1px solid #bababa;
+  background-color: white;
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  padding-left: 40px;
+  height: 40px;
+}
+.search_input:focus {
+  border: 2px solid #333333;
+}
+.allClients {
+  margin-top: 30px;
+}
+

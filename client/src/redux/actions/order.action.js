@@ -22,8 +22,8 @@ export const getAllOrder = () => (dispatch) => {
   );
 };
 
-export const getOrder = (data, history) => async (dispatch) => {
-  const response = await fetch(`http://localhost:3001/orders/new`, {
+export const getOrder = (data, id, history) => async (dispatch) => {
+  const response = await fetch(`http://localhost:3001/orders/new/${id}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -41,6 +41,7 @@ export const getOrder = (data, history) => async (dispatch) => {
       teamConstr: data.teamConstr,
       status: data.status,
       commentsWhenCreate: data.commentsWhenCreate,
+      client: id
     }),
   });
   if (response.status === 200) {

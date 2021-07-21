@@ -35,3 +35,6 @@ code {
   justify-content: center;
   margin-top: 30px;
 }
+#root {
+  background-color: #0b1d26;
+}

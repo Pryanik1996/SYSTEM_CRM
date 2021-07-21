@@ -28,7 +28,7 @@ export default function Main() {
 
   const signinHandler = () => {
     window.open("http://localhost:3001/auth/signinwithgoogle");
-    // dispatch(getUserFromServer(history));
+    dispatch(getUserFromServer(history));
   };
 
   return (

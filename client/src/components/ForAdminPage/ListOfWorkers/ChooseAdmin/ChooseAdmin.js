@@ -93,7 +93,7 @@ export default function ChooseAdmin(props){
     e.preventDefault();
     const idcard = e.target.id;
 
-    const response = await fetch(`http://localhost:3001/admin/workers/${idcard}`, {
+    const response = await fetch(`http://localhost:3001/admin/workers/add/${idcard}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -109,15 +109,15 @@ export default function ChooseAdmin(props){
   }
   
 
-  return(
-    <CardContent>
-    <Typography  variant="body2" color="textSecondary" component="p">
-      {isAdmin ?  "Администратор" : "Пользователь"}
-      <FormControlLabel
-    control={<IOSSwitch  id={id}  onChange={ChangeAdmin} name="checkedB" />}
-    label="Назначить администратором"
-  />
-  </Typography>
-</CardContent>
-  )
+  // return(
+//     <CardContent>
+//     <Typography  variant="body2" color="textSecondary" component="p">
+//       {isAdmin ?  "Администратор" : "Пользователь"}
+//       <FormControlLabel
+//     control={<IOSSwitch  id={id}  onChange={ChangeAdmin} name="checkedB" />}
+//     label="Назначить администратором"
+//   />
+//   </Typography>
+// </CardContent>
+  // )
 }

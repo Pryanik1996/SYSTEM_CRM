@@ -15,7 +15,7 @@ export const changeAdmin = (workers) => ({
 });
 
 export const addWorkerEmail = (data, history) => async (dispatch) => {
-  const response = await fetch(`http://localhost:3001/admin/workers/new`, {
+  const response = await fetch(`http://localhost:3001/admin/workers/added/new`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -26,8 +26,7 @@ export const addWorkerEmail = (data, history) => async (dispatch) => {
     }),
   });
   if (response.status === 200) {
-    const res = await response.json();
-    console.log(res);
+    const res = await response.json()
     dispatch(addWorker(res));
   }
   // history.replaceState("/clients");

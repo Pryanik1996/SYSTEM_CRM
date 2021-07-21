@@ -16,8 +16,9 @@ const adminsItemsReducer = (state=[], action)=>{
       return state.filter((el) => el._id !== id)
     }
     case CHANGE_STATUS:{
-      const { id } = payload;
-      return state.filter((el) => el._id !== id)
+      const { items } = payload;
+      console.log(items);
+      return state.filter((el) => el._id !== items._id)
     }
     default: {
       return state;

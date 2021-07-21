@@ -29,58 +29,58 @@ import Switch from "@material-ui/core/Switch";
 import Grid from "@material-ui/core/Grid";
 import ChooseAdmin from "./ChooseAdmin/ChooseAdmin";
 
-// const IOSSwitch = withStyles((theme) => ({
-//   root: {
-//     width: 42,
-//     height: 26,
-//     padding: 0,
-//     margin: theme.spacing(1),
-//   },
-//   switchBase: {
-//     padding: 1,
-//     '&$checked': {
-//       transform: 'translateX(16px)',
-//       color: theme.palette.common.white,
-//       '& + $track': {
-//         backgroundColor: '#52d869',
-//         opacity: 1,
-//         border: 'none',
-//       },
-//     },
-//     '&$focusVisible $thumb': {
-//       color: '#52d869',
-//       border: '6px solid #fff',
-//     },
-//   },
-//   thumb: {
-//     width: 24,
-//     height: 24,
-//   },
-//   track: {
-//     borderRadius: 26 / 2,
-//     border: `1px solid ${theme.palette.grey[400]}`,
-//     backgroundColor: theme.palette.grey[50],
-//     opacity: 1,
-//     transition: theme.transitions.create(['background-color', 'border']),
-//   },
-//   checked: {},
-//   focusVisible: {},
-// }))(({ classes, ...props }) => {
-//   return (
-//     <Switch
-//       focusVisibleClassName={classes.focusVisible}
-//       disableRipple
-//       classes={{
-//         root: classes.root,
-//         switchBase: classes.switchBase,
-//         thumb: classes.thumb,
-//         track: classes.track,
-//         checked: classes.checked,
-//       }}
-//       {...props}
-//     />
-//   );
-// });
+const IOSSwitch = withStyles((theme) => ({
+  root: {
+    width: 42,
+    height: 26,
+    padding: 0,
+    margin: theme.spacing(1),
+  },
+  switchBase: {
+    padding: 1,
+    "&$checked": {
+      transform: "translateX(16px)",
+      color: theme.palette.common.white,
+      "& + $track": {
+        backgroundColor: "#52d869",
+        opacity: 1,
+        border: "none",
+      },
+    },
+    "&$focusVisible $thumb": {
+      color: "#52d869",
+      border: "6px solid #fff",
+    },
+  },
+  thumb: {
+    width: 24,
+    height: 24,
+  },
+  track: {
+    borderRadius: 26 / 2,
+    border: `1px solid ${theme.palette.grey[400]}`,
+    backgroundColor: theme.palette.grey[50],
+    opacity: 1,
+    transition: theme.transitions.create(["background-color", "border"]),
+  },
+  checked: {},
+  focusVisible: {},
+}))(({ classes, ...props }) => {
+  return (
+    <Switch
+      focusVisibleClassName={classes.focusVisible}
+      disableRipple
+      classes={{
+        root: classes.root,
+        switchBase: classes.switchBase,
+        thumb: classes.thumb,
+        track: classes.track,
+        checked: classes.checked,
+      }}
+      {...props}
+    />
+  );
+});
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -113,7 +113,7 @@ export default function ListOfWorkers() {
       credentials: "include",
     })
       .then((response) => response.json())
-      .then((data) => console.log('!!!!!88888=>', data));
+      .then((data) => dispatch(allworkers(data)));
   }, []);
   const classes = useStyles();
   const ChangeAdmin = async (e) => {
@@ -121,7 +121,7 @@ export default function ListOfWorkers() {
     const idcard = e.target.id;
 
     const response = await fetch(
-      `http://localhost:3001/admin/workers/${idcard}`,
+      `http://localhost:3001/admin/workers/add/${idcard}`,
       {
         method: "POST",
         headers: {
@@ -142,9 +142,9 @@ export default function ListOfWorkers() {
   return (
     <>
       <InputForNewWorker />
-      <Card className={classes.root}>
+      <div>
         {workers?.map((e) => (
-          <>
+          <Card style={{ margin: "15px" }} className={classes.root}>
             <CardHeader
               avatar={
                 <Avatar aria-label="recipe" className={classes.avatar}>
@@ -164,9 +164,12 @@ export default function ListOfWorkers() {
               image={e.picture}
               title="Paella dish"
             />
-            <ChooseAdmin isAdmin={e.isAdmin} id={e._id} />
+
             <CardContent>
               <Typography variant="body2" color="textSecondary" component="p">
+                {/* <Typography variant="body2" color="textSecondary" component="p"> */}
+
+                {/* </Typography> */}
                 <button
                   onClick={ChangeAdmin}
                   id={e._id}
@@ -175,6 +178,9 @@ export default function ListOfWorkers() {
                   Status:{e.isAdmin ? "Администратор" : "Пользователь"}
                 </button>
               </Typography>
+              {e.isAdmin
+                ? "Убрать статус администратора"
+                : "Назначить администратором"}
             </CardContent>
             <CardActions disableSpacing>
               <IconButton aria-label="add to favorites">
@@ -184,9 +190,9 @@ export default function ListOfWorkers() {
                 <ShareIcon />
               </IconButton>
             </CardActions>
-          </>
+          </Card>
         ))}
-      </Card>
+      </div>
     </>
   );
 }

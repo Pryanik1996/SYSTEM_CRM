@@ -12,9 +12,9 @@ const workersReducer = (state = [], action) => {
       return workers;
     }
     case CHANGE_ADMIN:{
-      let a = state.map((el) => el._id === payload._id ? {...el, isAdmin: !el.isAdmin}  : el)
+      let change = state.map((el) => el._id === payload._id ? {...el, isAdmin: !el.isAdmin}  : el)
       
-      return a
+      return change
     }
 
     default: {

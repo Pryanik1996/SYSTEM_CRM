@@ -91,6 +91,7 @@ export default function ClientAdd() {
         
       /> */}
       <AddressSuggestions
+        style={{ width: 200 }}
         className="address"
         token="43f3a1a6e2e0bd7b18d5f3d1d16a515b2055ee55"
         value={value}

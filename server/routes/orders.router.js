@@ -78,7 +78,7 @@ router.get("/all", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const currentOrder = await Order.findById(id).populate("comments");
+    const currentOrder = await Order.findById(id).populate("comments").populate('client');
     res.json(currentOrder);
   } catch (error) {
     return res.sendStatus(400);

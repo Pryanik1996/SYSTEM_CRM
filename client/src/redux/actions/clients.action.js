@@ -26,7 +26,7 @@ export const getClient = (data, history, value) => async (dispatch) => {
       patronymic: data.patronymic,
       email: data.email,
       phone: data.phone,
-      address: value.value,
+      address: value?.value,
     }),
   });
   if (response.status === 200) {

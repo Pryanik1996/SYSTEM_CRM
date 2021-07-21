@@ -155,14 +155,14 @@ export default function AllClients() {
   };
 
   return (
-    <div>
-      <h1>Все клиенты</h1>
+    <div className="allClients">
+      <h1>Наши клиенты</h1>
 
       <form onSubmit={() => clearInput()} className="search_form">
         <input
           onChange={(event) => setValue(event.target.value)}
           type="text"
-          placeholder="Поиск клиента..."
+          placeholder="Поиск..."
           className="search_input"
         />
       </form>
@@ -181,11 +181,20 @@ export default function AllClients() {
                 <li>
                   <Link key={cl._id} to={`/clients/${cl._id}`}>
                     <div className="clientsItem">
-                      {cl.surname}&nbsp;{cl.name}&nbsp;{cl.patronymic}
-                      <br />
-                      {cl.email}
-                      <br />
-                      {cl.phone}
+                      <div className="image">
+                        <img
+                          src="/profile.png"
+                          alt=""
+                          style={{ width: 200, height: 200 }}
+                        />
+                      </div>
+                      <div className="clientsInfo">
+                        {cl.surname}&nbsp;{cl.name}&nbsp;{cl.patronymic}
+                        <br />
+                        {cl.email}
+                        <br />
+                        {cl.phone}
+                      </div>
                     </div>
                   </Link>
                 </li>

@@ -105,7 +105,7 @@ export default function Order() {
   // console.log("0000=>>>", userName);
   return (
     <div className="orderInfo">
-      <h5>Подробнее о заказе № {currentOrder?.number}</h5>
+      <h5>Подробнее о заказе № {currentOrder?.number} для клиента {currentOrder?.client?.name} </h5>
       <div>
         Тип мебели: <b>{currentOrder?.typeFurn}</b>{" "}
       </div>

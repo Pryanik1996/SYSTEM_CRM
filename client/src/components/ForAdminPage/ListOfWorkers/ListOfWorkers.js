@@ -1,32 +1,104 @@
-import {CardHeader,Typography,IconButton,Avatar,Collapse,CardMedia,CardContent, CardActions} from '@material-ui/core';
-import React, { useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
-import Card from '@material-ui/core/Card';
-import { red } from '@material-ui/core/colors';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import InputForNewWorker from "../InputForNewWorker/InputForNewWorker"
+import {
+  CardHeader,
+  Typography,
+  IconButton,
+  Avatar,
+  Collapse,
+  CardMedia,
+  CardContent,
+  CardActions,
+} from "@material-ui/core";
+import React, { useEffect } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import clsx from "clsx";
+import Card from "@material-ui/core/Card";
+import { red } from "@material-ui/core/colors";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import ShareIcon from "@material-ui/icons/Share";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import InputForNewWorker from "../InputForNewWorker/InputForNewWorker";
+import { useDispatch, useSelector } from "react-redux";
+import { allworkers, changeAdmin } from "../../../redux/actions/workers.action";
+
+import { withStyles } from "@material-ui/core/styles";
+import { purple } from "@material-ui/core/colors";
+import FormGroup from "@material-ui/core/FormGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Switch from "@material-ui/core/Switch";
+import Grid from "@material-ui/core/Grid";
+import ChooseAdmin from "./ChooseAdmin/ChooseAdmin";
+
+// const IOSSwitch = withStyles((theme) => ({
+//   root: {
+//     width: 42,
+//     height: 26,
+//     padding: 0,
+//     margin: theme.spacing(1),
+//   },
+//   switchBase: {
+//     padding: 1,
+//     '&$checked': {
+//       transform: 'translateX(16px)',
+//       color: theme.palette.common.white,
+//       '& + $track': {
+//         backgroundColor: '#52d869',
+//         opacity: 1,
+//         border: 'none',
+//       },
+//     },
+//     '&$focusVisible $thumb': {
+//       color: '#52d869',
+//       border: '6px solid #fff',
+//     },
+//   },
+//   thumb: {
+//     width: 24,
+//     height: 24,
+//   },
+//   track: {
+//     borderRadius: 26 / 2,
+//     border: `1px solid ${theme.palette.grey[400]}`,
+//     backgroundColor: theme.palette.grey[50],
+//     opacity: 1,
+//     transition: theme.transitions.create(['background-color', 'border']),
+//   },
+//   checked: {},
+//   focusVisible: {},
+// }))(({ classes, ...props }) => {
+//   return (
+//     <Switch
+//       focusVisibleClassName={classes.focusVisible}
+//       disableRipple
+//       classes={{
+//         root: classes.root,
+//         switchBase: classes.switchBase,
+//         thumb: classes.thumb,
+//         track: classes.track,
+//         checked: classes.checked,
+//       }}
+//       {...props}
+//     />
+//   );
+// });
+
 const useStyles = makeStyles((theme) => ({
-  
   root: {
     maxWidth: 345,
   },
   media: {
     height: 0,
-    paddingTop: '56.25%', // 16:9
+    paddingTop: "56.25%", // 16:9
   },
   expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
+    transform: "rotate(0deg)",
+    marginLeft: "auto",
+    transition: theme.transitions.create("transform", {
       duration: theme.transitions.duration.shortest,
     }),
   },
   expandOpen: {
-    transform: 'rotate(180deg)',
+    transform: "rotate(180deg)",
   },
   avatar: {
     backgroundColor: red[500],
@@ -34,90 +106,87 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ListOfWorkers() {
-  useEffect(()=>{
-    fetch(`http://localhost:3001/admin/workers`)})
-    const classes = useStyles();
-    const [expanded, setExpanded] = React.useState(false);
-    
-    const handleExpandClick = () => {
-      setExpanded(!expanded);
-    };
-    
-    return (
-      <>
-    <InputForNewWorker/>
-    <Card className={classes.root}>
-      <CardHeader
-        avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            R
-          </Avatar>
-        }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
-      />
-      <CardMedia
-        className={classes.media}
-        image="/static/images/cards/paella.jpg"
-        title="Paella dish"
-      />
-      <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          This impressive paella is a perfect party dish and a fun meal to cook together with your
-          guests. Add 1 cup of frozen peas along with the mussels, if you like.
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </IconButton>
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>Method:</Typography>
-          <Typography paragraph>
-            Heat 1/2 cup of the broth in a pot until simmering, add saffron and set aside for 10
-            minutes.
-          </Typography>
-          <Typography paragraph>
-            Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over medium-high
-            heat. Add chicken, shrimp and chorizo, and cook, stirring occasionally until lightly
-            browned, 6 to 8 minutes. Transfer shrimp to a large plate and set aside, leaving chicken
-            and chorizo in the pan. Add pimentón, bay leaves, garlic, tomatoes, onion, salt and
-            pepper, and cook, stirring often until thickened and fragrant, about 10 minutes. Add
-            saffron broth and remaining 4 1/2 cups chicken broth; bring to a boil.
-          </Typography>
-          <Typography paragraph>
-            Add rice and stir very gently to distribute. Top with artichokes and peppers, and cook
-            without stirring, until most of the liquid is absorbed, 15 to 18 minutes. Reduce heat to
-            medium-low, add reserved shrimp and mussels, tucking them down into the rice, and cook
-            again without stirring, until mussels have opened and rice is just tender, 5 to 7
-            minutes more. (Discard any mussels that don’t open.)
-          </Typography>
-          <Typography>
-            Set aside off of the heat to let rest for 10 minutes, and then serve.
-          </Typography>
-        </CardContent>
-      </Collapse>
-    </Card>
+  const dispatch = useDispatch();
+  const { workers } = useSelector((state) => state);
+  useEffect(() => {
+    fetch("http://localhost:3001/admin/workers", {
+      credentials: "include",
+    })
+      .then((response) => response.json())
+      .then((data) => console.log('!!!!!88888=>', data));
+  }, []);
+  const classes = useStyles();
+  const ChangeAdmin = async (e) => {
+    e.preventDefault();
+    const idcard = e.target.id;
+
+    const response = await fetch(
+      `http://localhost:3001/admin/workers/${idcard}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          idcard,
+        }),
+        credentials: "include",
+      }
+    );
+    const result = await response.json();
+    console.log(result);
+    await dispatch(changeAdmin(result));
+  };
+
+  return (
+    <>
+      <InputForNewWorker />
+      <Card className={classes.root}>
+        {workers?.map((e) => (
+          <>
+            <CardHeader
+              avatar={
+                <Avatar aria-label="recipe" className={classes.avatar}>
+                  R
+                </Avatar>
+              }
+              action={
+                <IconButton aria-label="settings">
+                  <MoreVertIcon />
+                </IconButton>
+              }
+              title={e.name ? e.name : "Имя не указано"}
+              subheader={e.email}
+            />
+            <CardMedia
+              className={classes.media}
+              image={e.picture}
+              title="Paella dish"
+            />
+            <ChooseAdmin isAdmin={e.isAdmin} id={e._id} />
+            <CardContent>
+              <Typography variant="body2" color="textSecondary" component="p">
+                <button
+                  onClick={ChangeAdmin}
+                  id={e._id}
+                  className="btn btn-primary"
+                >
+                  Status:{e.isAdmin ? "Администратор" : "Пользователь"}
+                </button>
+              </Typography>
+            </CardContent>
+            <CardActions disableSpacing>
+              <IconButton aria-label="add to favorites">
+                <FavoriteIcon />
+              </IconButton>
+              <IconButton aria-label="share">
+                <ShareIcon />
+              </IconButton>
+            </CardActions>
+          </>
+        ))}
+      </Card>
     </>
   );
 }

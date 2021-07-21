@@ -27,6 +27,7 @@ router.post("/new", async (req, res) => {
         address,
         creator: id,
       });
+
       res.json(newClient);
     }
   } catch (err) {
@@ -46,22 +47,18 @@ router.get("/all", async (req, res) => {
 
 router.patch("/:id", async (req, res) => {
   const { id } = req.params;
-  const { name, surname, patronymic, email, phone, address } = req.body;
-  console.log(333, req.body);
-  try {
-    const data = await Client.findByIdAndUpdate(id, {
-      name,
-      surname,
-      patronymic,
-      email,
-      phone,
-      address,
-    });
+  // const { name, surname, patronymic, email, phone, address } = req.body;
+  if (req.body.name) {
+    const data = await Client.findByIdAndUpdate(id, req.body
+      // name,
+      // surname,
+      // patronymic,
+      // email,
+      // phone,
+      // address,
+    );
     const response = await Client.findById(id).populate("comments");
-    console.log("data", response);
-    res.json(response);
-  } catch (err) {
-    console.log(err);
+    res.json(response); 
   }
 });
 

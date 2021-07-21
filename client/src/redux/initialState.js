@@ -1,8 +1,15 @@
 const initialState = {
   workers: [],
   clients: [],
-  orders: [],
+  orders: {
+    loading: false,
+    error: null,
+    values: [],
+  },
   user: null,
+  currentOrder: null,
+  comments: [],
+  items: [],
   currentClient: {}
 };
 

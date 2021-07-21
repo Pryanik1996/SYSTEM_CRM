@@ -10,7 +10,8 @@ export const setAllClient = (clients) => ({
   payload: clients,
 });
 
-export const getClient = (data, history) => async (dispatch) => {
+export const getClient = (data, history, value) => async (dispatch) => {
+  // console.log('VALUE===>', value);
   const response = await fetch(`http://localhost:3001/clients/new`, {
     method: "POST",
     headers: {
@@ -23,7 +24,7 @@ export const getClient = (data, history) => async (dispatch) => {
       patronymic: data.patronymic,
       email: data.email,
       phone: data.phone,
-      address: data.address,
+      address: value.value,
     }),
   });
   if (response.status === 200) {
@@ -35,6 +36,7 @@ export const getClient = (data, history) => async (dispatch) => {
 };
 
 const getAllClientsStart = () => ({ type: CLIENTS_GET_START });
+
 const getAllClientsSuccess = (payload) => ({
   type: CLIENTS_GET_SUCCESS,
   payload,

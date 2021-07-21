@@ -1,5 +1,6 @@
 import ClientAdd from "./components/ClientAdd/ClientAdd";
 import OrderAdd from "./components/OrderAdd/OrderAdd";
+import AllOrders from "./components/AllOrders/AllOrders";
 import React from "react";
 import { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
@@ -8,7 +9,7 @@ import Container from "@material-ui/core/Container";
 import ListOfDEletedClients from "./components/ForAdminPage/ListOfDeletedClients/ListOfDeletedClients";
 import ListOfDEletedItems from "./components/ForAdminPage/ListOfDeletedItems/ListOfDeletedItems";
 import ListOfWorkers from "./components/ForAdminPage/ListOfWorkers/ListOfWorkers";
-import CardsClients from "./components/CardsClients/CardsClients"
+import CardsClients from "./components/CardsClients/CardsClients";
 import AllOrdersList from "./components/AllOrdersList/AllOrdersList";
 //yarn add @material-ui/x-grid
 // ClientAdd форма для добавления клиента
@@ -20,13 +21,13 @@ import AllOrdersList from "./components/AllOrdersList/AllOrdersList";
 import InputForNewWorker from "./components/ForAdminPage/InputForNewWorker/InputForNewWorker";
 
 import Header from "./components/Header/Header";
+import Order from "./components/Order/Order";
 import { checkAuth, getUserFromServer } from "./redux/actions/userAction";
 import SignOut from "./components/SignOut/SignOut";
 import Main from "./components/Main/Main";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Typography from "@material-ui/core/Typography";
 import { useDispatch, useSelector } from "react-redux";
 import AllClients from "./components/AllClients/AllClients";
+import BlocktoShowElemensToDelete from "./components/ForAdminPage/BlockToShowElementsToDelete/BlockToShowElementsToDelete";
 
 
 
@@ -37,19 +38,21 @@ function App() {
   // console.log("history===>", history);
 
   useEffect(() => {
+    console.log("useeffect");
     // dispatch(checkAuth());
     dispatch(getUserFromServer());
-  }, []);
+  }, [dispatch]);
 
   return (
+    <>
     <Router>
       {state.user && <Header />}
       <React.Fragment>
-        <Container maxWidth="lg">
           <Switch>
             <Route exact path="/">
               <Main />
             </Route>
+        <Container maxWidth="lg">
             <Route exact path="/auth/signout">
               <SignOut />
             </Route>
@@ -59,7 +62,7 @@ function App() {
             <Route exact path="/admin/clients">
               <ListOfDEletedClients />
             </Route>
-            <Route exact path="/admin/items">
+            <Route exact path="/admin/orders">
               <ListOfDEletedItems />
             </Route>
             <Route exact path="/clients/new">
@@ -71,14 +74,26 @@ function App() {
             <Route exact path="/clients">
               <AllClients />
             </Route>
-            <Route exact path="/clients/:id">
-            <CardsClients />
+            <Route exact path="/clients/card">
+              <CardsClients />
             </Route>
-            
-          </Switch>
+            <Route exact path="/orders/:id">
+              <Order />
+            </Route>
+            <Route exact path="/orders">
+              <AllOrders />
+            </Route>
+            <Route exact path="/clients/:id">
+              <CardsClients />
+            </Route>
         </Container>
+            <Route exact path="/admin">
+              <BlocktoShowElemensToDelete />
+              </Route>
+          </Switch>
       </React.Fragment>
     </Router>
+    </>
   );
 }
 

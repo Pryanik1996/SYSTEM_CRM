@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
+import "./Header.css";
+
 import {
   AppBar,
   Avatar,
@@ -9,9 +11,14 @@ import {
   Typography,
   Box,
   Container,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Select,
 } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import LongMenu from "./AdminsHeader/AdminsHeader";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -50,13 +57,15 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     width: "100%",
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.background.default,
+
   },
   large: {
     width: theme.spacing(8),
     height: theme.spacing(8),
   },
 }));
+
 
 export default function ScrollableTabsButtonAuto() {
   const classes = useStyles();
@@ -71,9 +80,8 @@ export default function ScrollableTabsButtonAuto() {
 
   return (
     <div className={classes.root}>
-      
-        <AppBar position="static" color="default">
-        <Container maxWidth="lg">
+      <AppBar position="static" color="transparent" >
+        <Container maxWidth="lg" >
           <Tabs
             value={value}
             onChange={handleChange}
@@ -86,7 +94,7 @@ export default function ScrollableTabsButtonAuto() {
             <Tab
               label="на главную"
               component={Link}
-              to="/clients"
+              to="/"
               {...a11yProps(0)}
             />
             <Tab
@@ -101,6 +109,7 @@ export default function ScrollableTabsButtonAuto() {
               to="/orders"
               {...a11yProps(1)}
             />
+
             <Tab
               label="добавить клиента"
               component={Link}
@@ -111,23 +120,53 @@ export default function ScrollableTabsButtonAuto() {
               label="создать заказ"
               component={Link}
               to="/orders/new"
+              {...a11yProps(2)}
+            />
+            {/* <Tab
+              label="создать заказ"
+              component={Link}
+              to="/orders/new"
               {...a11yProps(3)}
+              />
+              <Tab
+              label="удаленные клиенты"
+              component={Link}
+              to="/admin/clients"
+              {...a11yProps(4)}
+            /> */}
+            {/* <Tab
+              label="удаленные заказы"
+              component={Link}
+              to="/admin/items"
+              {...a11yProps(5)}
+            /> */}
+            <Tab
+              label="работники"
+              component={Link}
+              to="/admin/workers"
+              {...a11yProps(6)}
             />
             {userName && (
               <div className="userInfo">
-                Вы авторизованы как <b>&nbsp;{userName}</b>{" "}
-                <Avatar alt={userName} src={userPicture} className={classes.large} />
-                <Tab
-                  label="выйти"
-                  component={Link}
-                  to="/auth/signout"
-                  {...a11yProps(3)}
+                <b>{userName}&nbsp;</b>{" "}
+                <Avatar
+                  alt={userName}
+                  src={userPicture}
+                  className={classes.large}
                 />
               </div>
             )}
+            <LongMenu />
+            <Tab
+              label="выйти"
+              component={Link}
+              to="/auth/signout"
+              {...a11yProps(3)}
+            />
           </Tabs>
-      </Container>
-        </AppBar>
+        </Container>
+      </AppBar>
     </div>
+
   );
 }

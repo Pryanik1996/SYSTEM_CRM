@@ -6,9 +6,13 @@ export const getUserFromServer = (history) => async (dispatch) => {
     headers: { "Access-Control-Allow-Origin": "*" },
   });
   if (response.status === 200) {
-    const currentUser = await response.json();
-    console.log(currentUser);
-    dispatch(setUser(currentUser));
+    try {
+      const currentUser = await response.json();
+      dispatch(setUser(currentUser));
+    } catch (e) {
+      // console.log("else.->>>>>>>>>>>>>>", e);
+      await window.open(`http://localhost:3001/auth/signinwithgoogle`);
+    }
   }
 };
 
@@ -22,7 +26,7 @@ export const signOut = () => async (dispatch) => {
     credentials: "include",
     headers: { "Access-Control-Allow-Origin": "*" },
   });
-  console.log(response);
+  // console.log(response);
   if (response.status === 200) {
     dispatch(deleteUser());
   }

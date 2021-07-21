@@ -58,9 +58,7 @@ export default function ClientInfo({
   const userEmael = user?.email;
 
   const onSubmit = (data) => {
-    console.log(data, "petr");
     dispatch(getEditClient(data, id));
-    reset();
   };
 
   const deleteHandler = () => {

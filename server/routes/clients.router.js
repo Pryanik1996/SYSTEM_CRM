@@ -73,7 +73,7 @@ router.get("/:id", async (req, res) => {
       .populate("comments")
       .populate("orders");
     // console.log(client);
-    console.log("QQQQQQ=>>>", client);
+    // console.log("QQQQQQ=>>>", client);
 
     res.json(client);
   } catch (err) {

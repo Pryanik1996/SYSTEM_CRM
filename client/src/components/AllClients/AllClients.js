@@ -157,7 +157,6 @@ export default function AllClients() {
   return (
     <div className="allClients">
       <h1>Наши клиенты</h1>
-
       <form onSubmit={() => clearInput()} className="search_form">
         <input
           onChange={(event) => setValue(event.target.value)}

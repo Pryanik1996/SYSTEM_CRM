@@ -60,7 +60,7 @@ export default function ClientInfo({
 
   const user = useSelector((state) => state.user);
   const userEmael = user?.email;
-  const userId = user._id;
+  const userId = user?._id;
   // console.log('121112121212', userId)
 
   const onSubmit = (data) => {

@@ -5,8 +5,6 @@ const Clients = require("../db/models/clientModel");
 const Orders = require("../db/models/orderModel");
 var nodemailer = require("nodemailer");
 
-
-
 router.post("/workers/added/new", async (req, res) => {
   let admin = await User.find({ isAdmin: true });
   console.log(admin);
@@ -41,7 +39,7 @@ router.post("/workers/added/new", async (req, res) => {
           // plaintext body
           text: "Wellcome to CRM!",
 
-          html:`
+          html: `
   
           <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
@@ -371,28 +369,28 @@ a[x-apple-data-detectors='true'] {
 </body>
 
 </html>
-  `
-};
+  `,
+        };
 
- let info = await transporter.sendMail(message);
- console.log("Message sent successfully!")
- transporter.close();
-}
+        let info = await transporter.sendMail(message);
+        console.log("Message sent successfully!");
+        transporter.close();
+      }
 
- main().catch((err) => {
- console.error(err.message);
- process.exit(1);
-  });
- return res.json(newUser);
-}
-} catch (err) {
- return res.sendStatus(403);
-}
+      main().catch((err) => {
+        console.error(err.message);
+        process.exit(1);
+      });
+      return res.json(newUser);
+    }
+  } catch (err) {
+    return res.sendStatus(403);
+  }
 });
 router.get("/workers", async (req, res) => {
   const workers = await User.find();
-  console.log("WORKERS==>", workers);
-  return res.json({ array: workers });
+  // console.log("WORKERS==>", workers);
+  return res.json(workers);
 });
 
 router.post("/workers/add/:id", async (req, res) => {
@@ -432,7 +430,7 @@ router.post("/clients/new/:id", async (req, res) => {
 
 router.get("/clients", async (req, res) => {
   const allDeletedClients = await Clients.find({ isDelete: true });
-  console.log('allDeletedClients===>>>>', allDeletedClients);
+  console.log("allDeletedClients===>>>>", allDeletedClients);
   return res.json(allDeletedClients);
 });
 router.delete("/clients/:id", async (req, res) => {
@@ -456,16 +454,15 @@ router.post("/orders/new/:id", async (req, res) => {
         isDelete: !client.isDelete,
       },
       { new: true }
-      );
-      console.log(thisClient);
-      res.json(thisClient);
-    } catch (err) {
-      return res.sendStatus(403);
-    }
-  });
-  router.delete("/orders/:id", async (req, res) => {
-    await Orders.findByIdAndDelete(req.params.id);
-    res.sendStatus(200);
-  });
-  module.exports = router;
-  
+    );
+    console.log(thisClient);
+    res.json(thisClient);
+  } catch (err) {
+    return res.sendStatus(403);
+  }
+});
+router.delete("/orders/:id", async (req, res) => {
+  await Orders.findByIdAndDelete(req.params.id);
+  res.sendStatus(200);
+});
+module.exports = router;

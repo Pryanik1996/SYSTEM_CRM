@@ -4,6 +4,7 @@ import { getOrders } from "../../redux/actions/order.action";
 import { Link } from "react-router-dom";
 import { ORDER_ADD } from "../../redux/types";
 import { useState } from "react";
+import './AllOrders.css'
 
 export default function AllOrders() {
   const [arr, setArr] = useState([]);
@@ -186,9 +187,8 @@ export default function AllOrders() {
   };
 
   return (
-    <div>
+    <div className="allOrders">
       <h1>Все заказы</h1>
-
       <form onSubmit={() => clearInput()} className="search_form">
         <input
           onChange={(event) => setValue(event.target.value)}
@@ -207,10 +207,10 @@ export default function AllOrders() {
           {arr?.length === 0 ? (
             <p>Заказов нет</p>
           ) : (
-            <ul>
+            <ul className="ordersList">
               {filtredOrders?.map((or) => (
                 <Link to={`/orders/${or._id}`}>
-                  <div>
+                  <div className="orderItem">
                     <h7 key={or._id}>
                       Номер:{or.number} <br />
                       Клиент:{or.client?.surname}&nbsp;{or.client?.name}&nbsp;

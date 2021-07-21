@@ -4,14 +4,14 @@
   flex-wrap: wrap;
   margin-left: 0;
   padding-left: 0;
-  margin: 0 -10px;
+  /* margin: 0 -10px; */
   justify-content: space-between;
   margin-top: 20px;
   /* margin: 0 -15px; */
 }
 .clientsList li {
   width: 24%;
-  margin: 15px 0;
+  /* margin: 15px 0; */
   background-color: #dbdbdb;
   /* border-radius: 10px; */
   box-shadow: 5px 5px 15px 3px #273d87;
@@ -62,4 +62,6 @@ a {
 .allClients {
   margin-top: 30px;
 }
-
+h1 {
+  color: white;
+}

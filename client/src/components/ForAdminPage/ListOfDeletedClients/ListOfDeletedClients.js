@@ -44,10 +44,10 @@ export default function ListOfDEletedClients() {
   const [expanded, setExpanded] = React.useState(false);
   const items = useSelector((state) => state.items);
   const elementEdit = (id) => () => {
-    dispatch(editThisItem('http://localhost:3001/admin/clients/new',id));
+    dispatch(editThisItem("http://localhost:3001/admin/clients/new", id));
   };
   const cardDelete = (id) => () => {
-    dispatch(deleteThisItem("http://localhost:3001/admin/clients",id));
+    dispatch(deleteThisItem("http://localhost:3001/admin/clients", id));
   };
   const handleChange = (panel) => (event, isExpanded) => {
     if (event.target?.id !== panel) {

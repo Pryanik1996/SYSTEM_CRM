@@ -432,6 +432,7 @@ router.post("/clients/new/:id", async (req, res) => {
 
 router.get("/clients", async (req, res) => {
   const allDeletedClients = await Clients.find({ isDelete: true });
+  console.log('allDeletedClients===>>>>', allDeletedClients);
   return res.json(allDeletedClients);
 });
 router.delete("/clients/:id", async (req, res) => {

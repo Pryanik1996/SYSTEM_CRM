@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function OrderAdd() {
+export default function OrderAdd({ client, id }) {
   const classes = useStyles();
   let history = useHistory();
   const dispatch = useDispatch();
@@ -42,7 +42,7 @@ export default function OrderAdd() {
   } = useForm({ mode: "onChange" });
 
   const onSubmit = (data) => {
-    dispatch(getOrder(data, history));
+    dispatch(getOrder(data, id, history));
     reset();
   };
 
@@ -54,7 +54,14 @@ export default function OrderAdd() {
       autoComplete="off"
     >
       <br />
-      <h1>Добавить заказ</h1>
+      <h1>
+        Новый заказ{" "}
+        {client && (
+          <span>
+            для клиента {client.surname} {client.name} {client.patronymic}
+          </span>
+        )}{" "}
+      </h1>
       <br />
       <hr />
       {errors.name && <p>Обязательное поле, не более 15 символов</p>}

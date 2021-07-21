@@ -2,6 +2,7 @@ const { Router } = require("express");
 const router = Router();
 const Order = require("../db/models/orderModel");
 const Comment = require("../db/models/commentModel");
+const Client = require("../db/models/clientModel");
 
 router.get("/new", (req, res) => {
   Order.find()
@@ -9,7 +10,7 @@ router.get("/new", (req, res) => {
     .catch((err) => res.sendStatus(404));
 });
 
-router.post("/new", async (req, res) => {
+router.post("/new/:id", async (req, res) => {
   const {
     number,
     typeFurn,
@@ -22,9 +23,10 @@ router.post("/new", async (req, res) => {
     teamConstr,
     status,
     commentsWhenCreate,
+    client,
   } = req.body;
-  const id = req.session.passport.user._id;
-  console.log("1==>", req.body);
+  const userId = req.session.passport.user._id;
+  // console.log("1==>", req.body);
   try {
     if (number) {
       const newOrder = await Order.create({
@@ -39,9 +41,19 @@ router.post("/new", async (req, res) => {
         teamConstr,
         status,
         commentsWhenCreate,
-        creator: id,
+        creator: userId,
+        client,
       });
-      res.json(newOrder);
+      const updClient = await Client.findByIdAndUpdate(
+        req.body.client,
+        {
+          $push: { orders: newOrder?._id },
+        },
+        { new: true }
+      );
+      console.log("newOrder==>", newOrder);
+      console.log("updClient==>", updClient);
+      res.json({ newOrder });
     }
   } catch (err) {
     return res.sendStatus(403);
@@ -52,7 +64,11 @@ router.post("/new", async (req, res) => {
 
 router.get("/all", async (req, res) => {
   try {
-    const allOrders = await Order.find().populate("creator").sort({ _id: -1 });
+    const allOrders = await Order.find()
+      .populate("creator")
+      .populate("client")
+      .sort({ _id: -1 });
+    // console.log("allOrders---->", allOrders);
     res.json(allOrders);
   } catch (err) {
     res.sendStatus(400);

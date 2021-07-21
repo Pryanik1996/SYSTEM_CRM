@@ -40,6 +40,7 @@ export default function ClientInfo({
   email,
   phone,
   address,
+  orders
 }) {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -73,7 +74,7 @@ export default function ClientInfo({
   return (
     <>
       <CardContent>
-        <h5>Hello</h5>
+        {/* <h5>Hello</h5> */}
         <Typography
           className={classes.title}
           color="textSecondary"
@@ -91,6 +92,7 @@ export default function ClientInfo({
           {address}
           <br />
           <br />
+          <p>Заказы: { orders.map((el) => <Link to={`/orders/${el._id}`}>{el.number},&nbsp;</Link> )} </p>
           <p>Оставить комментарий:</p>
           <CommentsClients />
         </Typography>

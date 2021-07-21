@@ -181,8 +181,11 @@ export default function AllClients() {
                 <li>
                   <Link key={cl._id} to={`/clients/${cl._id}`}>
                     <div className="clientsItem">
-                      {cl.surname}&nbsp;{cl.name}&nbsp;{cl.patronymic}&nbsp;
-                      {cl.email} {cl.phone}
+                      {cl.surname}&nbsp;{cl.name}&nbsp;{cl.patronymic}
+                      <br />
+                      {cl.email}
+                      <br />
+                      {cl.phone}
                     </div>
                   </Link>
                 </li>

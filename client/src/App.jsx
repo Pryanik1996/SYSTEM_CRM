@@ -28,6 +28,7 @@ import Main from "./components/Main/Main";
 import { useDispatch, useSelector } from "react-redux";
 import AllClients from "./components/AllClients/AllClients";
 import BlocktoShowElemensToDelete from "./components/ForAdminPage/BlockToShowElementsToDelete/BlockToShowElementsToDelete";
+import Fail from "./components/Fail/Fail";
 
 function App() {
   // const history = useHistory();
@@ -88,6 +89,9 @@ function App() {
             </Route>
             <Route exact path="/orders/new/:id">
               <NewOrderForClient />
+            </Route>
+            <Route exact path="/failure">
+              <Fail />
             </Route>
           </Switch>
         </Container>

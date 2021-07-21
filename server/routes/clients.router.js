@@ -62,14 +62,18 @@ router.patch("/:id", async (req, res) => {
     address,
   });
   const response = await Client.find({ _id: id });
-  await res.json(response);
+  res.json(response);
 });
 
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const client = await Client.find({ _id: id }).populate("comments");
+    const client = await Client.find({ _id: id })
+      .populate("comments")
+      .populate("orders");
     // console.log(client);
+    console.log("QQQQQQ=>>>", client);
+
     res.json(client);
   } catch (err) {
     console.log(err);

@@ -105,7 +105,7 @@ export default function AllOrders() {
       Я: "Ya",
     };
 
-    for (var i = 0; i < word.length; ++i) {
+    for (var i = 0; i < word?.length; ++i) {
       if (converter[word[i]] == undefined) {
         answer += word[i];
       } else {
@@ -126,11 +126,23 @@ export default function AllOrders() {
       }
       if (item.number.toLowerCase().includes(value.toLowerCase().trim()))
         return true;
-      if (item.client.toLowerCase().includes(value.toLowerCase().trim()))
+      if (item.client?.name?.toLowerCase().includes(value.toLowerCase().trim()))
+        return true;
+      if (
+        item.client?.surname?.toLowerCase().includes(value.toLowerCase().trim())
+      )
+        return true;
+      if (
+        item.client?.patronymic
+          ?.toLowerCase()
+          .includes(value.toLowerCase().trim())
+      )
         return true;
       if (item.status.toLowerCase().includes(value.toLowerCase().trim()))
         return true;
-      if (item?.creator?.name.toLowerCase().includes(value.toLowerCase().trim()))
+      if (
+        item?.creator?.name?.toLowerCase().includes(value.toLowerCase().trim())
+      )
         return true;
 
       if (
@@ -138,7 +150,21 @@ export default function AllOrders() {
       )
         return true;
       if (
-        translit(item.client.toLowerCase()).includes(value.toLowerCase().trim())
+        translit(item.client?.name?.toLowerCase()).includes(
+          value.toLowerCase().trim()
+        )
+      )
+        return true;
+      if (
+        translit(item.client?.surname?.toLowerCase()).includes(
+          value.toLowerCase().trim()
+        )
+      )
+        return true;
+      if (
+        translit(item.client?.patronymic?.toLowerCase()).includes(
+          value.toLowerCase().trim()
+        )
       )
         return true;
       if (
@@ -186,7 +212,13 @@ export default function AllOrders() {
                 <Link to={`/orders/${or._id}`}>
                   <div>
                     <h7 key={or._id}>
-                      {or.number} {or.client} {or.status} {or.creator?.name}
+                      Номер:{or.number} <br />
+                      Клиент:{or.client?.surname}&nbsp;{or.client?.name}&nbsp;
+                      {or.client?.patronymic} <br />
+                      Статус: {or.status}
+                      <br />
+                      Ответственный сотрудник: {or.creator?.name}
+                      <hr />
                     </h7>
                   </div>
                 </Link>

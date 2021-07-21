@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 export default function NewOrderForClient() {
-  const clients = useSelector((state) => state.clients);
+  const client = useSelector((state) => state.clients?.clients[0]);
+
   const { id } = useParams();
-  console.log("CLIENTS=>", clients);
-  return <OrderAdd />;
+
+  return <OrderAdd client={client} id={id} />;
 }

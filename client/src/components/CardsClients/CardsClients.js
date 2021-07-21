@@ -46,6 +46,7 @@ export default function CardsClients() {
             email={el.email}
             phone={el.phone}
             address={el.address}
+            orders={el.orders}
           />
         ))
       ) : (

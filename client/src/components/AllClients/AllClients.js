@@ -156,8 +156,6 @@ export default function AllClients() {
 
   return (
     <div className="allClients">
-
-
     <div>
       <h1>Все клиенты</h1>
       <form onSubmit={() => clearInput()} className="search_form">
@@ -168,7 +166,6 @@ export default function AllClients() {
           className="search_input"
         />
       </form>
-
       {loading ? (
         <p>Загрузка...</p>
       ) : error ? (

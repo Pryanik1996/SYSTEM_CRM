@@ -168,5 +168,5 @@ export default function ScrollableTabsButtonAuto() {
       </AppBar>
     </div>
 
-  );
+  )
 }

@@ -1,6 +1,6 @@
 .main {
   margin: 0;
-  font-family: "Gilroy";
+  font-family: "Gilroy" serif;
   background-color: #0b1d26;
   background-image: url("../img/pic/Большой-диван-в-интерьере-39-1024x493.jpeg");
   background-size: 100% auto;
@@ -58,7 +58,7 @@
   justify-content: center;
   align-items: center;
   width: 50%;
-  height: 50%;
+  max-height: 300px;
   background-image: radial-gradient(
     ellipse 50% 35% at 50% 50%,
     #ffffdf,
@@ -253,6 +253,7 @@
   max-width: 980px;
   padding-left: 15px;
   padding-right: 15px;
+  transition: transform 0.5s cubic-bezier(0.180, -0.315, 0.180, 1.650);
 }
 
 .hero-title {
@@ -282,4 +283,69 @@
   right: 0;
   top: 50%;
   background-image: url("../img/pic/arrow_downward_24px.svg");
+}
+
+.hero-scroll:hover {
+  color: #12232b;
+}
+
+.googleBut {
+  box-shadow: whitesmoke;
+}
+
+.conteiner {
+	max-width: 1700px;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 15px;
+	padding-right: 15px;
+	
+}
+
+.article {
+  display: flex;
+  justify-content: space-between;
+}
+
+.article-text {
+  /* padding-left: 150px; */
+  color:whitesmoke;
+}
+
+.article-subtitle {
+  margin-bottom: 32px;
+  position: relative;
+  padding-left: 104px;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 1.222;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: #ffd800;
+
+}
+
+.article-title {
+  font-family: 'Gilroy', serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 64px;
+  line-height: 1.2;
+  color: whitesmoke;
+
+}
+
+.intro {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.art-img {
+  background-image: url("../img/icons/3344949.png");
+  background-repeat: no-repeat;
+  height: 300px;
+  width: 300px;
+  background-size: 100% auto;
+
 }

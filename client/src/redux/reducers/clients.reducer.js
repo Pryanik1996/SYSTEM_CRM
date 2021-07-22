@@ -7,6 +7,7 @@ import {
 
 const clientReducer = (state = null, action) => {
   const { type, payload } = action;
+  console.log("ClientsReducer");
   switch (type) {
     case CLIENT_ADD_ALL: {
       return { ...state, clients: payload };

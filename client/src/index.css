@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #0B1D26;
 }
 
 code {
@@ -26,7 +27,6 @@ code {
   padding-top: 100px;
 } */
 .footer {
-  height: 2000px;
   background-color: #0B1D26;
 
 }

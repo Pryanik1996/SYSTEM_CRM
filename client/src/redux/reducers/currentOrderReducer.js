@@ -24,7 +24,8 @@ const currentOrderReducer = (state = null, action) => {
       return payload;
     }
     case ORDER_EDIT: {
-      return payload;
+      const qwe = { ...payload, comments: state.comments };
+      return qwe;
     }
     default: {
       return state;

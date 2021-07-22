@@ -16,12 +16,12 @@ export default function Fail() {
     // dispatch(getUserFromServer(history));
   };
   return (
-    <>
-      <h5>
+    <div className="fail" style={{ display: "flex", flexDirection: 'column', alignItems: "center", marginTop: '200px' }}>
+      <h4 style={{ color: "white", marginBottom: '30px' }}>
         Возможно, у Вас нет прав доступа :( <br></br> Обратитесь к
         администратору
-      </h5>
+      </h4>
       <GoogleButton onClick={() => signinHandler()} />
-    </>
+    </div>
   );
 }

@@ -6,6 +6,7 @@ export const ORDER_ADD = "ORDER_ADD";
 export const ORDER_ADD_ALL = "ORDER_ADD_ALL";
 export const ORDER_ONE = "ORDER_ONE";
 export const ORDER_DELETE = "ORDER_DELETE";
+export const ORDER_EDIT = "ORDER_EDIT";
 
 export const CLIENT_EDIT = "CLIENT_EDIT";
 
@@ -39,5 +40,5 @@ export const LIST_OF_DELETED_ITEMS = "LIST_OF_DELETED_ITEMS";
 export const DELETE_ITEM = "DELETE_ITEM";
 export const CHANGE_STATUS = "CHANGE_STATUS";
 
-export const CHANGESTARPLUS = "CHANGESTARPLUS"
-export const CHANGESTARMINUS = "CHANGESTARMINUS"
+export const CHANGESTARPLUS = "CHANGESTARPLUS";
+export const CHANGESTARMINUS = "CHANGESTARMINUS";

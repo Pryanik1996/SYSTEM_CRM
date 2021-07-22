@@ -74,50 +74,45 @@ export default function ClientInfo({
 
   return (
     <>
-      {name ? (
-        <>
-          <CardContent>
-            <Typography
-              className={classes.title}
-              color="textSecondary"
-              gutterBottom
-            >
-              ФИО: {name} {surname} {patronymic}
-            </Typography>
-            <Typography variant="h5" component="h2">
-              email: {email}
-            </Typography>
-            <Typography className={classes.pos} color="textSecondary">
-              Номер телефона: {phone}
-            </Typography>
-            <Typography variant="body2" component="p">
-              Адрес доставки: {address}
-              <br />
-              <br />
-              <p>
-                Заказы:{" "}
-                {orders.map((el) => (
-                  <Link to={`/orders/${el._id}`}>{el.number},&nbsp;</Link>
-                ))}{" "}
-              </p>
-              <p>Оставить комментарий:</p>
-              <CommentsClients />
-            </Typography>
-          </CardContent>
+      <CardContent>
+        <Typography
+          className={classes.title}
+          color="textSecondary"
+          gutterBottom
+        >
+          ФИО: {name} {surname} {patronymic}
+        </Typography>
+        <Typography variant="h5" component="h2">
+          email: {email}
+        </Typography>
+        <Typography className={classes.pos} color="textSecondary">
+          Номер телефона: {phone}
+        </Typography>
+        <Typography variant="body2" component="p">
+          Адрес доставки: {address}
+          <br />
+          <br />
+          <p>
+            Заказы:{" "}
+            {orders?.map((el) => (
+              <Link to={`/orders/${el._id}`}>{el.number},&nbsp;</Link>
+            ))}{" "}
+          </p>
+          <p>Оставить комментарий:</p>
+          <CommentsClients />
+        </Typography>
+      </CardContent>
 
-          <CardActions>
-            <Link to={`/orders/new/${id}`}>Создать заказ</Link>
-            <Button onClick={() => setModalActive(true)} size="small">
-              Редактировать
-            </Button>
-            <Button onClick={() => setModalDelete(true)} size="small">
-              Удалить
-            </Button>
-          </CardActions>
-        </>
-      ) : (
-        <p>Карточка удалена</p>
-      )}
+      <CardActions>
+        <Link to={`/orders/new/${id}`}>Создать заказ</Link>
+        <Button onClick={() => setModalActive(true)} size="small">
+          Редактировать
+        </Button>
+        <Button onClick={() => setModalDelete(true)} size="small">
+          Удалить
+        </Button>
+      </CardActions>
+
       <Modal active={modalActive} setActive={setModalActive}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="card">

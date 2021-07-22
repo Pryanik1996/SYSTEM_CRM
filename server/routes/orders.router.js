@@ -3,8 +3,8 @@ const router = Router();
 const Order = require("../db/models/orderModel");
 const Comment = require("../db/models/commentModel");
 const Client = require("../db/models/clientModel");
-const config = require('./config/config.json');
-let http = require('request')
+const config = require("./config/config.json");
+let http = require("request");
 
 router.get("/new", (req, res) => {
   Order.find()
@@ -56,30 +56,25 @@ router.post("/new/:id", async (req, res) => {
       console.log("newOrder==>", newOrder);
       console.log("updClient==>", updClient);
 
-
-
-      
-let fields = ["<b>Новый заказ</b>: " +  newOrder?.number,
-"<b>Тип мебели</b>: " +  newOrder?.typeFurn,
-"<b>Дата доставки</b>: " +  newOrder?.dateDeliv,
-"<b>Дата сборки</b>: " +  newOrder?.dateConstr,
-"<b>Команда сборки</b>: " +  newOrder?.teamConstr,
-];
-let msg = "";
-fields.forEach((field) => {
-  msg += field + "\n";
-});
-msg = encodeURI(msg);
-http.post(
-  `https://api.telegram.org/bot${config.telegram.token}/sendMessage?chat_id=${config.telegram.chat}&parse_mode=html&text=${msg}`,
-  function (error) {
-    console.log("error:", error);
-    console.log("statusCode:");
-  }
-  );
-  
-
-
+      let fields = [
+        "<b>Новый заказ</b>: " + newOrder?.number,
+        "<b>Тип мебели</b>: " + newOrder?.typeFurn,
+        "<b>Дата доставки</b>: " + newOrder?.dateDeliv,
+        "<b>Дата сборки</b>: " + newOrder?.dateConstr,
+        "<b>Команда сборки</b>: " + newOrder?.teamConstr,
+      ];
+      let msg = "";
+      fields.forEach((field) => {
+        msg += field + "\n";
+      });
+      msg = encodeURI(msg);
+      http.post(
+        `https://api.telegram.org/bot${config.telegram.token}/sendMessage?chat_id=${config.telegram.chat}&parse_mode=html&text=${msg}`,
+        function (error) {
+          console.log("error:", error);
+          console.log("statusCode:");
+        }
+      );
 
       res.json({ newOrder });
     }
@@ -180,6 +175,20 @@ router.delete("/:id/comments", async (req, res) => {
   // console.log('====>currentOrder===>', currentOrder);
   res.json(currentOrder);
   // console.log("commentId--->", commentId);
+});
+
+router.patch("/edit/:id", async (req, res) => {
+  const { id } = req.params;
+  console.log("11111=>>>>>", id, req.body.order);
+  try {
+    const updOrder = await Order.findByIdAndUpdate(id, req.body.order, {
+      new: true,
+    });
+
+    res.json(updOrder);
+  } catch (error) {
+    return res.sendStatus(400);
+  }
 });
 
 module.exports = router;

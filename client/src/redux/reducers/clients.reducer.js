@@ -38,33 +38,33 @@ const clientReducer = (state = null, action) => {
       return { ...state, error: payload, loading: false };
     }
     case CLIENT_EDIT: {
-      console.log("aaaaaaaaa", state);
+      // console.log("aaaaaaaaa", state);
       return { ...state, clients: payload };
     }
     case CLIENT_DELETE: {
       return { ...state, clients: payload };
     }
     case COMMENTS_ADD: {
-      console.log(111, state);
-      console.log(222, payload);
+      // console.log(111, state);
+      // console.log(222, payload);
       return { ...state, comments: payload.comments };
     }
 
     case CHANGESTARMINUS: {
-      console.log("GGGGGG", payload);
+      // console.log("GGGGGG", payload);
       let change = state.values.map((el) =>
         el._id === payload._id ? payload : el
       );
-      console.log("XXXXX", change);
+      // console.log("XXXXX", change);
       return { values: change, loading: false, error: null };
     }
 
     case CHANGESTARPLUS: {
-      console.log("GGGGGG", payload);
+      // console.log("GGGGGG", payload);
       let change = state.values.map((el) =>
         el._id === payload._id ? payload : el
       );
-      console.log("XXXXX", change);
+      // console.log("XXXXX", change);
       return { values: change, loading: false, error: null };
     }
 

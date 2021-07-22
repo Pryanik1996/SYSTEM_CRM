@@ -1,16 +1,23 @@
 .orderInfo {
-  background-color: #f3f2ff;
-  padding: 20px;
+  background-color: white;
+  padding: 30px;
   margin-top: 50px;
-  border-radius: 10px;
 }
-.commentsList {
-  margin-top: 10px;
-  height: 200px;
-  overflow-y: scroll;
+.orderInfoSmall {
+  padding: 20px;
   border: 1px solid black;
-  border-radius: 10px;
 }
-li {
+.commentsOrderList {
+  margin-top: 10px;
+}
+.commentsOrderList li {
   list-style-type: none;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #bdbdbd;
+}
+.commentsOrderItem {
+  display: flex;
+}
+.commentsOrderItemRight {
+  margin-left: 30px;
 }

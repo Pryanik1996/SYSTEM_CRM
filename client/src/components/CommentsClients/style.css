@@ -1,7 +1,7 @@
 .commentsList {
     margin-top: 10px;
-    /* height: 200px; */
-    /* overflow-y: scroll; */
+    height: 200px;
+    overflow-y: scroll;
     border: 1px solid black;
     border-radius: 10px;
   }

@@ -13,6 +13,7 @@ import {
 } from "../../redux/actions/currentOrderAction";
 import { addCommentToOrder } from "../../redux/actions/commentsAction";
 import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 import Button from "@material-ui/core/Button";
 import Modal from "../Modal/Modal";
 import FormControl from "@material-ui/core/FormControl";
@@ -27,6 +28,10 @@ const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiTextField-root": {
       margin: theme.spacing(2),
+      width: "25ch",
+    },
+    "& > *": {
+      margin: theme.spacing(1),
       width: "25ch",
     },
   },
@@ -146,11 +151,27 @@ export default function Order() {
   return (
     <div className="orderInfo">
       <div className="orderInfoSmall">
-        <h5>
-          Подробнее о заказе № {currentOrder?.number} для клиента{" "}
-          {currentOrder?.client?.surname} {currentOrder?.client?.name}{" "}
-          {currentOrder?.client?.patronymic}
-        </h5>
+        <div className="orderTitle">
+          <h5>
+            Подробнее о заказе № {currentOrder?.number} для клиента{" "}
+            {currentOrder?.client?.surname} {currentOrder?.client?.name}{" "}
+            {currentOrder?.client?.patronymic}
+          </h5>
+          <div className="orderIcons">
+            <DeleteIcon
+              style={{ cursor: "pointer" }}
+              onClick={() => setModalDelete(true)}
+              variant="contained"
+              fontSize="large"
+            />
+            <EditIcon
+              style={{ cursor: "pointer" }}
+              onClick={() => setModalActive(true)}
+              variant="contained"
+              fontSize="large"
+            />
+          </div>
+        </div>
         <div>
           Тип мебели: <b>{currentOrder?.typeFurn}</b>{" "}
         </div>
@@ -180,10 +201,17 @@ export default function Order() {
         </div>
         <hr />
         {addComment ? (
-          <form onSubmit={(e) => handleSubmitComment(e)}>
-            <input
-              placeholder="Ваш комментарий"
-              type="text"
+          <form
+            className={classes.root}
+            noValidate
+            autoComplete="off"
+            onSubmit={(e) => handleSubmitComment(e)}
+          >
+            <TextField
+              id="outlined-basic"
+              label="Ваш комментарий"
+              variant="outlined"
+              className="commentOrderInput"
               value={comment}
               onChange={handleComment}
             />
@@ -192,20 +220,29 @@ export default function Order() {
             </Button>{" "}
           </form>
         ) : (
+          // <form onSubmit={(e) => handleSubmitComment(e)}>
+          //   <input
+          //     className="commentOrderInput"
+          //     placeholder="Ваш комментарий"
+          //     type="text"
+          //     value={comment}
+          //     onChange={handleComment}
+          //   />
+          //   <Button type="submit" variant="contained">
+          //     Подтвердить
+          //   </Button>{" "}
+          // </form>
           <>
             <Button variant="contained" onClick={() => addCommentStatus()}>
               Оставить комментарий
             </Button>
-            <Button variant="contained" onClick={() => setModalActive(true)}>
+            {/* <Button variant="contained" onClick={() => setModalActive(true)}>
               Редактировать заказ
-            </Button>
-            <Button variant="contained" onClick={() => setModalDelete(true)}>
-              Удалить заказ
-            </Button>
+            </Button> */}
           </>
         )}
-        <div>
-          Комментарии сотрудников:{" "}
+        <div className="ordersCommentsBottom">
+          <h6>Комментарии сотрудников:</h6>{" "}
           {currentOrder?.comments?.length ? (
             <ul className="commentsOrderList">
               {currentOrder?.comments.map((el) => (
@@ -222,16 +259,13 @@ export default function Order() {
                   {el.author === userName && (
                     <div className="commentsOrderItemRight">
                       <DeleteIcon
-                        fontSize="large"
                         style={{ cursor: "pointer" }}
                         onClick={() =>
                           dispatch(deleteCurrentComment(el._id, id))
                         }
                         variant="contained"
                         size="small"
-                      >
-                        удалить комментарий
-                      </DeleteIcon>
+                      />
                     </div>
                   )}
                 </li>
@@ -248,72 +282,114 @@ export default function Order() {
               <div className="card-header">Редактирование карточки заказа</div>
               <div className="card-body">
                 <form className={classes.root} onSubmit={onSubmitForm}>
-                  <input
-                    value={formState.number}
+                  <label htmlFor="number">
+                    Номер заказа
+                    <input
+                      value={formState.number}
+                      onChange={сhangeHandler}
+                      id="number"
+                      type="text"
+                    />
+                  </label>
+                  <label htmlFor="typeFurn">
+                    Тип мебели
+                    <input
+                      value={formState.typeFurn}
+                      onChange={сhangeHandler}
+                      id="typeFurn"
+                      type="text"
+                    />
+                  </label>
+                  <label htmlFor="priceFurn">
+                    Стоимость мебели
+                    <input
+                      value={formState.priceFurn}
+                      onChange={сhangeHandler}
+                      id="priceFurn"
+                      type="text"
+                    />
+                  </label>
+                  <label htmlFor="priceDeliv">
+                    Стоимость доставки
+                    <input
+                      value={formState.priceDeliv}
+                      onChange={сhangeHandler}
+                      id="priceDeliv"
+                      type="text"
+                    />
+                  </label>
+                  <label htmlFor="priceConstr">
+                    Стоимость сборки
+                    <input
+                      value={formState.priceConstr}
+                      onChange={сhangeHandler}
+                      id="priceConstr"
+                      type="text"
+                    />
+                  </label>
+                  <label htmlFor="dateDeliv">
+                    Дата доставки
+                    <input
+                      type="date"
+                      value={formState.dateDeliv}
+                      onChange={сhangeHandler}
+                      id="dateDeliv"
+                    />
+                  </label>
+
+                  <label htmlFor="dateConstr">
+                    Дата сборки
+                    <input
+                      type="date"
+                      value={formState.dateConstr}
+                      onChange={сhangeHandler}
+                      id="dateConstr"
+                    />
+                  </label>
+                  <label htmlFor="teamDeliv">
+                    Бригада доставки
+                    <input
+                      value={formState.teamDeliv}
+                      onChange={сhangeHandler}
+                      id="teamDeliv"
+                      type="text"
+                    />
+                  </label>
+                  <label htmlFor="teamConstr">
+                    {" "}
+                    Бригада сборки
+                    <input
+                      value={formState.teamConstr}
+                      onChange={сhangeHandler}
+                      id="teamConstr"
+                      type="text"
+                    />
+                  </label>
+
+                  <select
+                    value={formState.status}
                     onChange={сhangeHandler}
-                    id="number"
-                    type="text"
-                  />
-                  <input
-                    value={formState.typeFurn}
-                    onChange={сhangeHandler}
-                    id="typeFurn"
-                    type="text"
-                  />
-                  <input
-                    value={formState.priceFurn}
-                    onChange={сhangeHandler}
-                    id="priceFurn"
-                    type="text"
-                  />
-                  <input
-                    value={formState.priceDeliv}
-                    onChange={сhangeHandler}
-                    id="priceDeliv"
-                    type="text"
-                  />
-                  <input
-                    value={formState.dateDeliv}
-                    onChange={сhangeHandler}
-                    id="dateDeliv"
-                    type="text"
-                  />
-                  <input
-                    value={formState.priceConstr}
-                    onChange={сhangeHandler}
-                    id="priceConstr"
-                    type="text"
-                  />
-                  <input
-                    value={formState.dateConstr}
-                    onChange={сhangeHandler}
-                    id="dateConstr"
-                    type="text"
-                  />
-                  <input
-                    value={formState.teamDeliv}
-                    onChange={сhangeHandler}
-                    id="teamDeliv"
-                    type="text"
-                  />
-                  <input
-                    value={formState.teamConstr}
-                    onChange={сhangeHandler}
-                    id="teamConstr"
-                    type="text"
-                  />
-                  <input
+                    id="status"
+                  >
+                    <option value="Ожидание поставки">Ожидание поставки</option>
+                    <option value="В работе">В работе</option>
+                    <option value="Собран">Собран</option>
+                    <option value="Доставлен">Доставлен</option>
+                    <option value="Рекламация">Рекламация</option>
+                  </select>
+
+                  {/* <input
                     value={formState.status}
                     onChange={сhangeHandler}
                     id="status"
                     type="text"
-                  />
-                  <input
+                  /> */}
+                  {/* <input
                     value={formState.commentsWhenCreate}
                     onChange={сhangeHandler}
                     id="commentsWhenCreate"
                     type="text"
-                  />
+                  /> */}
 
                   {/* <FormControl className={classes.formControl}>
                 <InputLabel id="demo-simple-select-label">

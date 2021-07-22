@@ -21,3 +21,13 @@
 .commentsOrderItemRight {
   margin-left: 30px;
 }
+.ordersCommentsBottom {
+  margin-top: 20px;
+}
+.orderTitle {
+  display: flex;
+  justify-content: space-between;
+}
+.commentOrderInput {
+  
+}

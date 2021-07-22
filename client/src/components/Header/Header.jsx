@@ -87,7 +87,7 @@ export default function ScrollableTabsButtonAuto() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" style={{ background: "#2b2b2b" }}>
+      <AppBar position="static" style={{ background: "#0e3c45" }}>
         <Container maxWidth="lg">
           <Tabs
             value={value}
@@ -100,12 +100,14 @@ export default function ScrollableTabsButtonAuto() {
           >
             <Tab label="на главную" component={Link} to="/" {...a11yProps(0)} />
             <Tab
+              style={{ fontSize: "18px" }}
               label="клиенты"
               component={Link}
               to="/clients"
               {...a11yProps(0)}
             />
             <Tab
+              style={{ fontSize: "18px" }}
               label="заказы"
               component={Link}
               to="/orders"
@@ -113,6 +115,7 @@ export default function ScrollableTabsButtonAuto() {
             />
 
             <Tab
+              style={{ fontSize: "18px" }}
               label="добавить клиента"
               component={Link}
               to="/clients/new"
@@ -145,6 +148,7 @@ export default function ScrollableTabsButtonAuto() {
 
             {userIsAdmin && (
               <Tab
+                style={{ fontSize: "18px" }}
                 label="сотрудники"
                 component={Link}
                 to="/admin/workers"

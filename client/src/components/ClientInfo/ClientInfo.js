@@ -117,6 +117,7 @@ export default function ClientInfo({
       </CardContent>
 
       <CardActions>
+        <Link to={`/orders/new/${id}`}>Создать заказ</Link>
         <Button onClick={() => setModalActive(true)} size="small">
           Редактировать
         </Button>

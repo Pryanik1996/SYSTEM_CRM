@@ -155,9 +155,11 @@ export default function AllClients() {
   };
 
   return (
+    <div className="allClients">
+
+
     <div>
       <h1>Все клиенты</h1>
-
       <form onSubmit={() => clearInput()} className="search_form">
         <input
           onChange={(event) => setValue(event.target.value)}
@@ -179,7 +181,7 @@ export default function AllClients() {
             <ul className="clientsList">
               {filtredClients?.map((cl) => (
                 <li>
-                  <Link key={cl._id} to={`/clients/${cl._id}`}>
+                  <Link key={cl._id} to={`/clients/client/${cl._id}`}>
                     <div className="clientsItem">
                       {cl.surname}&nbsp;{cl.name}&nbsp;{cl.patronymic}&nbsp;
                       {cl.email} {cl.phone}
@@ -191,6 +193,7 @@ export default function AllClients() {
           )}
         </>
       )}
+    </div>
     </div>
   );
 }

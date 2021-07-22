@@ -11,6 +11,7 @@ import { getEditClient } from "../../redux/actions/currentClient.action";
 import { getDeleteClient } from "../../redux/actions/currentClient.action";
 import { useParams } from "react-router-dom";
 import CommentsClients from "../CommentsClients/CommentsClients";
+import { useHistory, useLocation } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,14 +44,24 @@ export default function ClientInfo({
   const classes = useStyles();
   const dispatch = useDispatch();
   const [modalActive, setModalActive] = useState(false);
+  const [formData, setFormData] = useState(null);
   const [modalDelete, setModalDelete] = useState(false);
-
+  console.log({
+    name,
+    surname,
+    patronymic,
+    email,
+    phone,
+    address,
+  });
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm({ mode: "onChange" });
+
+  let history = useHistory();
 
   const { id } = useParams();
 
@@ -59,91 +70,87 @@ export default function ClientInfo({
 
   const onSubmit = (data) => {
     dispatch(getEditClient(data, id));
+    setModalActive(false);
   };
 
   const deleteHandler = () => {
-    dispatch(getDeleteClient(id));
+    dispatch(getDeleteClient(id, history));
     setModalDelete(false);
   };
 
   return (
     <>
-      {name ? (
-        <>
-          <CardContent>
-            <Typography
-              className={classes.title}
-              color="textSecondary"
-              gutterBottom
-            >
-              ФИО: {name} {surname} {patronymic}
-            </Typography>
-            <Typography variant="h5" component="h2">
-              email: {email}
-            </Typography>
-            <Typography className={classes.pos} color="textSecondary">
-              Номер телефона: {phone}
-            </Typography>
-            <Typography variant="body2" component="p">
-              Адрес доставки: {address}
-              <br />
-              <br />
-              <p>Оставить комментарий:</p>
-              <CommentsClients />
-            </Typography>
-          </CardContent>
+      <CardContent>
+        <Typography
+          className={classes.title}
+          color="textSecondary"
+          gutterBottom
+        >
+          ФИО: {name} {surname} {patronymic}
+        </Typography>
+        <Typography variant="h5" component="h2">
+          email: {email}
+        </Typography>
+        <Typography className={classes.pos} color="textSecondary">
+          Номер телефона: {phone}
+        </Typography>
+        <Typography variant="body2" component="p">
+          Адрес доставки: {address}
+          <br />
+          <br />
+          <p>Оставить комментарий:</p>
+          <CommentsClients />
+        </Typography>
+      </CardContent>
 
-          <CardActions>
-            <Button onClick={() => setModalActive(true)} size="small">
-              Редактировать
-            </Button>
-            <Button onClick={() => setModalDelete(true)} size="small">
-              Удалить
-            </Button>
-          </CardActions>
-        </>
-      ) : (
-        <p>Карточка удалена</p>
-      )}
-      <Modal active={modalActive} setActive={setModalActive}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="card">
-            <div className="card-header">Редактирование карточки клиента</div>
-            {errors.name && <p>Обязательное поле, не более 15 символов</p>}
-            <div className="card-body">
-              <h6>Имя</h6>
-              <input
-                defaultValue={name}
-                {...register("name", { required: true, maxLength: 15 })}
-              ></input>
-              <h6>Фамилия</h6>
-              <input defaultValue={surname} {...register("surname")}></input>
-              <h6>Отчество</h6>
-              <input
-                defaultValue={patronymic}
-                {...register("patronymic")}
-              ></input>
-              <h6>email</h6>
-              <input defaultValue={email} {...register("email")}></input>
-              <h6>Номер телефона</h6>
-              <input defaultValue={phone} {...register("phone")}></input>
-              <h6>Адрес доставки</h6>
-              <input defaultValue={address} {...register("address")}></input>
-              <hr />
-              <span>
-                <Button
-                  onClick={() => setModalActive(false)}
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                >
-                  Изменить
-                </Button>
-              </span>
+      <CardActions>
+        <Button onClick={() => setModalActive(true)} size="small">
+          Редактировать
+        </Button>
+        <Button onClick={() => setModalDelete(true)} size="small">
+          Удалить
+        </Button>
+      </CardActions>
+
+      {modalActive ? (
+        <Modal active={modalActive} setActive={setModalActive}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="card">
+              <div className="card-header">Редактирование карточки клиента</div>
+              {errors.name && <p>Обязательное поле, не более 15 символов</p>}
+              <div className="card-body">
+                <h6>Имя</h6>
+                <input
+                  defaultValue={name}
+                  {...register("name", { required: true, maxLength: 15 })}
+                ></input>
+                <h6>Фамилия</h6>
+                <input defaultValue={surname} {...register("surname")}></input>
+                <h6>Отчество</h6>
+                <input
+                  defaultValue={patronymic}
+                  {...register("patronymic")}
+                ></input>
+                <h6>email</h6>
+                <input defaultValue={email} {...register("email")}></input>
+                <h6>Номер телефона</h6>
+                <input defaultValue={phone} {...register("phone")}></input>
+                <h6>Адрес доставки</h6>
+                <input {...register("address")}></input>
+                <hr />
+                <span>
+                  <Button type="submit" variant="contained" color="primary">
+                    Изменить
+                  </Button>
+                </span>
+              </div>
             </div>
-          </div>
-        </form>
-      </Modal>
+          </form>
+        </Modal>
+      ) : (
+        <></>
+      )}
+
       <Modal active={modalDelete} setActive={setModalDelete}>
         <div className="card">
           <div className="card-header"></div>

@@ -39,7 +39,7 @@ export default function CommentsClients() {
       <input {...register("comments")}></input>
       <button type="submit">Добавить</button>
       <div className="commentsList">
-        {comments.map((el) => (
+        {comments?.map((el) => (
           <>
             <li>{el.body}</li>
             <li>Автор: {el.author} </li>

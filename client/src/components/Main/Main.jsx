@@ -51,36 +51,70 @@ export default function Main() {
     Работай По-Новому
     <br/>
     Управляй По-Новому</h1>
-    <a href="/" className="hero-scroll" style={{zIndex:8000}}>scroll down</a>
+    <a href="#scroll" className="hero-scroll" style={{zIndex:8000}}>scroll down <span className="arrow"></span></a>
     </div>
     </div>
 
     
 
     </div>
-   
     <main>
       <div className="container">
         <section className="intro">
 
-      <div className="article" data-number="01">
-        <div className="article-text">
-      <div className="article-subtitle"> Get Started</div>
-      <div className="article-title">Монохроматические Цвета</div>
+      <div className="article" >
+        <div className="article-text" data-number="01">
+      <div className="article-subtitle" id="scroll"> Get Started</div>
+      <div className="article-title">Собирайте и анализируйте комментарии</div>
       <p>
-          Жёлтый цвета по шестнадцатеричному коду цвета #ffff00 / #ff0 является оттенком желто-зеленый. В
-          модели цвета RGB #ffff00 составляет 100% красного, 100% зеленого и 0% синего. 
-          В цветовом пространстве HSL #ffff00 имеет оттенок 60° (градусов), 100% насыщенность и 50% светлости.
+          Предоставляем возможность оставить комментарий при работе с клиентом 
       </p>
         </div>
         <div className="article-img">
-          <div className="art-img"></div>
+          <div className="art-img2"></div>
         </div>
       </div>
         </section>
+        <section className="intro">
+
+<div className="article" >
+  <div className="article-text" data-number="02">
+<div className="article-subtitle"> Get Started</div>
+<div className="article-title">Собирайте и анализируйте комментарии</div>
+<p>
+    Предоставляем возможность оставить комментарий при работе с клиентом 
+</p>
+  </div>
+  <div className="article-img">
+    <div className="art-img3"></div>
+  </div>
+</div>
+  </section>
+
+  <section className="intro">
+
+<div className="article" >
+  <div className="article-text" data-number="03">
+<div className="article-subtitle"> Get Started</div>
+<div className="article-title">Собирайте и анализируйте комментарии</div>
+<p>
+    Предоставляем возможность оставить комментарий при работе с клиентом 
+</p>
+  </div>
+  <div className="article-img">
+    <div className="art-img"></div>
+  </div>
+</div>
+  </section>
+
       </div>
     </main>
     <footer className="footer">
+      <div className="conteiner">
+        <p className="footer-coopyright">
+        Copyright 2021 Elbrus Bootcamp, Inc. Terms & privacy, Team Leopards©
+        </p>
+      </div>
     </footer>
     </div>
     </>

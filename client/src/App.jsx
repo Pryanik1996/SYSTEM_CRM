@@ -52,6 +52,9 @@ function App() {
             <Route exact path="/">
               <Main />
             </Route>
+            <Route exact path="/clients">
+              <AllClients />
+            </Route>
         <Container maxWidth="lg">
             <Route exact path="/auth/signout">
               <SignOut />
@@ -62,34 +65,29 @@ function App() {
             <Route exact path="/admin/clients">
               <ListOfDEletedClients />
             </Route>
-            <Route exact path="/admin/orders">
-              <ListOfDEletedItems />
-            </Route>
             <Route exact path="/clients/new">
               <ClientAdd />
+            </Route>
+            <Route exact path="/admin/orders">
+              <ListOfDEletedItems />
             </Route>
             <Route exact path="/orders/new">
               <OrderAdd />
             </Route>
-            <Route exact path="/clients">
-              <AllClients />
-            </Route>
-            <Route exact path="/clients/card">
-              <CardsClients />
-            </Route>
+
             <Route exact path="/orders/:id">
               <Order />
             </Route>
             <Route exact path="/orders">
               <AllOrders />
             </Route>
-            <Route exact path="/clients/:id">
+            <Route exact path="/clients/client/:id">
               <CardsClients />
             </Route>
-        </Container>
             <Route exact path="/admin">
               <BlocktoShowElemensToDelete />
               </Route>
+        </Container>
           </Switch>
       </React.Fragment>
     </Router>

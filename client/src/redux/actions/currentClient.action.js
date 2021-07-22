@@ -16,7 +16,7 @@ const editCard = (currentClient) => ({
 });
 
 export const getCardCurrentClient = (id) => async (dispatch) => {
-  const response = await fetch(`http://localhost:3001/clients/${id}`);
+  const response = await fetch(`http://localhost:3001/clients/client/${id}`);
   const data = await response.json();
   dispatch(setCurrentClient(data));
 };
@@ -64,7 +64,7 @@ export const getEditClient = (data, id) => async (dispatch) => {
   dispatch(editCard(res));
 };
 
-export const getDeleteClient = (id) => async (dispatch) => {
+export const getDeleteClient = (id, history) => async (dispatch) => {
   const response = await fetch(`http://localhost:3001/clients/delete/${id}`, {
     method: "PATCH",
     headers: {
@@ -73,7 +73,12 @@ export const getDeleteClient = (id) => async (dispatch) => {
     body: JSON.stringify({ id }),
   });
   const res = await response.json();
-  dispatch(setCurrentClient(res));
+  if (response.status === 200) {
+    dispatch(setCurrentClient(res));
+    history.push("/clients");
+  } else {
+    history.push(`/clients/client/${id}`);
+  }
 };
 
 export const getDeleteComment = (id) => async (dispatch) => {

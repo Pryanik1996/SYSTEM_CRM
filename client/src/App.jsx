@@ -30,6 +30,8 @@ import AllClients from "./components/AllClients/AllClients";
 import BlocktoShowElemensToDelete from "./components/ForAdminPage/BlockToShowElementsToDelete/BlockToShowElementsToDelete";
 import Fail from "./components/Fail/Fail";
 
+
+
 function App() {
   // const history = useHistory();
   const dispatch = useDispatch();
@@ -43,14 +45,18 @@ function App() {
   }, [dispatch]);
 
   return (
+    <>
     <Router>
       {state.user && <Header />}
       <React.Fragment>
-        <Container maxWidth="lg">
           <Switch>
             <Route exact path="/">
               <Main />
             </Route>
+            <Route exact path="/clients">
+              <AllClients />
+            </Route>
+        <Container maxWidth="lg">
             <Route exact path="/auth/signout">
               <SignOut />
             </Route>
@@ -60,32 +66,28 @@ function App() {
             <Route exact path="/admin/clients">
               <ListOfDEletedClients />
             </Route>
-            <Route exact path="/admin/orders">
-              <ListOfDEletedItems />
-            </Route>
             <Route exact path="/clients/new">
               <ClientAdd />
+            </Route>
+            <Route exact path="/admin/orders">
+              <ListOfDEletedItems />
             </Route>
             <Route exact path="/orders/new">
               <OrderAdd />
             </Route>
-            <Route exact path="/clients">
-              <AllClients />
-            </Route>
-            <Route exact path="/clients/card">
-              <CardsClients />
-            </Route>
+
             <Route exact path="/orders/:id">
               <Order />
             </Route>
             <Route exact path="/orders">
               <AllOrders />
             </Route>
-            <Route exact path="/clients/:id">
+            <Route exact path="/clients/client/:id">
               <CardsClients />
             </Route>
             <Route exact path="/admin">
               <BlocktoShowElemensToDelete />
+<<<<<<< HEAD
             </Route>
             <Route exact path="/orders/new/:id">
               <NewOrderForClient />
@@ -94,9 +96,14 @@ function App() {
               <Fail />
             </Route>
           </Switch>
+=======
+              </Route>
+>>>>>>> d19091052e57ee859d423558f715026dcd6713f3
         </Container>
+          </Switch>
       </React.Fragment>
     </Router>
+    </>
   );
 }
 

@@ -7,7 +7,6 @@ export const setAllClient = (clients) => ({
 });
 
 export const getClient = (data, history, value) => async (dispatch) => {
-  // console.log('VALUE===>', value);
   const response = await fetch(`http://localhost:3001/clients/new`, {
     method: "POST",
     headers: {
@@ -15,11 +14,19 @@ export const getClient = (data, history, value) => async (dispatch) => {
     },
     credentials: "include",
     body: JSON.stringify({
+<<<<<<< HEAD
       name: data.name,
       surname: data.surname,
       patronymic: data.patronymic,
       email: data.email,
       phone: data.phone,
+=======
+      name: data?.name,
+      surname: data?.surname,
+      patronymic: data?.patronymic,
+      email: data?.email,
+      phone: data?.phone,
+>>>>>>> d19091052e57ee859d423558f715026dcd6713f3
       address: value?.value,
     }),
   });

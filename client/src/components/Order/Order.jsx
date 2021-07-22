@@ -141,7 +141,7 @@ export default function Order() {
       </div>
       <div>
         Комментарии сотрудников:{" "}
-        {currentOrder?.comments.length ? (
+        {currentOrder?.comments?.length ? (
           <ul className="commentsList">
             {currentOrder?.comments.map((el) => (
               <li>

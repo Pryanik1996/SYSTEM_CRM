@@ -57,6 +57,11 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     width: "100%",
+<<<<<<< HEAD
+=======
+    backgroundColor: theme.palette.background.default,
+
+>>>>>>> d19091052e57ee859d423558f715026dcd6713f3
   },
   large: {
     width: theme.spacing(8),
@@ -64,14 +69,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function SimpleSelect() {
-  const classes = useStyles();
-  const [age, setAge] = React.useState("");
-
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
-}
 
 export default function ScrollableTabsButtonAuto() {
   const classes = useStyles();
@@ -87,8 +84,13 @@ export default function ScrollableTabsButtonAuto() {
 
   return (
     <div className={classes.root}>
+<<<<<<< HEAD
       <AppBar position="static" color="transparent" style={{ color: "white" }}>
         <Container maxWidth="lg">
+=======
+      <AppBar position="static" color="transparent" >
+        <Container maxWidth="lg" >
+>>>>>>> d19091052e57ee859d423558f715026dcd6713f3
           <Tabs
             value={value}
             onChange={handleChange}
@@ -174,5 +176,6 @@ export default function ScrollableTabsButtonAuto() {
         </Container>
       </AppBar>
     </div>
-  );
+
+  )
 }

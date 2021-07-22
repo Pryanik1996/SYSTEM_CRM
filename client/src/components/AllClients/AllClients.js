@@ -158,6 +158,7 @@ export default function AllClients() {
     setValue("");
   };
 
+<<<<<<< HEAD
   //============== STARS
 
   const currUser = useSelector((state) => state.user?._id);
@@ -218,6 +219,14 @@ export default function AllClients() {
   return (
     <div className="allClients">
       <h1>Наши клиенты</h1>
+=======
+  return (
+    <div className="allClients">
+
+
+    <div>
+      <h1>Все клиенты</h1>
+>>>>>>> d19091052e57ee859d423558f715026dcd6713f3
       <form onSubmit={() => clearInput()} className="search_form">
         <input
           onChange={(event) => setValue(event.target.value)}
@@ -238,10 +247,15 @@ export default function AllClients() {
           ) : (
             <ul className="clientsList">
               {filtredClients?.map((cl) => (
+<<<<<<< HEAD
                 <li style={{ position: "relative" }}>
                   <Star cl={cl} converterStars={converterStars} check={check} />
 
                   <Link key={cl._id} to={`/clients/${cl._id}`}>
+=======
+                <li>
+                  <Link key={cl._id} to={`/clients/client/${cl._id}`}>
+>>>>>>> d19091052e57ee859d423558f715026dcd6713f3
                     <div className="clientsItem">
                       <div className="image">
                         <img
@@ -265,6 +279,7 @@ export default function AllClients() {
           )}
         </>
       )}
+    </div>
     </div>
   );
 }

@@ -71,27 +71,24 @@ router.patch("/staradd", async (req, res) => {
 
 router.patch("/:id", async (req, res) => {
   const { id } = req.params;
-  const { name, surname, patronymic, email, phone, address } = req.body;
-
-  try {
-    const data = await Client.findByIdAndUpdate(id, {
-      name,
-      surname,
-      patronymic,
-      email,
-      phone,
-      address,
-    });
+  // const { name, surname, patronymic, email, phone, address } = req.body;
+  if (req.body.name) {
+    const data = await Client.findByIdAndUpdate(id, req.body
+      // name,
+      // surname,
+      // patronymic,
+      // email,
+      // phone,
+      // address,
+    );
     const response = await Client.findById(id).populate("comments");
-
-    res.json(response);
-  } catch (err) {
-    console.log(err);
+    res.json(response); 
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/client/:id", async (req, res) => {
   const { id } = req.params;
+  console.log('ID',id);
   try {
     const client = await Client.findById(id)
       .populate("comments")

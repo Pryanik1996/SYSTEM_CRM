@@ -15,11 +15,6 @@ export const CLIENT_CARD = "CLIENT_CARD";
 export const COMMENTS_ADD = "COMMENTS_ADD";
 export const COMMENTS_DELETE = "COMMENTS_DELETE";
 
-//======= /clients
-// export const WORKER_ADD = "WORKER_ADD"
-
-// export const CLIENT_ADD_ALL = "CLIENT_ADD_ALL"
-
 export const ALL_WORKERS = "ALL_WORKERS";
 
 export const CHANGE_ADMIN = "CHANGE_ADMIN";

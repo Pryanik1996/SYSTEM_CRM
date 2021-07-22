@@ -1,3 +1,9 @@
 .address {
   color: red;
 }
+.clientAddForm {
+  color: white;
+}
+.test-label: {
+    color: white !important;
+}

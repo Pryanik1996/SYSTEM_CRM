@@ -17,7 +17,13 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(2),
       width: "25ch",
     },
+    multilineColor: {
+      color: "red",
+    },
   },
+  color:  {
+    '& .MuiFormLabel-root' : 'white'
+  } 
 }));
 
 export default function ClientAdd() {
@@ -40,7 +46,7 @@ export default function ClientAdd() {
   };
 
   return (
-    <form
+    <form className="clientAddForm"
       onSubmit={handleSubmit(onSubmit)}
       className={classes.root}
       noValidate
@@ -52,8 +58,13 @@ export default function ClientAdd() {
       <hr />
       {errors.name && <p>Обязательное поле, не более 15 символов</p>}
       <TextField
+      color={'secondary'}
+        style={{ color: "white" }}
         label="Имя"
         type="text"
+        InputLabelProps={{
+          className: "test-label" 
+        }}
         id="standard-required"
         {...register("name", { required: true, maxLength: 15 })}
       />

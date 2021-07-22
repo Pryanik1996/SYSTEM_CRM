@@ -18,7 +18,7 @@ const currentClientReducer = (state = null, action) => {
       console.log("PAYLOAD", payload);
       console.log("state", state);
 
-      return payload;
+      return payload
     }
 
     case COMMENTS_DELETE: {

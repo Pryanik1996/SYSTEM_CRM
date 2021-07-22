@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { useForm } from "react-hook-form";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { getOrder } from "../../redux/actions/order.action";
 import { useHistory, useLocation } from "react-router";
 
@@ -10,6 +10,7 @@ import {
   getOneOrder,
   deleteCurrentOrder,
   deleteCurrentComment,
+  editCurrentOrder,
 } from "../../redux/actions/currentOrderAction";
 import { addCommentToOrder } from "../../redux/actions/commentsAction";
 
@@ -44,9 +45,9 @@ export default function Order() {
   const [modalActive, setModalActive] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
 
-  const handleSubmitModal = (e) => {
-    e.preventDefault();
-  };
+  // const handleSubmitModal = (e) => {
+  //   e.preventDefault();
+  // };
   const classes = useStyles();
 
   const dispatch = useDispatch();
@@ -105,6 +106,44 @@ export default function Order() {
 
   // console.log("COMMMMMENT=>", comment);
   // console.log("0000=>>>", userName);
+
+  const initialForm = useMemo(
+    () => ({
+      number: currentOrder?.number,
+      typeFurn: currentOrder?.typeFurn,
+      priceFurn: currentOrder?.priceFurn,
+      priceDeliv: currentOrder?.priceDeliv,
+      dateDeliv: currentOrder?.dateDeliv,
+      priceConstr: currentOrder?.priceConstr,
+      dateConstr: currentOrder?.dateConstr,
+      teamDeliv: currentOrder?.teamDeliv,
+      teamConstr: currentOrder?.teamConstr,
+      status: currentOrder?.status,
+      commentsWhenCreate: currentOrder?.commentsWhenCreate,
+    }),
+    [currentOrder]
+  );
+  const [formState, setFormState] = useState(initialForm);
+
+  useEffect(() => {
+    setFormState(initialForm);
+  }, [initialForm]);
+
+  function сhangeHandler(e) {
+    setFormState((state) => ({
+      ...state,
+      [e.target.id]: e.target.value,
+    }));
+  }
+  function onSubmitForm(e) {
+    e.preventDefault();
+    // setFormState(initialForm);
+    dispatch(editCurrentOrder(id, formState));
+    setModalActive(false);
+  }
+
+  console.log(formState, currentOrder);
+
   return (
     <div className="orderInfo">
       <h5>
@@ -141,7 +180,7 @@ export default function Order() {
       </div>
       <div>
         Комментарии сотрудников:{" "}
-        {currentOrder?.comments.length ? (
+        {currentOrder?.comments?.length ? (
           <ul className="commentsList">
             {currentOrder?.comments.map((el) => (
               <li>
@@ -152,6 +191,7 @@ export default function Order() {
                   <Button
                     onClick={() => dispatch(deleteCurrentComment(el._id, id))}
                     variant="contained"
+                    size="small"
                   >
                     удалить комментарий
                   </Button>
@@ -183,156 +223,122 @@ export default function Order() {
             Оставить комментарий
           </Button>
           <Button variant="contained" onClick={() => setModalActive(true)}>
-            Редактировать
+            Редактировать заказ
           </Button>
-          <Button
-            variant="contained"
-            onClick={() => setModalDelete(true)}
-            size="small"
-          >
-            Удалить
+          <Button variant="contained" onClick={() => setModalDelete(true)}>
+            Удалить заказ
           </Button>{" "}
         </>
       )}
 
-      <Modal active={modalActive} setActive={setModalActive}>
-        <form onSubmit={handleSubmitModal}>
+      {modalActive ? (
+        <Modal active={modalActive} setActive={setModalActive}>
           <div className="card">
             <div className="card-header">Редактирование карточки заказа</div>
             <div className="card-body">
-              <form
-                onSubmit={handleSubmit(onSubmit)}
-                className={classes.root}
-                noValidate
-                autoComplete="off"
-              >
-                <br />
-
-                <br />
-                <hr />
-                {errors.name && <p>Обязательное поле, не более 15 символов</p>}
-                <TextField
-                  defaultValue={currentOrder?.number}
-                  label="Номер заказа"
+              <form className={classes.root} onSubmit={onSubmitForm}>
+                <input
+                  value={formState.number}
+                  onChange={сhangeHandler}
+                  id="number"
                   type="text"
-                  id="standard-required"
-                  {...register("numberEdit", { required: true, maxLength: 15 })}
                 />
-
-                <TextField
-                  defaultValue={currentOrder?.typeFurn}
-                  label="Тип мебели"
+                <input
+                  value={formState.typeFurn}
+                  onChange={сhangeHandler}
+                  id="typeFurn"
                   type="text"
-                  id="standard-required"
-                  {...register("typeFurnEdit")}
                 />
-
-                <TextField
-                  defaultValue={currentOrder?.priceFurn}
-                  label="Стоимость мебели"
+                <input
+                  value={formState.priceFurn}
+                  onChange={сhangeHandler}
+                  id="priceFurn"
                   type="text"
-                  id="standard-required"
-                  {...register("priceFurn")}
                 />
-                <TextField
-                  defaultValue={currentOrder?.priceDeliv}
-                  label="Стоимость доставки"
-                  type="email"
-                  id="standard-required"
-                  {...register("priceDeliv")}
-                />
-
-                <TextField
-                  defaultValue={currentOrder?.dateDeliv}
-                  id="standard-required"
-                  label="Дата доставки"
-                  type="date"
-                  className={classes.textField}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  {...register("dateDeliv")}
-                />
-                <TextField
-                  defaultValue={currentOrder?.priceConstr}
-                  label="Стоимость сборки"
+                <input
+                  value={formState.priceDeliv}
+                  onChange={сhangeHandler}
+                  id="priceDeliv"
                   type="text"
-                  id="standard-required"
-                  {...register("priceConstr")}
                 />
-
-                <TextField
-                  defaultValue={currentOrder?.dateConstr}
-                  id="standard-required"
-                  label="Дата сборки"
-                  type="date"
-                  className={classes.textField}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  {...register("dateConstr")}
-                />
-
-                <TextField
-                  defaultValue={currentOrder?.teamDeliv}
-                  label="Бригада доставки"
+                <input
+                  value={formState.dateDeliv}
+                  onChange={сhangeHandler}
+                  id="dateDeliv"
                   type="text"
-                  id="standard-required"
-                  {...register("teamDeliv")}
                 />
-
-                <TextField
-                  defaultValue={currentOrder?.teamConstr}
-                  label="Бригада сборки"
+                <input
+                  value={formState.priceConstr}
+                  onChange={сhangeHandler}
+                  id="priceConstr"
                   type="text"
-                  id="standard-required"
-                  {...register("teamConstr")}
                 />
-
-                <FormControl className={classes.formControl}>
-                  <InputLabel id="demo-simple-select-label">
-                    Статус заказа
-                  </InputLabel>
-                  <Select
-                    defaultValue={currentOrder?.status}
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    {...register("status")}
-                  >
-                    <MenuItem value={"Ожидание поставки"}>
-                      Ожидание поставки
-                    </MenuItem>
-                    <MenuItem value={"В работе"}>В работе</MenuItem>
-                    <MenuItem value={"Собран"}>Собран</MenuItem>
-                    <MenuItem value={"Доставлен"}>Доставлен</MenuItem>
-                    <MenuItem value={"Рекламация"}>Рекламация</MenuItem>
-                  </Select>
-                </FormControl>
-
-                <TextField
-                  label="Комментарий к заказу"
+                <input
+                  value={formState.dateConstr}
+                  onChange={сhangeHandler}
+                  id="dateConstr"
                   type="text"
-                  id="standard-required"
-                  {...register("commentsWhenCreate")}
                 />
-                <br />
-              </form>
+                <input
+                  value={formState.teamDeliv}
+                  onChange={сhangeHandler}
+                  id="teamDeliv"
+                  type="text"
+                />
+                <input
+                  value={formState.teamConstr}
+                  onChange={сhangeHandler}
+                  id="teamConstr"
+                  type="text"
+                />
+                <input
+                  value={formState.status}
+                  onChange={сhangeHandler}
+                  id="status"
+                  type="text"
+                />
+                <input
+                  value={formState.commentsWhenCreate}
+                  onChange={сhangeHandler}
+                  id="commentsWhenCreate"
+                  type="text"
+                />
 
-              <hr />
-              <span>
-                <Button
-                  onClick={() => setModalActive(false)}
-                  type="submit"
-                  variant="contained"
-                  color="primary"
+                {/* <FormControl className={classes.formControl}>
+                <InputLabel id="demo-simple-select-label">
+                  Статус заказа
+                </InputLabel>
+                <Select
+                  defaultValue={currentOrder?.status}
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  {...register("status")}
                 >
-                  Изменить
-                </Button>
-              </span>
+                  <MenuItem value={"Ожидание поставки"}>
+                    Ожидание поставки
+                  </MenuItem>
+                  <MenuItem value={"В работе"}>В работе</MenuItem>
+                  <MenuItem value={"Собран"}>Собран</MenuItem>
+                  <MenuItem value={"Доставлен"}>Доставлен</MenuItem>
+                  <MenuItem value={"Рекламация"}>Рекламация</MenuItem>
+                </Select>
+              </FormControl> */}
+
+                <hr />
+
+                <span>
+                  <Button type="submit" variant="contained" color="primary">
+                    Сохранить изменения
+                  </Button>
+                </span>
+              </form>
             </div>
           </div>
-        </form>
-      </Modal>
+        </Modal>
+      ) : (
+        <></>
+      )}
+
       <Modal active={modalDelete} setActive={setModalDelete}>
         <div className="card">
           <div className="card-header"></div>

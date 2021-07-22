@@ -240,8 +240,7 @@ export default function AllClients() {
               {filtredClients?.map((cl) => (
                 <li style={{ position: "relative" }}>
                   <Star cl={cl} converterStars={converterStars} check={check} />
-
-                  <Link key={cl._id} to={`/clients/${cl._id}`}>
+                  <Link key={cl._id} to={`/clients/client/${cl._id}`}>
                     <div className="clientsItem">
                       <div className="image">
                         <img
@@ -251,7 +250,8 @@ export default function AllClients() {
                         />
                       </div>
                       <div className="clientsInfo">
-                        {cl.surname}&nbsp;{cl.name}&nbsp;{cl.patronymic}
+                        {cl.surname}&nbsp;{cl.name}
+                        <br /> {cl.patronymic}
                         <br />
                         {cl.email}
                         <br />

@@ -3,9 +3,10 @@ import {
   ORDER_DELETE,
   ORDER_COMMENT,
   COMMENT_DELETE,
+  ORDER_EDIT,
 } from "../types";
 
-export const oneOrder = (res) => ({
+const oneOrder = (res) => ({
   type: ORDER_ONE,
   payload: res,
 });
@@ -89,7 +90,7 @@ export const commentOrder = (data) => ({
 //   }
 // };
 
-export const deleteComment = (data) => ({
+const deleteComment = (data) => ({
   type: COMMENT_DELETE,
   payload: data,
 });
@@ -108,6 +109,27 @@ export const deleteCurrentComment = (commentId, id) => async (dispatch) => {
     );
     const data = await response.json();
     dispatch(deleteComment(data));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const editOrder = (data) => ({
+  type: ORDER_EDIT,
+  payload: data,
+});
+
+export const editCurrentOrder = (id, order) => async (dispatch) => {
+  try {
+    const response = await fetch(`http://localhost:3001/orders/edit/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id, order }),
+    });
+    const data = await response.json();
+    dispatch(editOrder(data));
   } catch (error) {
     console.log(error);
   }

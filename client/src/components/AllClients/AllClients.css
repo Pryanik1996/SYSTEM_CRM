@@ -68,3 +68,16 @@ a {
 h1 {
   color: white;
 }
+
+.allClients {
+  background-image: url('./img/gray-furniture-classic-sofa-armchair-fun-composition-on-black-background-3d-rendering_156429-1744.jpeg');
+  margin: 0;
+  font-family: "Gilroy" serif;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  color: white;
+  overflow: hidden;
+  position: relative;
+  scroll-behavior: smooth;
+  height: 1000px;
+}

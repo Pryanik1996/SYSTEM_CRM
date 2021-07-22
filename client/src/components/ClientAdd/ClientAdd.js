@@ -21,9 +21,11 @@ const useStyles = makeStyles((theme) => ({
   color: {
     "& .MuiFormLabel-root": {
       color: "white",
+      fontSize: "20px",
     },
     "& .MuiInputBase-root": {
       color: "white",
+      fontSize: "20px",
     },
     "& :before": {
       borderColor: "currentColor",
@@ -65,7 +67,16 @@ export default function ClientAdd() {
       <h1>Добавить клиента</h1>
       <br />
       <hr />
-      {errors.name && <p>Обязательное поле, не более 15 символов</p>}
+      {errors.name && (
+        <p className="help">Обязательное поле, не более 15 символов</p>
+      )}
+      <TextField
+        className={classes.color}
+        label="Фамилия"
+        type="text"
+        id="standard-required"
+        {...register("surname")}
+      />
       <TextField
         // color={"secondary"}
         // style={{ color: "white" }}
@@ -76,24 +87,21 @@ export default function ClientAdd() {
         {...register("name", { required: true, maxLength: 15 })}
       />
       <TextField
-        label="Фамилия"
-        type="text"
-        id="standard-required"
-        {...register("surname")}
-      />
-      <TextField
+        className={classes.color}
         label="Отчество"
         type="text"
         id="standard-required"
         {...register("patronymic")}
       />
       <TextField
+        className={classes.color}
         label="email"
         type="email"
         id="standard-required"
         {...register("email")}
       />
       <TextField
+        className={classes.color}
         placeholder="..."
         defaultValue="+7"
         label="Номер телефона"
@@ -109,7 +117,7 @@ export default function ClientAdd() {
         
       /> */}
       <AddressSuggestions
-        style={{ width: 200 }}
+        style={{ width: "50%" }}
         className="address"
         token="43f3a1a6e2e0bd7b18d5f3d1d16a515b2055ee55"
         value={value}

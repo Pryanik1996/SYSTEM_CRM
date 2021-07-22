@@ -5,5 +5,8 @@
   color: white;
 }
 .test-label: {
-    color: white !important;
+  color: white !important;
+}
+.help {
+  color: white;
 }

@@ -155,7 +155,7 @@ export default function ScrollableTabsButtonAuto() {
             />
             {userName && (
               <div className="userInfo">
-                <b>{userName}&nbsp;</b>{" "}
+                <b>{userName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>{" "}
                 <Avatar
                   alt={userName}
                   src={userPicture}

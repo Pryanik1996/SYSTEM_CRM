@@ -78,21 +78,38 @@ router.get("/all", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const currentOrder = await Order.findById(id).populate("comments").populate('client');
+    const currentOrder = await Order.findById(id)
+      .populate("comments")
+      .populate("client");
     res.json(currentOrder);
   } catch (error) {
     return res.sendStatus(400);
   }
 });
-router.delete("/:id", async (req, res) => {
+// router.delete("/:id", async (req, res) => {
+//   const { id } = req.params;
+//   try {
+//     await Order.findByIdAndDelete(id);
+//     res.sendStatus(200);
+//   } catch (error) {
+//     return res.sendStatus(400);
+//   }
+// });
+
+router.patch("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    await Order.findByIdAndDelete(id);
-    res.sendStatus(200);
+    const deletedOrder = await Order.findByIdAndUpdate(
+      id,
+      { isDelete: true },
+      { new: true }
+    );
+    res.json(deletedOrder);
   } catch (error) {
     return res.sendStatus(400);
   }
 });
+
 router.post("/:id", async (req, res) => {
   const { id } = req.params;
   const { comment, userName } = req.body;

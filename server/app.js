@@ -60,9 +60,9 @@ app.use("/admin", isAdmin, adminRouter);
 app.use("/orders", ordersRouter);
 app.use("/auth", authRouter);
 app.use("/comments", commentsRouter)
-app.get("/clients", (req, res) => {
-  res.send("тут будут клиенты");
-});
+// app.get("/clients", (req, res) => {
+//   res.send("тут будут клиенты");
+// });
 
 app.listen(PORT, () => {
   console.log("Server has been started on PORT ", PORT);

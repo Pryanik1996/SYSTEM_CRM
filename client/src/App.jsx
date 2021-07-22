@@ -30,6 +30,8 @@ import AllClients from "./components/AllClients/AllClients";
 import BlocktoShowElemensToDelete from "./components/ForAdminPage/BlockToShowElementsToDelete/BlockToShowElementsToDelete";
 import Fail from "./components/Fail/Fail";
 
+
+
 function App() {
   // const history = useHistory();
   const dispatch = useDispatch();
@@ -43,14 +45,15 @@ function App() {
   }, [dispatch]);
 
   return (
+    <>
     <Router>
       {state.user && <Header />}
       <React.Fragment>
-        <Container maxWidth="lg">
           <Switch>
             <Route exact path="/">
               <Main />
             </Route>
+        <Container maxWidth="lg">
             <Route exact path="/auth/signout">
               <SignOut />
             </Route>
@@ -84,6 +87,7 @@ function App() {
             <Route exact path="/clients/:id">
               <CardsClients />
             </Route>
+        </Container>
             <Route exact path="/admin">
               <BlocktoShowElemensToDelete />
             </Route>
@@ -94,9 +98,9 @@ function App() {
               <Fail />
             </Route>
           </Switch>
-        </Container>
       </React.Fragment>
     </Router>
+    </>
   );
 }
 

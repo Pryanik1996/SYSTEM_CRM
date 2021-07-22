@@ -5,7 +5,8 @@ import {
   COMMENT_DELETE,
 } from "../types";
 
-const orderReducer = (state = null, action) => {
+const currentOrderReducer = (state = null, action) => {
+  console.log(1234124123);
   const { type, payload } = action;
   // console.log("PAYLOAD===>", action);
   switch (type) {
@@ -27,4 +28,4 @@ const orderReducer = (state = null, action) => {
   }
 };
 
-export default orderReducer;
+export default currentOrderReducer;

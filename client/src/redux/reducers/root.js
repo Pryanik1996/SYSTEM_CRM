@@ -18,4 +18,5 @@ const reducer = combineReducers({
   items: adminsItemsReducer,
   currentClient: currentClientReducer,
 });
+
 export default reducer;

@@ -5,12 +5,12 @@ import {
   COMMENTS_DELETE,
 } from "../types";
 
-export const setCurrentClient = (currentClient) => ({
+const setCurrentClient = (currentClient) => ({
   type: CLIENT_CARD,
   payload: currentClient,
 });
 
-export const editCard = (currentClient) => ({
+const editCard = (currentClient) => ({
   type: CLIENT_EDIT,
   payload: currentClient,
 });
@@ -44,7 +44,7 @@ export const getComments = (data, id, userId, userName) => async (dispatch) => {
 };
 
 export const getEditClient = (data, id) => async (dispatch) => {
-    console.log('IDIDID', id, data)
+  console.log("IDIDID", id, data);
   const response = await fetch(`http://localhost:3001/clients/${id}`, {
     method: "PATCH",
     headers: {
@@ -60,7 +60,7 @@ export const getEditClient = (data, id) => async (dispatch) => {
     }),
   });
   const res = await response.json();
-  console.log('res', res)
+  console.log("res", res);
   dispatch(editCard(res));
 };
 

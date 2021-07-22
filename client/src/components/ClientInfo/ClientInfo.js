@@ -64,9 +64,7 @@ export default function ClientInfo({
   // console.log('121112121212', userId)
 
   const onSubmit = (data) => {
-    console.log(data, "petr");
     dispatch(getEditClient(data, id));
-    reset();
   };
 
   const deleteHandler = () => {

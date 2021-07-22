@@ -5,7 +5,7 @@ import {
   COMMENT_DELETE,
 } from "../types";
 
-export const oneOrder = (res) => ({
+const oneOrder = (res) => ({
   type: ORDER_ONE,
   payload: res,
 });
@@ -89,7 +89,7 @@ export const commentOrder = (data) => ({
 //   }
 // };
 
-export const deleteComment = (data) => ({
+const deleteComment = (data) => ({
   type: COMMENT_DELETE,
   payload: data,
 });

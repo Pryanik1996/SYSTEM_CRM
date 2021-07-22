@@ -42,6 +42,8 @@ const useStyles = makeStyles((theme) => ({
 export default function Order() {
   const [addComment, setAddComment] = useState(false);
   const [modalActive, setModalActive] = useState(false);
+  const [modalDelete, setModalDelete] = useState(false);
+
   const handleSubmitModal = (e) => {
     e.preventDefault();
   };
@@ -183,7 +185,11 @@ export default function Order() {
           <Button variant="contained" onClick={() => setModalActive(true)}>
             Редактировать
           </Button>
-          <Button variant="contained" onClick={() => deleteOrder(orderId)}>
+          <Button
+            variant="contained"
+            onClick={() => setModalDelete(true)}
+            size="small"
+          >
             Удалить
           </Button>{" "}
         </>
@@ -206,26 +212,30 @@ export default function Order() {
                 <hr />
                 {errors.name && <p>Обязательное поле, не более 15 символов</p>}
                 <TextField
+                  defaultValue={currentOrder?.number}
                   label="Номер заказа"
                   type="text"
                   id="standard-required"
-                  {...register("number", { required: true, maxLength: 15 })}
+                  {...register("numberEdit", { required: true, maxLength: 15 })}
                 />
 
                 <TextField
+                  defaultValue={currentOrder?.typeFurn}
                   label="Тип мебели"
                   type="text"
                   id="standard-required"
-                  {...register("typeFurn")}
+                  {...register("typeFurnEdit")}
                 />
 
                 <TextField
+                  defaultValue={currentOrder?.priceFurn}
                   label="Стоимость мебели"
                   type="text"
                   id="standard-required"
                   {...register("priceFurn")}
                 />
                 <TextField
+                  defaultValue={currentOrder?.priceDeliv}
                   label="Стоимость доставки"
                   type="email"
                   id="standard-required"
@@ -233,6 +243,7 @@ export default function Order() {
                 />
 
                 <TextField
+                  defaultValue={currentOrder?.dateDeliv}
                   id="standard-required"
                   label="Дата доставки"
                   type="date"
@@ -243,6 +254,7 @@ export default function Order() {
                   {...register("dateDeliv")}
                 />
                 <TextField
+                  defaultValue={currentOrder?.priceConstr}
                   label="Стоимость сборки"
                   type="text"
                   id="standard-required"
@@ -250,6 +262,7 @@ export default function Order() {
                 />
 
                 <TextField
+                  defaultValue={currentOrder?.dateConstr}
                   id="standard-required"
                   label="Дата сборки"
                   type="date"
@@ -261,6 +274,7 @@ export default function Order() {
                 />
 
                 <TextField
+                  defaultValue={currentOrder?.teamDeliv}
                   label="Бригада доставки"
                   type="text"
                   id="standard-required"
@@ -268,6 +282,7 @@ export default function Order() {
                 />
 
                 <TextField
+                  defaultValue={currentOrder?.teamConstr}
                   label="Бригада сборки"
                   type="text"
                   id="standard-required"
@@ -279,6 +294,7 @@ export default function Order() {
                     Статус заказа
                   </InputLabel>
                   <Select
+                    defaultValue={currentOrder?.status}
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     {...register("status")}
@@ -316,6 +332,25 @@ export default function Order() {
             </div>
           </div>
         </form>
+      </Modal>
+      <Modal active={modalDelete} setActive={setModalDelete}>
+        <div className="card">
+          <div className="card-header"></div>
+          <div className="card-body">
+            Вы уверены, что хотите удалить заказ № {currentOrder?.number} ?
+            <hr />
+            <span>
+              <Button
+                onClick={() => deleteOrder(orderId)}
+                type="submit"
+                variant="contained"
+                color="primary"
+              >
+                Удалить
+              </Button>
+            </span>
+          </div>
+        </div>
       </Modal>
     </div>
   );

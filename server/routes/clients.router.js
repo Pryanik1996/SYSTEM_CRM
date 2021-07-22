@@ -27,7 +27,10 @@ router.post("/new", async (req, res) => {
         address,
         creator: id,
       });
-
+      // const newClient = await Client.findById(tmpClient._id).populate(
+      //   "creator"
+      // );
+     
       res.json(newClient);
     }
   } catch (err) {
@@ -44,6 +47,27 @@ router.get("/all", async (req, res) => {
     res.sendStatus(400);
   }
 });
+
+//======== STARS
+
+router.patch("/stardell", async (req, res) => {
+  const { client, currUser } = req.body;
+  const clientId = client._id
+  const data = await Client.findByIdAndUpdate(clientId, { $pull: { addstar: currUser } },
+    { new: true });
+    await res.json(data);
+});
+
+router.patch("/staradd", async (req, res) => {
+  const { client, currUser } = req.body;
+  const clientId = client._id
+  const data = await Client.findByIdAndUpdate(clientId, { $push: { addstar: currUser } },
+    { new: true });
+    await res.json(data);
+});
+
+
+//========== <--
 
 router.patch("/:id", async (req, res) => {
   const { id } = req.params;

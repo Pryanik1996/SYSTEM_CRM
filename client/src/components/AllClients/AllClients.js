@@ -4,6 +4,9 @@ import { getClients } from "../../redux/actions/clients.action";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import "./AllClients.css";
+import Star from "./Star"
+import { setDelStar } from "../../redux/actions/clients.action"
+import { setAddStar } from "../../redux/actions/clients.action"
 
 export default function AllClients() {
   const {
@@ -19,7 +22,7 @@ export default function AllClients() {
 
   //================== SEARCH
 
-  let keyCl = ["surname", "patronymic", "email", "phone", "address"];
+  let keyCl = ["surname", "patronymic", "email", "phone", "address", "addstar"];
 
   function translit(word) {
     var answer = "";
@@ -109,7 +112,7 @@ export default function AllClients() {
   if (value) {
     function helpMePlease(item) {
       for (let i = 0; i < keyCl.length; i++) {
-        if (!item.hasOwnProperty(keyCl[i])) item[keyCl[i]] = "";
+        if (!item.hasOwnProperty(keyCl[i])) item[keyCl[i]] = '';
       }
       if (item.name.toLowerCase().includes(value.toLowerCase().trim()))
         return true;
@@ -151,8 +154,73 @@ export default function AllClients() {
   }
 
   const clearInput = () => {
+    //e.preventDefault()
     setValue("");
   };
+
+//============== STARS 
+
+  
+  const currUser = useSelector((state) => state.user?._id)
+  
+  let num;
+  let clientId;
+  let clientStarArr;
+  
+  const converterStars = (client) => {
+    clientId = client?._id
+    clientStarArr = client.addstar
+    if (clientStarArr.length) {
+      if (client.addstar.includes(currUser)) {
+        num = clientStarArr.indexOf(currUser)
+        clientStarArr.splice(num, 1)
+        console.log('зашли на удаление')
+    //     fetch('http://localhost:3001/clients/stardell', {
+    //   method: "PATCH",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({ clientId, currUser }),
+    // }).then
+dispatch(setDelStar(client, currUser)) 
+    return true
+
+      }
+      clientStarArr.push(clientId)
+    //   fetch('http://localhost:3001/clients/staradd', {
+    //   method: "PATCH",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({ clientId, currUser }),
+    // }).then(() => 
+    dispatch(setAddStar(client, currUser)) 
+    return true
+
+    }
+    clientStarArr.push(clientId)
+    //   fetch('http://localhost:3001/clients/staradd', {
+    //   method: "PATCH",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({ clientId, currUser }),
+    // }).then(() => 
+    dispatch(setAddStar(client, currUser)) 
+    return true
+
+  }
+
+
+  function check(client) {
+    if (client.addstar.length) {
+      if (client.addstar.includes(currUser)) return true
+      return false
+    }
+    return false
+  }
+
+
 
   return (
     <div className="allClients">
@@ -177,6 +245,16 @@ export default function AllClients() {
           ) : (
             <ul className="clientsList">
               {filtredClients?.map((cl) => (
+                <div key={cl._id}>
+
+                < Star 
+                
+                cl={cl}
+                converterStars={converterStars}
+                check={check}
+                />
+
+
                 <li>
                   <Link key={cl._id} to={`/clients/${cl._id}`}>
                     <div className="clientsItem">
@@ -197,6 +275,7 @@ export default function AllClients() {
                     </div>
                   </Link>
                 </li>
+                </div>
               ))}
             </ul>
           )}

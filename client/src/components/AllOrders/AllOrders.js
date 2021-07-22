@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { ORDER_ADD } from "../../redux/types";
 import { useState } from "react";
 import './AllOrders.css'
+import { setDelStar } from "../../redux/actions/clients.action"
+
 
 export default function AllOrders() {
   const [arr, setArr] = useState([]);
@@ -32,8 +34,7 @@ export default function AllOrders() {
   console.log("111111=>", arr);
   //============== SEARCH
 
-  let keyCl = ["number", "client", "status", "creator"];
-
+  
   function translit(word) {
     var answer = "";
     var converter = {
@@ -70,7 +71,7 @@ export default function AllOrders() {
       э: "e",
       ю: "yu",
       я: "ya",
-
+      
       А: "A",
       Б: "B",
       В: "V",
@@ -113,19 +114,20 @@ export default function AllOrders() {
         answer += converter[word[i]];
       }
     }
-
+    
     return answer;
   }
-  // console.log("orders===>", orders);
+  
+  let keyCl = ["number", "client", "status", "creator"];
+  
   let filtredOrders = values;
-
   const [value, setValue] = useState("");
   if (value) {
     function helpMePlease(item) {
       for (let i = 0; i < keyCl.length; i++) {
         if (!item.hasOwnProperty(keyCl[i])) item[keyCl[i]] = "";
       }
-      if (item.number.toLowerCase().includes(value.toLowerCase().trim()))
+      if (item?.number.toLowerCase().includes(value.toLowerCase().trim()))
         return true;
       if (item.client?.name?.toLowerCase().includes(value.toLowerCase().trim()))
         return true;
@@ -139,7 +141,7 @@ export default function AllOrders() {
           .includes(value.toLowerCase().trim())
       )
         return true;
-      if (item.status.toLowerCase().includes(value.toLowerCase().trim()))
+      if (item?.status.toLowerCase().includes(value.toLowerCase().trim()))
         return true;
       if (
         item?.creator?.name?.toLowerCase().includes(value.toLowerCase().trim())
@@ -147,7 +149,7 @@ export default function AllOrders() {
         return true;
 
       if (
-        translit(item.number.toLowerCase()).includes(value.toLowerCase().trim())
+        translit(item?.number.toLowerCase()).includes(value.toLowerCase().trim())
       )
         return true;
       if (
@@ -169,7 +171,7 @@ export default function AllOrders() {
       )
         return true;
       if (
-        translit(item.status.toLowerCase()).includes(value.toLowerCase().trim())
+        translit(item?.status.toLowerCase()).includes(value.toLowerCase().trim())
       )
         return true;
       if (

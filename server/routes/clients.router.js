@@ -95,6 +95,7 @@ router.patch("/:id", async (req, res) => {
 
 router.get("/client/:id", async (req, res) => {
   const { id } = req.params;
+  console.log('ID',id);
   try {
     const client = await Client.findById(id)
       .populate("comments")

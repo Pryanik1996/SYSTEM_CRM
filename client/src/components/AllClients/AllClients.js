@@ -266,5 +266,6 @@ export default function AllClients() {
         </>
       )}
     </div>
+    </div>
   );
 }

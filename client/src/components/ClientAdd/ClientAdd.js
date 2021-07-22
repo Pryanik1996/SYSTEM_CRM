@@ -41,7 +41,7 @@ export default function ClientAdd() {
   let history = useHistory();
   const dispatch = useDispatch();
   const [value, setValue] = useState();
-  console.log("!!!!==>", value);
+
   const {
     register,
     handleSubmit,
@@ -49,7 +49,7 @@ export default function ClientAdd() {
     reset,
     formState: { errors },
   } = useForm({ mode: "onChange" });
-
+  console.log(12341234, handleSubmit());
   const onSubmit = (data) => {
     dispatch(getClient(data, history, value));
     reset();
@@ -109,13 +109,6 @@ export default function ClientAdd() {
         id="standard-required"
         {...register("phone")}
       />
-      {/* <TextField
-        label="Адрес клиента"
-        type="text"
-        id="standard-required"
-        {...register("address")}
-        
-      /> */}
       <AddressSuggestions
         style={{ width: "50%" }}
         className="address"

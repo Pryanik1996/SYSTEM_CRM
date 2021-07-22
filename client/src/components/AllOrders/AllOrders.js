@@ -4,6 +4,8 @@ import { getOrders } from "../../redux/actions/order.action";
 import { Link } from "react-router-dom";
 import { ORDER_ADD } from "../../redux/types";
 import { useState } from "react";
+import { setDelStar } from "../../redux/actions/clients.action"
+
 
 export default function AllOrders() {
   const [arr, setArr] = useState([]);
@@ -161,6 +163,7 @@ export default function AllOrders() {
 
   return (
     <div>
+   
       <h1>Все заказы</h1>
 
       <form onSubmit={() => clearInput()} className="search_form">

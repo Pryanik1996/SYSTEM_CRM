@@ -1,4 +1,4 @@
-import { CLIENT_DELETE, CLIENT_ADD_ALL, CLIENTS_GET_START, CLIENTS_GET_SUCCESS, CLIENTS_GET_ERROR, COMMENTS_ADD } from "../types";
+import { CLIENT_DELETE, CLIENT_ADD_ALL, CLIENTS_GET_START, CLIENTS_GET_SUCCESS, CLIENTS_GET_ERROR, COMMENTS_ADD, CHANGESTARMINUS, CHANGESTARPLUS } from "../types";
 
 
 export const setAllClient = (clients) => ({
@@ -103,7 +103,6 @@ export const setComments = (comments) => ({
 })
 
 export const getComments = (data, id, userId, userName) => async (dispatch) => {
-  console.log('ACTION', userId)
   const response = await fetch(`http://localhost:3001/clients/${id}`, {
     method: "POST",
     headers: {
@@ -112,6 +111,40 @@ export const getComments = (data, id, userId, userName) => async (dispatch) => {
     body: JSON.stringify({body: data.comments, userId, userName})
 })
   const res = await response.json()
-  console.log(res)
   dispatch(setComments(res))
+}
+
+export const delStar = (client) => ({
+  type: CHANGESTARMINUS,
+  payload: client,
+})
+
+export const setDelStar = (client, currUser) => async (dispatch) => {
+const response = await fetch('http://localhost:3001/clients/stardell', {
+        method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ client, currUser }),
+})
+const res = await response.json()
+dispatch(delStar(res))
+}
+
+
+export const addStar = (client) => ({
+  type: CHANGESTARPLUS,
+  payload: client,
+})
+
+export const setAddStar = (client, currUser) => async (dispatch) => {
+const response = await fetch('http://localhost:3001/clients/staradd', {
+        method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ client, currUser }),
+})
+const res = await response.json()
+dispatch(addStar(res))
 }

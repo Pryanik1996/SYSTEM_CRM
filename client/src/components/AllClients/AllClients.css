@@ -1,8 +1,4 @@
-button {
-  background-color: transparent;
-  padding: 0;
-  border: none;
-}
+
 .clientsList {
   margin-top: 10px;
   display: flex;

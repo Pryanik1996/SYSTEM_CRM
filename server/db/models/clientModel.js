@@ -37,10 +37,11 @@ const clientSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
-  addstar: {
+  addstar: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-  },
+    default: []
+  }],
   isDelete: {
     type: Boolean,
     default: false

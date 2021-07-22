@@ -64,7 +64,7 @@ export default function ClientAdd() {
       autoComplete="off"
     >
       <br />
-      <h1>Добавить клиента</h1>
+      <h1>Новый клиент</h1>
       <br />
       <hr />
       {errors.name && (

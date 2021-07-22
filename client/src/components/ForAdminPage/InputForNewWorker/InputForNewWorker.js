@@ -3,10 +3,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useForm } from "react-hook-form";
 import Button from "@material-ui/core/Button";
 import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
 import { addWorkerEmail } from "../../../redux/actions/workers.action";
 import { useHistory } from "react-router/";
-
-
+import SmallModal from "./SmallModal/SmallModal";
+import "./InputForNewWorker.css"
+import Modal from "../../Modal/Modal";
 
 // import nodemailer from 'nodemailer';
 
@@ -51,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function InputForNewWorker() {
+  const [modalActive, setModalActive] = useState(false);
   const classes = useStyles();
   let history = useHistory();
   const dispatch = useDispatch();
@@ -69,6 +72,7 @@ export default function InputForNewWorker() {
   };
 
   return (
+    <>
     <form
     style={{
       display: "inline-grid",
@@ -83,8 +87,9 @@ export default function InputForNewWorker() {
       autoComplete="off"
     >
       <div>
+        
         <br />
-        <h1>Добавить сотрудника</h1>
+        <h1 style={{color:"black"}}>Добавить сотрудника</h1>
         <hr />
         <TextField
           label="email"
@@ -93,10 +98,34 @@ export default function InputForNewWorker() {
           {...register("email")}
         />
         <br />
-        <Button type="submit" variant="contained" color="primary">
+        <Button onClick={()=>{
+          setModalActive(true)
+          setTimeout(()=>{setModalActive(false)}
+          ,3000)
+          }} type="submit" variant="contained" color="primary">
           Отправить
         </Button>
       </div>
     </form>
+    <div style={{
+      backgroundColor: "transparent",
+      width:"200px"}}>
+
+    <SmallModal 
+    style={{    marginTop: "-40%",
+      width: "240px",
+      marginRight: "55%"
+  }}
+    active={modalActive} setActive={setModalActive}>
+        <div style={{width:"200px"}} className="card">
+          <div className="card-header"></div>
+          <div className="card-body">
+          📬 Письмо отправлено
+            <hr />
+          </div>
+        </div>
+      </SmallModal>
+              </div>
+    </>
   );
 }

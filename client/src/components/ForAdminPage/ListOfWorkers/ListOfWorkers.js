@@ -8,14 +8,11 @@ import {
   CardContent,
   CardActions,
 } from "@material-ui/core";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import clsx from "clsx";
 import Card from "@material-ui/core/Card";
 import { red } from "@material-ui/core/colors";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import EmailIcon from '@material-ui/icons/Email';
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import InputForNewWorker from "../InputForNewWorker/InputForNewWorker";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,6 +25,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import Grid from "@material-ui/core/Grid";
 import ChooseAdmin from "./ChooseAdmin/ChooseAdmin";
+import Modal from "../../Modal/Modal";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -53,75 +51,81 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ListOfWorkers() {
-  const dispatch = useDispatch();
-  const { workers } = useSelector((state) => state);
-  console.log("worrjrr", workers);
-  useEffect(() => {
-    fetch("http://localhost:3001/admin/workers", {
-      credentials: "include",
-    })
+
+  const [modalActive, setModalActive] = useState(false);
+
+    const dispatch = useDispatch();
+    const { workers } = useSelector((state) => state);
+    useEffect(() => {
+      fetch("http://localhost:3001/admin/workers", {
+        credentials: "include",
+      })
       .then((response) => response.json())
       .then((data) => dispatch(allworkers(data)));
-  }, []);
-  const classes = useStyles();
-  const ChangeAdmin = async (e) => {
-    e.preventDefault();
-    const idcard = e.target.id;
-
-    const response = await fetch(
-      `http://localhost:3001/admin/workers/add/${idcard}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-
-        body: JSON.stringify({
-          idcard,
-        }),
-        credentials: "include",
-      }
-    );
-    const result = await response.json();
-    await dispatch(changeAdmin(result));
-  };
-
-  return (
-    <>
-      <InputForNewWorker />
+    }, []);
+    const classes = useStyles();
+    const ChangeAdmin = async (e) => {
+      e.preventDefault();
+      const idcard = e.target.id;
+      
+      const response = await fetch(
+        `http://localhost:3001/admin/workers/add/${idcard}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          
+          body: JSON.stringify({
+            idcard,
+          }),
+          credentials: "include",
+        }
+        );
+        const result = await response.json();
+        await dispatch(changeAdmin(result));
+      };
+      
+      return (
+        <>
+      <EmailIcon 
+      onClick={()=>setModalActive(true)}
+      style={{color:"white", fontSize: "80", position:"absolute", left:"10%", top:"13%" }} />
       <div
         style={{
+          marginTop:"3%",
           display: "flex",
           flexWrap: "wrap",
-          justifyContent: "space-around",
+          width: "101%",
+          marginLeft: "0px"
         }}
       >
+        <Modal active={modalActive} setActive={setModalActive}>
+        <InputForNewWorker />
+
+        </Modal >
         {workers?.map((e) => (
           <Card
-            style={
-              e.isAdmin
-                ? {
-                    backgroundColor: "#dedede",
-                    minHeight: "370px",
-                    maxWidth: "335px",
-                    minWidth: "280px",
-                    maxHeight: "370px",
+          style={
+            e.isAdmin
+            ? {
+              backgroundColor: "#dedede",
+                    width: "22%",
+                    height: "380px",
                     margin: "15px",
-                    borderColor: "white",
+                    borderColor: "black",
                     borderRadius: "10%",
-                    color: "white",
+                    color: "black",
                     borderStyle: "groove",
                   }
                 : {
                     backgroundColor: "#aaaeb7a8",
-                    minHeight: "370px",
-                    maxWidth: "335px",
-                    maxHeight: "370px",
+                    width: "22%",
+                    height: "380px",
                     color: "white",
-                    minWidth: "280px",
                     borderRadius: "10%",
                     margin: "15px",
-                    borderColor: "white",
+                    borderColor: "black",
                     borderStyle: "groove",
                   }
             }
@@ -129,7 +133,7 @@ export default function ListOfWorkers() {
           >
             <CardHeader
               action={
-                <IconButton aria-label="settings">
+                <IconButton style={{width:"27px"}}aria-label="settings">
                   <MoreVertIcon />
                 </IconButton>
               }
@@ -141,6 +145,7 @@ export default function ListOfWorkers() {
                 borderStyle: "outset",
                 marginLeft: "5%",
                 height: "150px",
+                borderColor: "black",
                 width: "150px",
                 borderRadius: "50%",
               }}
@@ -148,6 +153,7 @@ export default function ListOfWorkers() {
               image={e.picture ? e.picture : "none"}
               title="Paella dish"
             />
+<hr style={{marginTop:"20px"}}></hr>
 
             <Typography
               style={{
@@ -159,13 +165,13 @@ export default function ListOfWorkers() {
               variant="body2"
               color="textSecondary"
               component="p"
-            >
+              >
               Статус:
               <button
                 onClick={ChangeAdmin}
                 style={{
                   marginLeft: "4px",
-                  color: "black",
+                  color: "white",
                   borderColor: "white",
                   backgroundColor: "unset",
                 }}

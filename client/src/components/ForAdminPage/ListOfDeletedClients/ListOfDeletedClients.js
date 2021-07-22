@@ -61,15 +61,15 @@ export default function ListOfDEletedClients() {
 
   return (
     <Grid
-    
-      container
-      direction="column-reverse"
-      justifyContent="space-between"
-      alignItems="stretch"
+    container
+    direction="column-reverse"
+    justifyContent="space-between"
+    alignItems="stretch"
     >
       <div  className={classes.root}>
         {items?.map((e) => (
           <Accordion
+          style={{minHeight: "70px"}}
             expanded={expanded === e._id}
             onChange={handleChange(e._id)}
           >
@@ -84,13 +84,21 @@ export default function ListOfDEletedClients() {
               <Typography className={classes.secondaryHeading}>
                 {e.email}
               </Typography>
+  
+                <Typography 
+                style={{paddingLeft:"20px"}}
+                >{e.phone}</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <div id="remove">
+                <IconButton>
+
                 <CachedIcon
-                  onClick={elementEdit(e._id)}
-                  className={classes.margin}
+                fontSize="large"
+                onClick={elementEdit(e._id)}
+                className={classes.margin}
                 ></CachedIcon>
+                </IconButton>
               </div>
               <div id="delete">
                 <IconButton
@@ -99,10 +107,10 @@ export default function ListOfDEletedClients() {
                   aria-label="delete"
                   className={classes.margin}
                 >
-                  <DeleteIcon fontSize="large" />
+                  <DeleteIcon fontSize="large"
+                   />
                 </IconButton>
               </div>
-              <Typography>{e.phone}</Typography>
             </AccordionDetails>
           </Accordion>
         ))}

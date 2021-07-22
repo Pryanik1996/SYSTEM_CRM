@@ -33,7 +33,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box p={3}>
-          <Typography >{children}</Typography>
+          <Typography>{children}</Typography>
         </Box>
       )}
     </div>
@@ -48,7 +48,6 @@ TabPanel.propTypes = {
 
 function a11yProps(index) {
   return {
-    
     id: `scrollable-auto-tab-${index}`,
     "aria-controls": `scrollable-auto-tabpanel-${index}`,
   };
@@ -57,7 +56,7 @@ function a11yProps(index) {
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    width: "100%"
+    width: "100%",
   },
   large: {
     width: theme.spacing(8),
@@ -80,6 +79,7 @@ export default function ScrollableTabsButtonAuto() {
 
   const userName = useSelector((state) => state.user?.name);
   const userPicture = useSelector((state) => state.user?.picture);
+  const userIsAdmin = useSelector((state) => state.user?.isAdmin);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -87,10 +87,10 @@ export default function ScrollableTabsButtonAuto() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="transparent" style={{color: "white"}}> 
+      <AppBar position="static" color="transparent" style={{ color: "white" }}>
         <Container maxWidth="lg">
           <Tabs
-            value={value}            
+            value={value}
             onChange={handleChange}
             indicatorColor="primary"
             // textColor="primary"
@@ -98,12 +98,7 @@ export default function ScrollableTabsButtonAuto() {
             scrollButtons="auto"
             aria-label="scrollable auto tabs example"
           >
-            <Tab
-              label="на главную"
-              component={Link}
-              to="/"
-              {...a11yProps(0)}
-            />
+            <Tab label="на главную" component={Link} to="/" {...a11yProps(0)} />
             <Tab
               label="клиенты"
               component={Link}
@@ -147,12 +142,16 @@ export default function ScrollableTabsButtonAuto() {
               to="/admin/items"
               {...a11yProps(5)}
             /> */}
-            <Tab
-              label="сотрудники"
-              component={Link}
-              to="/admin/workers"
-              {...a11yProps(6)}
-            />
+
+            {userIsAdmin && (
+              <Tab
+                label="сотрудники"
+                component={Link}
+                to="/admin/workers"
+                {...a11yProps(6)}
+              />
+            )}
+
             {userName && (
               <div className="userInfo">
                 <b>{userName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>{" "}
@@ -163,7 +162,8 @@ export default function ScrollableTabsButtonAuto() {
                 />
               </div>
             )}
-            <LongMenu />
+            {userIsAdmin && <LongMenu />}
+
             <Tab
               label="выйти"
               component={Link}

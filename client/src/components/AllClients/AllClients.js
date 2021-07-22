@@ -238,7 +238,7 @@ export default function AllClients() {
           ) : (
             <ul className="clientsList">
               {filtredClients?.map((cl) => (
-                <li>
+                <li style={{ position: "relative" }}>
                   <Star cl={cl} converterStars={converterStars} check={check} />
 
                   <Link key={cl._id} to={`/clients/${cl._id}`}>

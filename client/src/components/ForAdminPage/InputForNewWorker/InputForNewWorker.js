@@ -70,6 +70,13 @@ export default function InputForNewWorker() {
 
   return (
     <form
+    style={{
+      display: "inline-grid",
+      justifyContent: "center",
+      alignItems: "center",
+      width: "100%",
+      height: "270px",
+    }}
       onSubmit={handleSubmit(onSubmit)}
       className={classes.root}
       noValidate

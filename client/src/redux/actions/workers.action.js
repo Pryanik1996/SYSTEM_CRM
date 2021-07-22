@@ -7,7 +7,7 @@ export const addWorker = (workers) => ({
 
 export const allworkers = (workers) => ({
   type: ALL_WORKERS,
-  payload: { workers },
+  payload:  workers,
 });
 export const changeAdmin = (workers) => ({
   type: CHANGE_ADMIN,

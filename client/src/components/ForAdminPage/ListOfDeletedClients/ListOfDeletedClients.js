@@ -61,12 +61,13 @@ export default function ListOfDEletedClients() {
 
   return (
     <Grid
+    
       container
       direction="column-reverse"
       justifyContent="space-between"
       alignItems="stretch"
     >
-      <div className={classes.root}>
+      <div  className={classes.root}>
         {items?.map((e) => (
           <Accordion
             expanded={expanded === e._id}

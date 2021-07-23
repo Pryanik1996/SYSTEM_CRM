@@ -51,6 +51,9 @@ function App() {
             <Route exact path="/">
               <Main />
             </Route>
+            <Route exact path="/clients">
+                <AllClients />
+              </Route>
             <Container maxWidth="lg">
               <Route exact path="/auth/signout">
                 <SignOut />
@@ -70,9 +73,7 @@ function App() {
               <Route exact path="/orders/new">
                 <OrderAdd />
               </Route>
-              <Route exact path="/clients">
-                <AllClients />
-              </Route>
+             
               {/* <Route exact path="/clients/card">
                 <CardsClients />
               </Route> */}

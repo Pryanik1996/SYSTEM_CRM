@@ -217,16 +217,16 @@ export default function AllClients() {
 
   return (
     <div className="allClients">
-      <h1>Наши клиенты</h1>
+      <div className="conteiner">
+      <h1 className="title-client">Наши клиенты</h1>
       <form onSubmit={() => clearInput()} className="search_form">
         <input
           onChange={(event) => setValue(event.target.value)}
           type="text"
-          placeholder="Поиск..."
+          placeholder="🔎&nbsp;&nbsp; Поиск здесь..."
           className="search_input"
         />
       </form>
-
       {loading ? (
         <p>Загрузка...</p>
       ) : error ? (
@@ -239,6 +239,7 @@ export default function AllClients() {
             <ul className="clientsList">
               {filtredClients?.map((cl) => (
                 <li style={{ position: "relative" }}>
+                  <span className="descr">Подробнее</span>
                   <Star cl={cl} converterStars={converterStars} check={check} />
                   <Link key={cl._id} to={`/clients/client/${cl._id}`}>
                     <div className="clientsItem">
@@ -250,12 +251,13 @@ export default function AllClients() {
                         />
                       </div>
                       <div className="clientsInfo">
+                        ФИО:&nbsp;
                         {cl.surname}&nbsp;{cl.name}
                         <br /> {cl.patronymic}
                         <br />
-                        {cl.email}
+                        email:&nbsp;{cl.email}
                         <br />
-                        {cl.phone}
+                        Номер:&nbsp;{cl.phone}
                       </div>
                     </div>
                   </Link>
@@ -266,5 +268,6 @@ export default function AllClients() {
         </>
       )}
     </div>
+      </div>
   );
 }

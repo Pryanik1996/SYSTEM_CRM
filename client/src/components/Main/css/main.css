@@ -2,7 +2,7 @@
   margin: 0;
   font-family: "Gilroy" serif;
   background-color: #0b1d26;
-  background-image: url("../img/pic/Большой-диван-в-интерьере-39-1024x493.jpeg");
+  background-image: url("../img/pic/Большой-диван-в-интерьере-39-1024x493.jpeg");
   background-size: 100% auto;
   background-repeat: no-repeat;
   color: white;
@@ -283,7 +283,6 @@
   position: absolute;
   right: 0;
   top: 50%;
-  background-image: url("../img/pic/arrow_downward_24px.svg");
 }
 
 .hero-scroll:hover {

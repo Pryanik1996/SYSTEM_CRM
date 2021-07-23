@@ -195,7 +195,7 @@ export default function AllOrders() {
         <input
           onChange={(event) => setValue(event.target.value)}
           type="text"
-          placeholder="Поиск заказа..."
+          placeholder="🔎&nbsp;&nbsp; Поиск заказа..."
           className="search_input"
         />
       </form>

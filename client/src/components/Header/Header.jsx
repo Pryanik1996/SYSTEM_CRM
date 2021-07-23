@@ -113,7 +113,6 @@ export default function ScrollableTabsButtonAuto() {
               to="/orders"
               {...a11yProps(1)}
             />
-
             <Tab
               style={{ fontSize: "18px" }}
               label="добавить клиента"
@@ -155,7 +154,6 @@ export default function ScrollableTabsButtonAuto() {
                 {...a11yProps(6)}
               />
             )}
-
             {userName && (
               <div className="userInfo">
                 <b>{userName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>{" "}
@@ -167,7 +165,6 @@ export default function ScrollableTabsButtonAuto() {
               </div>
             )}
             {userIsAdmin && <LongMenu />}
-
             <Tab
               label="выйти"
               component={Link}

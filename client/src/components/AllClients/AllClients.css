@@ -22,7 +22,7 @@
 }
 .clientsList li:hover {
   /* opacity: 0.6; */
-  box-shadow: 5px 5px 15px 3px #273d87;
+  box-shadow: 5px 5px 15px 3px whitesmoke;
 }
 
 .clientsItem {
@@ -51,7 +51,9 @@ a {
   color: black;
 }
 .search_input {
-  width: 30%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 40%;
   border: 1px solid #bababa;
   background-color: white;
   background-position: 10px 10px;
@@ -69,8 +71,17 @@ h1 {
   color: white;
 }
 
+.title-client {
+  margin-top: 20px;
+}
+
 .allClients {
-  background-image: url('./img/gray-furniture-classic-sofa-armchair-fun-composition-on-black-background-3d-rendering_156429-1744.jpeg');
+  max-width: 1700px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 100px;
+  padding-right: 100px;
+  background-image: url("./img/maxresdefault.jpeg");
   margin: 0;
   font-family: "Gilroy" serif;
   background-size: 100% auto;
@@ -79,5 +90,48 @@ h1 {
   overflow: hidden;
   position: relative;
   scroll-behavior: smooth;
-  height: 1000px;
+  height: 750px;
+}
+
+.allClients::before {
+  background: linear-gradient(
+    to top,
+    rgba(11, 29, 38) 0%,
+    rgba(248, 248, 248, 0) 100%
+  );
+  content: "";
+  display: block;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.search_form {
+  position: relative;
+}
+
+.descr {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0,0,0,0.5);
+  color: whitesmoke;
+  padding-top: 80px;
+  text-align: center;
+  opacity: 0;
+  -webkit-transition: all .5s;
+  -o-transition: all .5s;
+  transition: all .5s;
+  pointer-events: none;
+
+}
+
+.clientsList li:hover .descr{
+  display: block;
+  opacity: 1;
+  top: 100;
 }

@@ -6,3 +6,15 @@
     padding: 0 15px;
 
 } */
+a:hover {
+  color: #ffffff;
+}
+.PrivateTabIndicator-root-3.PrivateTabIndicator-colorPrimary-4.MuiTabs-indicator {
+  background-color: #ffffff;
+}
+.PrivateTabIndicator-colorPrimary-4 {
+  background-color: #ffffff
+}
+.PrivateTabIndicator-colorPrimary-7 {
+  background-color: #ffffff;
+}

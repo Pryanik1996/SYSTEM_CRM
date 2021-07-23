@@ -89,35 +89,54 @@ export default function ClientInfo({
     <>
       <CardContent>
         <Typography
-          className={classes.title}
+          // className={classes.title}
           color="textSecondary"
           gutterBottom
+          variant="h4"
+          component="h2"
         >
-          ФИО: {name} {surname} {patronymic}
+          <b>
+            {name} {surname} {patronymic}
+          </b>
         </Typography>
-        <Typography variant="h5" component="h2">
-          email: {email}
+        <Typography style={{ color: "black", fontSize: "18px" }}>
+          email: <b> {email} </b>
         </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          Номер телефона: {phone}
+        <Typography style={{ color: "black", fontSize: "18px" }}>
+          Номер телефона: <b>{phone}</b>
         </Typography>
-        <Typography variant="body2" component="p">
-          Адрес доставки: {address}
-          <br />
+        <Typography style={{ color: "black", fontSize: "18px" }}>
+          Адрес доставки: <b>{address}</b>
           <br />
           <p>
             Заказы:{" "}
             {orders?.map((el) => (
-              <Link to={`/orders/${el._id}`}>{el.number},&nbsp;</Link>
+              <Link
+                style={{
+                  color: "black",
+                  border: "1px solid black",
+                  padding: "2px",
+                  marginRight: "5px",
+                }}
+                to={`/orders/${el._id}`}
+              >
+                {el.number}&nbsp;
+              </Link>
             ))}{" "}
           </p>
+          <hr />
           <p>Оставить комментарий:</p>
           <CommentsClients />
         </Typography>
       </CardContent>
 
       <CardActions>
-        <Link to={`/orders/new/${id}`}>Создать заказ</Link>
+        <Link
+          to={`/orders/new/${id}`}
+          style={{ color: "black", fontSize: "14px" }}
+        >
+          СОЗДАТЬ ЗАКАЗ
+        </Link>
         <Button onClick={() => setModalActive(true)} size="small">
           Редактировать
         </Button>

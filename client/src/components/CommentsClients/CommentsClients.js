@@ -36,20 +36,32 @@ export default function CommentsClients() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <input {...register("comments")}></input>
-      <button type="submit">Добавить</button>
+      <input
+        placeholder="Ваш комментарий..."
+        className="commentClientInput"
+        {...register("comments")}
+      ></input>
+      <Button variant="contained" type="submit">
+        Подтвердить
+      </Button>
       <div className="commentsList">
         {comments?.map((el) => (
           <>
-            <li>{el.body}</li>
-            <li>Автор: {el.author} </li>
-            <li>Дата создания: {el.date}</li>
+            <div className="oneComment">
+              <div>
+                {" "}
+                <b>{el.body}</b>
+              </div>
+              <div>
+                <i>
+                  {el.author}, {el.date}
+                </i>
+              </div>
+
+              <hr />
+            </div>
             {userId === el.authorId && (
-              <Button
-                onClick={() => deleteHandler(el._id)}
-                variant="contained"
-                color="primary"
-              >
+              <Button onClick={() => deleteHandler(el._id)} variant="contained">
                 Удалить
               </Button>
             )}

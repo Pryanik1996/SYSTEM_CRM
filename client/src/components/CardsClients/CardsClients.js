@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
+    marginTop: '50px'
   },
   bullet: {
     display: "inline-block",
@@ -16,11 +17,9 @@ const useStyles = makeStyles({
     transform: "scale(0.8)",
   },
   title: {
-    fontSize: 14,
+    fontSize: '18px',
   },
-  pos: {
-    marginBottom: 12,
-  },
+
 });
 
 export default function CardsClients() {

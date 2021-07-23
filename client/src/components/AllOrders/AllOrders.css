@@ -8,3 +8,7 @@
   color: white;
 }
 
+.ordersList {
+  list-style: none;
+  padding-left: 0;
+}

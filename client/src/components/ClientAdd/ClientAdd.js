@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import { useForm } from "react-hook-form";
-import { FormHelperText } from "@material-ui/core";
+import { FormHelperText, Grid } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import { useDispatch } from "react-redux";
 import { getClient } from "../../redux/actions/clients.action";
@@ -14,8 +14,8 @@ import "./ClientAdd.css";
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiTextField-root": {
-      margin: theme.spacing(2),
-      width: "25ch",
+      // margin: theme.spacing(2),
+      width: "100%",
     },
   },
   color: {
@@ -33,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
       borderColor: "currentColor",
     },
+  },
+  form: {
+    paddingBottom: "30px",
   },
 }));
 
@@ -70,45 +73,58 @@ export default function ClientAdd() {
       {errors.name && (
         <p className="help">Обязательное поле, не более 15 символов</p>
       )}
-      <TextField
-        className={classes.color}
-        label="Фамилия"
-        type="text"
-        id="standard-required"
-        {...register("surname")}
-      />
-      <TextField
-        // color={"secondary"}
-        // style={{ color: "white" }}
-        label="Имя"
-        type="text"
-        className={classes.color}
-        id="standard-required"
-        {...register("name", { required: true, maxLength: 15 })}
-      />
-      <TextField
-        className={classes.color}
-        label="Отчество"
-        type="text"
-        id="standard-required"
-        {...register("patronymic")}
-      />
-      <TextField
-        className={classes.color}
-        label="email"
-        type="email"
-        id="standard-required"
-        {...register("email")}
-      />
-      <TextField
-        className={classes.color}
-        placeholder="..."
-        defaultValue="+7"
-        label="Номер телефона"
-        type="text"
-        id="standard-required"
-        {...register("phone")}
-      />
+      <Grid className={classes.form} container spacing={3}>
+        <Grid item xs={3}>
+          <TextField
+            className={classes.color}
+            label="Фамилия"
+            type="text"
+            id="standard-required"
+            {...register("surname")}
+          />
+        </Grid>
+        <Grid item xs={3}>
+          <TextField
+            // color={"secondary"}
+            // style={{ color: "white" }}
+            label="Имя"
+            type="text"
+            className={classes.color}
+            id="standard-required"
+            {...register("name", { required: true, maxLength: 15 })}
+          />
+        </Grid>
+        <Grid item xs={3}>
+          <TextField
+            className={classes.color}
+            label="Отчество"
+            type="text"
+            id="standard-required"
+            {...register("patronymic")}
+          />
+        </Grid>
+        <Grid item xs={3}>
+          <TextField
+            className={classes.color}
+            label="email"
+            type="email"
+            id="standard-required"
+            {...register("email")}
+          />
+        </Grid>
+        <Grid item xs={3}>
+          <TextField
+            className={classes.color}
+            placeholder="..."
+            defaultValue="+7"
+            label="Номер телефона"
+            type="text"
+            id="standard-required"
+            {...register("phone")}
+          />
+        </Grid>
+      </Grid>
+
       <AddressSuggestions
         style={{ width: "50%" }}
         className="address"

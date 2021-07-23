@@ -158,7 +158,6 @@ export default function AllClients() {
     setValue("");
   };
 
-<<<<<<< HEAD
   //============== STARS
 
   const currUser = useSelector((state) => state.user?._id);
@@ -175,35 +174,14 @@ export default function AllClients() {
         num = clientStarArr.indexOf(currUser);
         clientStarArr.splice(num, 1);
         console.log("зашли на удаление");
-        //     fetch('http://localhost:3001/clients/stardell', {
-        //   method: "PATCH",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        //   body: JSON.stringify({ clientId, currUser }),
-        // }).then
         dispatch(setDelStar(client, currUser));
         return true;
       }
       clientStarArr.push(clientId);
-      //   fetch('http://localhost:3001/clients/staradd', {
-      //   method: "PATCH",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({ clientId, currUser }),
-      // }).then(() =>
       dispatch(setAddStar(client, currUser));
       return true;
     }
     clientStarArr.push(clientId);
-    //   fetch('http://localhost:3001/clients/staradd', {
-    //   method: "PATCH",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({ clientId, currUser }),
-    // }).then(() =>
     dispatch(setAddStar(client, currUser));
     return true;
   };
@@ -218,15 +196,9 @@ export default function AllClients() {
 
   return (
     <div className="allClients">
-      <h1>Наши клиенты</h1>
-=======
-  return (
-    <div className="allClients">
-
-
-    <div>
-      <h1>Все клиенты</h1>
->>>>>>> d19091052e57ee859d423558f715026dcd6713f3
+    <div className="conteiner">
+      <h1 className="titleAllClients">Наши клиенты</h1>
+      <div className="content">
       <form onSubmit={() => clearInput()} className="search_form">
         <input
           onChange={(event) => setValue(event.target.value)}
@@ -235,6 +207,8 @@ export default function AllClients() {
           className="search_input"
         />
       </form>
+
+      </div>
 
       {loading ? (
         <p>Загрузка...</p>
@@ -247,15 +221,8 @@ export default function AllClients() {
           ) : (
             <ul className="clientsList">
               {filtredClients?.map((cl) => (
-<<<<<<< HEAD
-                <li style={{ position: "relative" }}>
-                  <Star cl={cl} converterStars={converterStars} check={check} />
-
-                  <Link key={cl._id} to={`/clients/${cl._id}`}>
-=======
                 <li>
                   <Link key={cl._id} to={`/clients/client/${cl._id}`}>
->>>>>>> d19091052e57ee859d423558f715026dcd6713f3
                     <div className="clientsItem">
                       <div className="image">
                         <img

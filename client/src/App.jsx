@@ -87,7 +87,6 @@ function App() {
             </Route>
             <Route exact path="/admin">
               <BlocktoShowElemensToDelete />
-<<<<<<< HEAD
             </Route>
             <Route exact path="/orders/new/:id">
               <NewOrderForClient />
@@ -95,10 +94,6 @@ function App() {
             <Route exact path="/failure">
               <Fail />
             </Route>
-          </Switch>
-=======
-              </Route>
->>>>>>> d19091052e57ee859d423558f715026dcd6713f3
         </Container>
           </Switch>
       </React.Fragment>

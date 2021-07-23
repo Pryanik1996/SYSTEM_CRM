@@ -11,11 +11,8 @@ import { getEditClient } from "../../redux/actions/currentClient.action";
 import { getDeleteClient } from "../../redux/actions/currentClient.action";
 import { useParams } from "react-router-dom";
 import CommentsClients from "../CommentsClients/CommentsClients";
-<<<<<<< HEAD
 import { Link } from "react-router-dom";
-=======
 import { useHistory, useLocation } from "react-router";
->>>>>>> d19091052e57ee859d423558f715026dcd6713f3
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,20 +48,9 @@ export default function ClientInfo({
   const [modalActive, setModalActive] = useState(false);
   const [formData, setFormData] = useState(null);
   const [modalDelete, setModalDelete] = useState(false);
-<<<<<<< HEAD
   // const item = useSelector((state) => state.clients);
   // const { clients } = item;
 
-=======
-  console.log({
-    name,
-    surname,
-    patronymic,
-    email,
-    phone,
-    address,
-  });
->>>>>>> d19091052e57ee859d423558f715026dcd6713f3
   const {
     register,
     handleSubmit,
@@ -93,49 +79,6 @@ export default function ClientInfo({
 
   return (
     <>
-<<<<<<< HEAD
-      {name ? (
-        <>
-          <CardContent>
-            <Typography
-              className={classes.title}
-              color="textSecondary"
-              gutterBottom
-            >
-              ФИО: {name} {surname} {patronymic}
-            </Typography>
-            <Typography variant="h5" component="h2">
-              email: {email}
-            </Typography>
-            <Typography className={classes.pos} color="textSecondary">
-              Номер телефона: {phone}
-            </Typography>
-            <Typography variant="body2" component="p">
-              Адрес доставки: {address}
-              <br />
-              <br />
-              <p>
-                Заказы:{" "}
-                {orders.map((el) => (
-                  <Link to={`/orders/${el._id}`}>{el.number},&nbsp;</Link>
-                ))}{" "}
-              </p>
-              <p>Оставить комментарий:</p>
-              <CommentsClients />
-            </Typography>
-          </CardContent>
-
-          <CardActions>
-            <Link to={`/orders/new/${id}`}>Создать заказ</Link>
-            <Button onClick={() => setModalActive(true)} size="small">
-              Редактировать
-            </Button>
-            <Button onClick={() => setModalDelete(true)} size="small">
-              Удалить
-            </Button>
-          </CardActions>
-        </>
-=======
       <CardContent>
         <Typography
           className={classes.title}
@@ -203,7 +146,6 @@ export default function ClientInfo({
             </div>
           </form>
         </Modal>
->>>>>>> d19091052e57ee859d423558f715026dcd6713f3
       ) : (
         <></>
       )}

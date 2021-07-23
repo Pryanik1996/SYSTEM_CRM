@@ -57,11 +57,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     width: "100%",
-<<<<<<< HEAD
-=======
     backgroundColor: theme.palette.background.default,
 
->>>>>>> d19091052e57ee859d423558f715026dcd6713f3
   },
   large: {
     width: theme.spacing(8),
@@ -84,13 +81,8 @@ export default function ScrollableTabsButtonAuto() {
 
   return (
     <div className={classes.root}>
-<<<<<<< HEAD
-      <AppBar position="static" color="transparent" style={{ color: "white" }}>
-        <Container maxWidth="lg">
-=======
       <AppBar position="static" color="transparent" >
         <Container maxWidth="lg" >
->>>>>>> d19091052e57ee859d423558f715026dcd6713f3
           <Tabs
             value={value}
             onChange={handleChange}

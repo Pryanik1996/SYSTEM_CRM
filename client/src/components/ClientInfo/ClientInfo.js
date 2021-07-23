@@ -96,7 +96,7 @@ export default function ClientInfo({
           component="h2"
         >
           <b>
-            {name} {surname} {patronymic}
+            {surname} {name} {patronymic}
           </b>
         </Typography>
         <Typography style={{ color: "black", fontSize: "18px" }}>

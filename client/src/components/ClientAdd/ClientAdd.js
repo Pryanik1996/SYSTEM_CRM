@@ -124,7 +124,7 @@ export default function ClientAdd() {
           />
         </Grid>
       </Grid>
-
+      <p style={{color: 'white', fontSize: "18px"}}>Адрес:</p>
       <AddressSuggestions
         style={{ width: "50%" }}
         className="address"

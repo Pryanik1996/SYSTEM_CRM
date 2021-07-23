@@ -129,6 +129,7 @@ export const editCurrentOrder = (id, order) => async (dispatch) => {
       body: JSON.stringify({ id, order }),
     });
     const data = await response.json();
+    // console.log('123===>', data);
     dispatch(editOrder(data));
   } catch (error) {
     console.log(error);

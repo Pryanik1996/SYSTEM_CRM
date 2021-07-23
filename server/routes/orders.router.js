@@ -179,11 +179,11 @@ router.delete("/:id/comments", async (req, res) => {
 
 router.patch("/edit/:id", async (req, res) => {
   const { id } = req.params;
-  console.log("11111=>>>>>", id, req.body.order);
+  // console.log("11111=>>>>>", id, req.body.order);
   try {
     const updOrder = await Order.findByIdAndUpdate(id, req.body.order, {
       new: true,
-    });
+    }).populate("client");
 
     res.json(updOrder);
   } catch (error) {

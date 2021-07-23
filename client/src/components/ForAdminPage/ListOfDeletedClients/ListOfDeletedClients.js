@@ -79,16 +79,21 @@ export default function ListOfDEletedClients() {
               aria-controls="panel1bh-content"
               id="panel1bh-header"
             >
-              <Typography className={classes.heading}>
-                {e.name} {e.patronymic}
+              <Typography className={classes.heading}
+              style={{fontSize:"20px"}}
+              >
+               {e.surname} {e.name} {e.patronymic}
               </Typography>
-              <Typography className={classes.secondaryHeading}>
-                {e.email}
+                <Typography 
+                style={{paddingLeft:"20px", fontSize:"18px"}}
+                >
+                  Телефон: {e.phone}
+                </Typography>
+
+              <Typography className={classes.heading } style={{paddingLeft:"20px", fontSize:"18px"}}>
+              e-mail: {e.email}
               </Typography>
   
-                <Typography 
-                style={{paddingLeft:"20px"}}
-                >{e.phone}</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <div id="remove">

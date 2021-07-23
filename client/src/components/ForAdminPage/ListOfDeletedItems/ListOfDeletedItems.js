@@ -64,23 +64,35 @@ export default function ListOfDEletedItems() {
       direction="column-reverse"
       justifyContent="space-between"
       alignItems="stretch"
-    >
+      >
       <div className={classes.root}>
         {items?.map((e) => (
           <Accordion
-            expanded={expanded === e._id}
-            onChange={handleChange(e._id)}
+          expanded={expanded === e._id}
+          onChange={handleChange(e._id)}
           >
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1bh-content"
               id="panel1bh-header"
-            >
-              <Typography className={classes.heading}>
-                {e.number} {e.dateDeliv}
+              >
+              <Typography className={classes.heading}
+              style={{fontSize:"20px"}}
+              >
+               <p>
+                  Номер заказа: {e.number}
+                 </p>
+                 <p>
+
+                 Клиент: {e.client.surname} {e.client.name} {e.client.patronymic}
+                 </p>
               </Typography>
-              <Typography className={classes.secondaryHeading}>
-                {e.teamConstr}
+              <Typography className={classes.secondaryHeading}
+              style={{fontSize:"18px"}}
+              >
+               <p>
+                  Дата доставки: {e.dateDeliv}
+                 </p> 
               </Typography>
             </AccordionSummary>
             <AccordionDetails>

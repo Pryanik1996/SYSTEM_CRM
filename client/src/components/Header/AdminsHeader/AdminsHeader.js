@@ -6,18 +6,8 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import "./AdmonsHeader.css"
 
 import {
-  AppBar,
-  Avatar,
-  Tabs,
   Tab,
-  Typography,
-  Box,
-  Container,
-  FormControl,
-  InputLabel,
-  Select,
 } from "@material-ui/core";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 const options = [
   <Tab label="удаленные клиенты" component={Link} to="/admin/clients" />,
@@ -41,6 +31,7 @@ export default function LongMenu() {
   return (
     <div>
       <IconButton
+      style={{color:"white"}}
         aria-label="more"
         aria-controls="long-menu"
         aria-haspopup="true"

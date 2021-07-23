@@ -94,6 +94,7 @@ export default function ListOfDEletedItems() {
                   <DeleteIcon fontSize="large" />
                 </IconButton>
                 <CachedIcon
+                fontSize="large"
                   onClick={elementRemove(e._id)}
                   id="remove"
                   className={classes.margin}

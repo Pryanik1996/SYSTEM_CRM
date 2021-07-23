@@ -207,10 +207,11 @@ export default function Order() {
             autoComplete="off"
             onSubmit={(e) => handleSubmitComment(e)}
           >
-            <TextField
+            <input
               id="outlined-basic"
               label="Ваш комментарий"
               variant="outlined"
+              placeholder="Ваш комментарий..."
               className="commentOrderInput"
               value={comment}
               onChange={handleComment}
@@ -253,7 +254,9 @@ export default function Order() {
                       <b>{el.body}</b>
                     </div>
                     <div style={{ fontSize: "14px" }}>
-                      {el.author}, {el.date}
+                      <i>
+                        {el.author}, {el.date}
+                      </i>
                     </div>
                   </div>
                   {el.author === userName && (

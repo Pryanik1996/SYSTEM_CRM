@@ -67,7 +67,6 @@ export default function InputForNewWorker() {
   } = useForm({ mode: "onChange" });
 
   const onSubmit = (data) => {
-    console.log(data);
     dispatch(addWorkerEmail(data, history));
   };
 

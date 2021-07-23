@@ -5,7 +5,8 @@ import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import "./StyleListOfDeletedClients.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import React from "react";
+
+import React, { useState } from "react";
 import {
   Grid,
   AccordionSummary,

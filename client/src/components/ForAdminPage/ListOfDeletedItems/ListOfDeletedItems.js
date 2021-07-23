@@ -68,7 +68,6 @@ export default function ListOfDEletedItems() {
       <div className={classes.root}>
         {items?.map((e) => (
           <Accordion
-          style={{minHeight: "70px"}}
             expanded={expanded === e._id}
             onChange={handleChange(e._id)}
           >
@@ -86,16 +85,6 @@ export default function ListOfDEletedItems() {
             </AccordionSummary>
             <AccordionDetails>
               <div id="delete">
-                
-                <IconButton>
-                <CachedIcon
-                fontSize="large"
-                  onClick={elementRemove(e._id)}
-                  id="remove"
-                  className={classes.margin}
-                  >
-                </CachedIcon>
-                  </IconButton>
                 <IconButton
                   onClick={cardDelete(e._id)}
                   id="delete"
@@ -104,6 +93,13 @@ export default function ListOfDEletedItems() {
                 >
                   <DeleteIcon fontSize="large" />
                 </IconButton>
+                <CachedIcon
+                fontSize="large"
+                  onClick={elementRemove(e._id)}
+                  id="remove"
+                  className={classes.margin}
+                >
+                </CachedIcon>
               </div>
               <Typography>{e.phone}</Typography>
             </AccordionDetails>

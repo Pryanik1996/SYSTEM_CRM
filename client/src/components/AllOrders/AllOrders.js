@@ -4,13 +4,20 @@ import { getOrders } from "../../redux/actions/order.action";
 import { Link } from "react-router-dom";
 import { ORDER_ADD } from "../../redux/types";
 import { useState } from "react";
-import './AllOrders.css'
-import { setDelStar } from "../../redux/actions/clients.action"
+import "./AllOrders.css";
+import { setDelStar } from "../../redux/actions/clients.action";
+import Grid from "@material-ui/core/Grid";
+import { makeStyles } from "@material-ui/core";
 
+const useStyles = makeStyles(() => ({
+  whiteText: {
+    color: "white",
+  },
+}));
 
 export default function AllOrders() {
   const [arr, setArr] = useState([]);
-
+  const classes = useStyles();
   const { values, error, loading } = useSelector((state) => state.orders);
 
   // const state =  useSelector((state) => state)
@@ -34,7 +41,6 @@ export default function AllOrders() {
   console.log("111111=>", arr);
   //============== SEARCH
 
-  
   function translit(word) {
     var answer = "";
     var converter = {
@@ -71,7 +77,7 @@ export default function AllOrders() {
       э: "e",
       ю: "yu",
       я: "ya",
-      
+
       А: "A",
       Б: "B",
       В: "V",
@@ -114,12 +120,12 @@ export default function AllOrders() {
         answer += converter[word[i]];
       }
     }
-    
+
     return answer;
   }
-  
+
   let keyCl = ["number", "client", "status", "creator"];
-  
+
   let filtredOrders = values;
   const [value, setValue] = useState("");
   if (value) {
@@ -149,7 +155,9 @@ export default function AllOrders() {
         return true;
 
       if (
-        translit(item?.number.toLowerCase()).includes(value.toLowerCase().trim())
+        translit(item?.number.toLowerCase()).includes(
+          value.toLowerCase().trim()
+        )
       )
         return true;
       if (
@@ -171,7 +179,9 @@ export default function AllOrders() {
       )
         return true;
       if (
-        translit(item?.status.toLowerCase()).includes(value.toLowerCase().trim())
+        translit(item?.status.toLowerCase()).includes(
+          value.toLowerCase().trim()
+        )
       )
         return true;
       if (
@@ -190,16 +200,17 @@ export default function AllOrders() {
 
   return (
     <div className="allOrders">
-      <h1>Все заказы</h1>
-      <form onSubmit={() => clearInput()} className="search_form">
-        <input
-          onChange={(event) => setValue(event.target.value)}
-          type="text"
-          placeholder="🔎&nbsp;&nbsp; Поиск заказа..."
-          className="search_input"
-        />
-      </form>
-
+      <div className="headerOrders">
+        <h1>Все заказы</h1>
+        <form onSubmit={() => clearInput()} className="search_form">
+          <input
+            onChange={(event) => setValue(event.target.value)}
+            type="text"
+            placeholder="Поиск заказа..."
+            className="search_input"
+          />
+        </form>
+      </div>
       {loading ? (
         <p>Загрузка...</p>
       ) : error ? (
@@ -210,21 +221,49 @@ export default function AllOrders() {
             <p>Заказов нет</p>
           ) : (
             <ul className="ordersList">
-              {filtredOrders?.map((or) => (
-                <Link to={`/orders/${or._id}`}>
-                  <div className="orderItem">
-                    <h7 key={or._id}>
-                      Номер:{or.number} <br />
-                      Клиент:{or.client?.surname}&nbsp;{or.client?.name}&nbsp;
-                      {or.client?.patronymic} <br />
-                      Статус: {or.status}
-                      <br />
-                      Ответственный сотрудник: {or.creator?.name}
-                      <hr />
-                    </h7>
-                  </div>
-                </Link>
-              ))}
+              <div styles={{ flexGrow: 1 }}>
+                <Grid container xs={20} spacing={8}>
+                  <Grid container xs={20} item>
+                    <Grid item xs={2}>
+                      <h5 style={{ color: "white" }}>Номер</h5>
+                    </Grid>
+                    <Grid item xs={3}>
+                      <h5 style={{ color: "white" }}>Клиент</h5>
+                    </Grid>
+                    <Grid item xs={2}>
+                      <h5 style={{ color: "white" }}>Статус</h5>
+                    </Grid>
+                    <Grid item xs={4}>
+                      <h5 style={{ color: "white" }}>
+                        Ответственный сотрудник
+                      </h5>
+                    </Grid>
+                    <hr />
+                  </Grid>
+                </Grid>
+                {filtredOrders?.map((or) => (
+                  <Link to={`/orders/${or._id}`} key={or._id}>
+                    <Grid container xs={20} item>
+                      <Grid item xs={2}>
+                        <span class="orderItem">{or.number}</span>
+                      </Grid>
+                      <Grid item xs={3}>
+                        <span class="orderItem">
+                          {or.client?.surname}&nbsp;{or.client?.name}{" "}
+                          {or.client?.patronymic}
+                        </span>
+                      </Grid>
+                      <Grid item xs={2}>
+                        <span class="orderItem">{or.status}</span>
+                      </Grid>
+                      <Grid item xs={4}>
+                        <span class="orderItem">{or.creator?.name}</span>
+                      </Grid>
+                    </Grid>
+                    <hr />
+                  </Link>
+                ))}
+              </div>
             </ul>
           )}
         </>

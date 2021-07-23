@@ -68,8 +68,8 @@ export default function ListOfDEletedItems() {
       <div className={classes.root}>
         {items?.map((e) => (
           <Accordion
-          expanded={expanded === e._id}
-          onChange={handleChange(e._id)}
+          expanded={expanded === e?._id}
+          onChange={handleChange(e?._id)}
           >
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
@@ -80,25 +80,25 @@ export default function ListOfDEletedItems() {
               style={{fontSize:"20px"}}
               >
                <p>
-                  Номер заказа: {e.number}
+                  Номер заказа: {e?.number}
                  </p>
                  <p>
 
-                 Клиент: {e.client.surname} {e.client.name} {e.client.patronymic}
+                 Клиент: {e?.client?.surname} {e?.client?.name} {e?.client?.patronymic}
                  </p>
               </Typography>
               <Typography className={classes.secondaryHeading}
               style={{fontSize:"18px"}}
               >
                <p>
-                  Дата доставки: {e.dateDeliv}
+                  Дата доставки: {e?.dateDeliv}
                  </p> 
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
               <div id="delete">
                 <IconButton
-                  onClick={cardDelete(e._id)}
+                  onClick={cardDelete(e?._id)}
                   id="delete"
                   aria-label="delete"
                   className={classes.margin}
@@ -109,11 +109,11 @@ export default function ListOfDEletedItems() {
                 fontSize="large"
                   onClick={elementRemove(e._id)}
                   id="remove"
-                  className={classes.margin}
+                  className={classes?.margin}
                 >
                 </CachedIcon>
               </div>
-              <Typography>{e.phone}</Typography>
+              <Typography>{e?.phone}</Typography>
             </AccordionDetails>
           </Accordion>
         ))}

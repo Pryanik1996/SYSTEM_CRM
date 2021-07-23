@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import "./Header.css";
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 import {
   AppBar,
@@ -15,6 +16,7 @@ import {
   FormControl,
   InputLabel,
   Select,
+  IconButton,
 } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -86,8 +88,10 @@ export default function ScrollableTabsButtonAuto() {
   };
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static" style={{ background: "#0e3c45" }}>
+    <div className={classes.root}
+    style={{width:"100%"}}
+    >
+      <AppBar position="static" style={{ background: "linear-gradient(0deg, rgba(11,29,38,1) 6%, rgba(14,60,69,1) 83%)" }}>
         <Container maxWidth="lg">
           <Tabs
             value={value}
@@ -155,24 +159,49 @@ export default function ScrollableTabsButtonAuto() {
               />
             )}
             {userName && (
-              <div className="userInfo">
-                <b>{userName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>{" "}
+              <div className="userInfo"
+              style={{
+                alignItems:"center",
+                justifyContent:"space-between",
+                marginLeft: "auto",
+                width: "330px",
+                
+              }}>
+                {userIsAdmin && <LongMenu
+                 />}
+                <div style={{
+                  width:"100px"
+                }}>
                 <Avatar
                   alt={userName}
                   src={userPicture}
                   className={classes.large}
+                  />
+                </div>
+                  <b>{userName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>{" "}
+                  <IconButton
+                  style={{paddingRight:"0px"}}
+                    to="/auth/signout"
+                    label="выйти"
+                    component={Link}
+                    {...a11yProps(3)}
+                    >
+
+                <ExitToAppIcon
+                style={{
+                  marginTop:"0px",
+                  marginLeft:"2px",
+                  color:"white"
+                  
+                }}
+                fontSize="large"
+                
                 />
+                  </IconButton>
               </div>
             )}
-            {userIsAdmin && <LongMenu />}
-            <Tab
-              label="выйти"
-              component={Link}
-              to="/auth/signout"
-              {...a11yProps(3)}
-            />
-          </Tabs>
-        </Container>
+            </Tabs>
+            </Container>
       </AppBar>
     </div>
   );

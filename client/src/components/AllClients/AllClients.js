@@ -8,6 +8,8 @@ import Star from "./Star";
 import { setDelStar } from "../../redux/actions/clients.action";
 import { setAddStar } from "../../redux/actions/clients.action";
 
+import SearchIcon from '@material-ui/icons/Search';
+
 export default function AllClients() {
   const {
     values: clients,
@@ -225,6 +227,7 @@ export default function AllClients() {
           type="text"
           placeholder="🔎&nbsp;&nbsp; Поиск здесь..."
           className="search_input"
+          
         />
       </form>
       {loading ? (

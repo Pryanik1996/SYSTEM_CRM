@@ -76,11 +76,7 @@ h1 {
 }
 
 .allClients {
-  max-width: 1700px;
   margin-left: auto;
-  margin-right: auto;
-  padding-left: 100px;
-  padding-right: 100px;
   background-image: url("./img/maxresdefault.jpeg");
   margin: 0;
   font-family: "Gilroy" serif;
@@ -90,7 +86,7 @@ h1 {
   overflow: hidden;
   position: relative;
   scroll-behavior: smooth;
-  height: 750px;
+  min-height: 1000px;
 }
 
 .allClients::before {
@@ -101,7 +97,7 @@ h1 {
   );
   content: "";
   display: block;
-  height: 100%;
+  height: 81%;
   left: 0;
   position: absolute;
   top: 0;

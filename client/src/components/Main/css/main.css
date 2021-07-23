@@ -294,11 +294,12 @@
 }
 
 .conteiner {
-  max-width: 1700px;
+  max-width: 1280px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 15px;
-  padding-right: 15px;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
 .article {

@@ -31,6 +31,15 @@ const useStyles = makeStyles((theme) => ({
       color: "white",
       fontSize: "20px",
     },
+    "& .MuiInput-input": {
+      color: "transparent",
+    },
+    "& .MuiFormLabel-filled+.MuiInput-formControl .MuiInput-input": {
+      color: "white",
+    },
+    "& .Mui-focused .MuiInput-input": {
+      color: "white",
+    },
     "& .MuiInputBase-root": {
       color: "white",
       fontSize: "20px",

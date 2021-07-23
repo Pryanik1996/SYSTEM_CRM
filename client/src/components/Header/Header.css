@@ -1,3 +1,6 @@
+.MuiPaper-root:{
+  background-color: none;
+}
 /* .container-wide {
     width: 1790px;
     padding: 0 15px;

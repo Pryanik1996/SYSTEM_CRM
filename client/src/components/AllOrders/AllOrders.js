@@ -4,6 +4,9 @@ import { getOrders } from "../../redux/actions/order.action";
 import { Link } from "react-router-dom";
 import { ORDER_ADD } from "../../redux/types";
 import { useState } from "react";
+import './AllOrders.css'
+import { setDelStar } from "../../redux/actions/clients.action"
+
 
 export default function AllOrders() {
   const [arr, setArr] = useState([]);
@@ -31,8 +34,7 @@ export default function AllOrders() {
   console.log("111111=>", arr);
   //============== SEARCH
 
-  let keyCl = ["number", "client", "status", "creator"];
-
+  
   function translit(word) {
     var answer = "";
     var converter = {
@@ -69,7 +71,7 @@ export default function AllOrders() {
       э: "e",
       ю: "yu",
       я: "ya",
-
+      
       А: "A",
       Б: "B",
       В: "V",
@@ -105,44 +107,71 @@ export default function AllOrders() {
       Я: "Ya",
     };
 
-    for (var i = 0; i < word.length; ++i) {
+    for (var i = 0; i < word?.length; ++i) {
       if (converter[word[i]] == undefined) {
         answer += word[i];
       } else {
         answer += converter[word[i]];
       }
     }
-
+    
     return answer;
   }
-  // console.log("orders===>", orders);
+  
+  let keyCl = ["number", "client", "status", "creator"];
+  
   let filtredOrders = values;
-
   const [value, setValue] = useState("");
   if (value) {
     function helpMePlease(item) {
       for (let i = 0; i < keyCl.length; i++) {
         if (!item.hasOwnProperty(keyCl[i])) item[keyCl[i]] = "";
       }
-      if (item.number.toLowerCase().includes(value.toLowerCase().trim()))
+      if (item?.number.toLowerCase().includes(value.toLowerCase().trim()))
         return true;
-      if (item.client.toLowerCase().includes(value.toLowerCase().trim()))
+      if (item.client?.name?.toLowerCase().includes(value.toLowerCase().trim()))
         return true;
-      if (item.status.toLowerCase().includes(value.toLowerCase().trim()))
+      if (
+        item.client?.surname?.toLowerCase().includes(value.toLowerCase().trim())
+      )
         return true;
-      if (item?.creator?.name.toLowerCase().includes(value.toLowerCase().trim()))
+      if (
+        item.client?.patronymic
+          ?.toLowerCase()
+          .includes(value.toLowerCase().trim())
+      )
+        return true;
+      if (item?.status.toLowerCase().includes(value.toLowerCase().trim()))
+        return true;
+      if (
+        item?.creator?.name?.toLowerCase().includes(value.toLowerCase().trim())
+      )
         return true;
 
       if (
-        translit(item.number.toLowerCase()).includes(value.toLowerCase().trim())
+        translit(item?.number.toLowerCase()).includes(value.toLowerCase().trim())
       )
         return true;
       if (
-        translit(item.client.toLowerCase()).includes(value.toLowerCase().trim())
+        translit(item.client?.name?.toLowerCase()).includes(
+          value.toLowerCase().trim()
+        )
       )
         return true;
       if (
-        translit(item.status.toLowerCase()).includes(value.toLowerCase().trim())
+        translit(item.client?.surname?.toLowerCase()).includes(
+          value.toLowerCase().trim()
+        )
+      )
+        return true;
+      if (
+        translit(item.client?.patronymic?.toLowerCase()).includes(
+          value.toLowerCase().trim()
+        )
+      )
+        return true;
+      if (
+        translit(item?.status.toLowerCase()).includes(value.toLowerCase().trim())
       )
         return true;
       if (
@@ -160,14 +189,13 @@ export default function AllOrders() {
   };
 
   return (
-    <div>
+    <div className="allOrders">
       <h1>Все заказы</h1>
-
       <form onSubmit={() => clearInput()} className="search_form">
         <input
           onChange={(event) => setValue(event.target.value)}
           type="text"
-          placeholder="Поиск заказа..."
+          placeholder="🔎&nbsp;&nbsp; Поиск заказа..."
           className="search_input"
         />
       </form>
@@ -181,12 +209,18 @@ export default function AllOrders() {
           {arr?.length === 0 ? (
             <p>Заказов нет</p>
           ) : (
-            <ul>
+            <ul className="ordersList">
               {filtredOrders?.map((or) => (
                 <Link to={`/orders/${or._id}`}>
-                  <div>
+                  <div className="orderItem">
                     <h7 key={or._id}>
-                      {or.number} {or.client} {or.status} {or.creator?.name}
+                      Номер:{or.number} <br />
+                      Клиент:{or.client?.surname}&nbsp;{or.client?.name}&nbsp;
+                      {or.client?.patronymic} <br />
+                      Статус: {or.status}
+                      <br />
+                      Ответственный сотрудник: {or.creator?.name}
+                      <hr />
                     </h7>
                   </div>
                 </Link>

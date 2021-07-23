@@ -18,6 +18,22 @@ const useStyles = makeStyles((theme) => ({
       width: "25ch",
     },
   },
+  color: {
+    "& .MuiFormLabel-root": {
+      color: "white",
+      fontSize: "20px",
+    },
+    "& .MuiInputBase-root": {
+      color: "white",
+      fontSize: "20px",
+    },
+    "& :before": {
+      borderColor: "currentColor",
+    },
+    "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
+      borderColor: "currentColor",
+    },
+  },
 }));
 
 export default function ClientAdd() {
@@ -41,42 +57,50 @@ export default function ClientAdd() {
 
   return (
     <form
+      className="clientAddForm"
       onSubmit={handleSubmit(onSubmit)}
       className={classes.root}
       noValidate
       autoComplete="off"
     >
       <br />
-      <h1>Добавить клиента</h1>
+      <h1>Новый клиент</h1>
       <br />
       <hr />
-      {errors.name && <p>Обязательное поле, не более 15 символов</p>}
+      {errors.name && (
+        <p className="help">Обязательное поле, не более 15 символов</p>
+      )}
       <TextField
-        label="Имя"
-        type="text"
-        id="standard-required"
-        {...register("name", { required: true, maxLength: 15 })}
-      />
-      <TextField
+        className={classes.color}
         label="Фамилия"
         type="text"
         id="standard-required"
         {...register("surname")}
       />
       <TextField
+        label="Имя"
+        type="text"
+        className={classes.color}
+        id="standard-required"
+        {...register("name", { required: true, maxLength: 15 })}
+      />
+      <TextField
+        className={classes.color}
         label="Отчество"
         type="text"
         id="standard-required"
         {...register("patronymic")}
       />
       <TextField
+        className={classes.color}
         label="email"
         type="email"
         id="standard-required"
         {...register("email")}
       />
       <TextField
-        placeholder="..."
+        className={classes.color}
+        placeholder="🔎&nbsp;&nbsp; "
         defaultValue="+7"
         label="Номер телефона"
         type="text"
@@ -84,6 +108,7 @@ export default function ClientAdd() {
         {...register("phone")}
       />
       <AddressSuggestions
+        style={{ width: "50%" }}
         className="address"
         token="43f3a1a6e2e0bd7b18d5f3d1d16a515b2055ee55"
         value={value}

@@ -57,8 +57,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     width: "100%",
-    backgroundColor: theme.palette.background.default,
-
   },
   large: {
     width: theme.spacing(8),
@@ -66,6 +64,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+export function SimpleSelect() {
+  const classes = useStyles();
+  const [age, setAge] = React.useState("");
+
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
+}
 
 export default function ScrollableTabsButtonAuto() {
   const classes = useStyles();
@@ -73,6 +79,7 @@ export default function ScrollableTabsButtonAuto() {
 
   const userName = useSelector((state) => state.user?.name);
   const userPicture = useSelector((state) => state.user?.picture);
+  const userIsAdmin = useSelector((state) => state.user?.isAdmin);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -80,48 +87,45 @@ export default function ScrollableTabsButtonAuto() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="transparent" >
-        <Container maxWidth="lg" >
+      <AppBar position="static" style={{ background: "#0e3c45" }}>
+        <Container maxWidth="lg">
           <Tabs
             value={value}
             onChange={handleChange}
             indicatorColor="primary"
-            textColor="primary"
+            // textColor="primary"
             variant="scrollable"
             scrollButtons="auto"
             aria-label="scrollable auto tabs example"
           >
+            <Tab label="на главную" component={Link} to="/" {...a11yProps(0)} />
             <Tab
-              label="на главную"
-              component={Link}
-              to="/"
-              {...a11yProps(0)}
-            />
-            <Tab
+              style={{ fontSize: "18px" }}
               label="клиенты"
               component={Link}
               to="/clients"
               {...a11yProps(0)}
             />
             <Tab
+              style={{ fontSize: "18px" }}
               label="заказы"
               component={Link}
               to="/orders"
               {...a11yProps(1)}
             />
-
             <Tab
+              style={{ fontSize: "18px" }}
               label="добавить клиента"
               component={Link}
               to="/clients/new"
               {...a11yProps(2)}
             />
-            <Tab
+            {/* <Tab
               label="создать заказ"
               component={Link}
               to="/orders/new"
               {...a11yProps(2)}
-            />
+            /> */}
             {/* <Tab
               label="создать заказ"
               component={Link}
@@ -140,15 +144,19 @@ export default function ScrollableTabsButtonAuto() {
               to="/admin/items"
               {...a11yProps(5)}
             /> */}
-            <Tab
-              label="работники"
-              component={Link}
-              to="/admin/workers"
-              {...a11yProps(6)}
-            />
+
+            {userIsAdmin && (
+              <Tab
+                style={{ fontSize: "18px" }}
+                label="сотрудники"
+                component={Link}
+                to="/admin/workers"
+                {...a11yProps(6)}
+              />
+            )}
             {userName && (
               <div className="userInfo">
-                <b>{userName}&nbsp;</b>{" "}
+                <b>{userName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>{" "}
                 <Avatar
                   alt={userName}
                   src={userPicture}
@@ -156,7 +164,7 @@ export default function ScrollableTabsButtonAuto() {
                 />
               </div>
             )}
-            <LongMenu />
+            {userIsAdmin && <LongMenu />}
             <Tab
               label="выйти"
               component={Link}
@@ -167,6 +175,5 @@ export default function ScrollableTabsButtonAuto() {
         </Container>
       </AppBar>
     </div>
-
-  )
+  );
 }

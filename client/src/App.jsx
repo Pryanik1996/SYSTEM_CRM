@@ -4,7 +4,7 @@ import AllOrders from "./components/AllOrders/AllOrders";
 import React from "react";
 import { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-
+import NewOrderForClient from "./components/NewOrderForClient/NewOrderForClient";
 import Container from "@material-ui/core/Container";
 import ListOfDEletedClients from "./components/ForAdminPage/ListOfDeletedClients/ListOfDeletedClients";
 import ListOfDEletedItems from "./components/ForAdminPage/ListOfDeletedItems/ListOfDeletedItems";
@@ -28,8 +28,7 @@ import Main from "./components/Main/Main";
 import { useDispatch, useSelector } from "react-redux";
 import AllClients from "./components/AllClients/AllClients";
 import BlocktoShowElemensToDelete from "./components/ForAdminPage/BlockToShowElementsToDelete/BlockToShowElementsToDelete";
-
-
+import Fail from "./components/Fail/Fail";
 
 function App() {
   // const history = useHistory();
@@ -45,51 +44,61 @@ function App() {
 
   return (
     <>
-    <Router>
-      {state.user && <Header />}
-      <React.Fragment>
+      <Router>
+        {state.user && <Header />}
+        <React.Fragment>
           <Switch>
             <Route exact path="/">
               <Main />
             </Route>
             <Route exact path="/clients">
-              <AllClients />
-            </Route>
-        <Container maxWidth="lg">
-            <Route exact path="/auth/signout">
-              <SignOut />
-            </Route>
-            <Route exact path="/admin/workers">
-              <ListOfWorkers />
-            </Route>
-            <Route exact path="/admin/clients">
-              <ListOfDEletedClients />
-            </Route>
-            <Route exact path="/clients/new">
-              <ClientAdd />
-            </Route>
-            <Route exact path="/admin/orders">
-              <ListOfDEletedItems />
-            </Route>
-            <Route exact path="/orders/new">
-              <OrderAdd />
-            </Route>
-            <Route exact path="/orders/:id">
-              <Order />
-            </Route>
-            <Route exact path="/orders">
-              <AllOrders />
-            </Route>
-            <Route exact path="/clients/client/:id">
-              <CardsClients />
-            </Route>
-            <Route exact path="/admin">
-              <BlocktoShowElemensToDelete />
+                <AllClients />
               </Route>
-        </Container>
+            <Container maxWidth="lg">
+              <Route exact path="/auth/signout">
+                <SignOut />
+              </Route>
+              <Route exact path="/admin/workers">
+                <ListOfWorkers />
+              </Route>
+              <Route exact path="/admin/clients">
+                <ListOfDEletedClients />
+              </Route>
+              <Route exact path="/admin/orders">
+                <ListOfDEletedItems />
+              </Route>
+              <Route exact path="/clients/new">
+                <ClientAdd />
+              </Route>
+              <Route exact path="/orders/new">
+                <OrderAdd />
+              </Route>
+             
+              {/* <Route exact path="/clients/card">
+                <CardsClients />
+              </Route> */}
+              <Route exact path="/orders/:id">
+                <Order />
+              </Route>
+              <Route exact path="/orders">
+                <AllOrders />
+              </Route>
+              <Route exact path="/admin">
+                <BlocktoShowElemensToDelete />
+              </Route>
+              <Route exact path="/orders/new/:id">
+                <NewOrderForClient />
+              </Route>
+              <Route exact path="/clients/client/:id">
+                <CardsClients />
+              </Route>
+              <Route exact path="/failure">
+                <Fail />
+              </Route>
+            </Container>
           </Switch>
-      </React.Fragment>
-    </Router>
+        </React.Fragment>
+      </Router>
     </>
   );
 }

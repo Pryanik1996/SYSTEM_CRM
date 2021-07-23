@@ -27,6 +27,9 @@ router.post("/new", async (req, res) => {
         address,
         creator: id,
       });
+      // const newClient = await Client.findById(tmpClient._id).populate(
+      //   "creator"
+      // );
 
       res.json(newClient);
     }
@@ -45,11 +48,39 @@ router.get("/all", async (req, res) => {
   }
 });
 
+//======== STARS
+
+router.patch("/stardell", async (req, res) => {
+  const { client, currUser } = req.body;
+  const clientId = client._id;
+  const data = await Client.findByIdAndUpdate(
+    clientId,
+    { $pull: { addstar: currUser } },
+    { new: true }
+  );
+  await res.json(data);
+});
+
+router.patch("/staradd", async (req, res) => {
+  const { client, currUser } = req.body;
+  const clientId = client._id;
+  const data = await Client.findByIdAndUpdate(
+    clientId,
+    { $push: { addstar: currUser } },
+    { new: true }
+  );
+  await res.json(data);
+});
+
+//========== <--
+
 router.patch("/:id", async (req, res) => {
   const { id } = req.params;
   // const { name, surname, patronymic, email, phone, address } = req.body;
   if (req.body.name) {
-    const data = await Client.findByIdAndUpdate(id, req.body
+    const data = await Client.findByIdAndUpdate(
+      id,
+      req.body
       // name,
       // surname,
       // patronymic,
@@ -58,7 +89,7 @@ router.patch("/:id", async (req, res) => {
       // address,
     );
     const response = await Client.findById(id).populate("comments");
-    res.json(response); 
+    res.json(response);
   }
 });
 
@@ -66,7 +97,12 @@ router.get("/client/:id", async (req, res) => {
   const { id } = req.params;
   console.log('ID',id);
   try {
-    const client = await Client.findById(id).populate("comments");
+    const client = await Client.findById(id)
+      .populate("comments")
+      .populate("orders");
+    // console.log(client);
+    // console.log("QQQQQQ=>>>", client);
+
     res.json(client);
   } catch (err) {
     console.log(err);

@@ -44,7 +44,7 @@ export const getComments = (data, id, userId, userName) => async (dispatch) => {
 };
 
 export const getEditClient = (data, id) => async (dispatch) => {
-  console.log("IDIDID", id, data);
+  // console.log("IDIDID", id, data);
   const response = await fetch(`http://localhost:3001/clients/${id}`, {
     method: "PATCH",
     headers: {

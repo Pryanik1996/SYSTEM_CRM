@@ -6,6 +6,41 @@ import { useDispatch } from "react-redux";
 import { addWorkerEmail } from "../../../redux/actions/workers.action";
 import { useHistory } from "react-router/";
 
+
+
+// import nodemailer from 'nodemailer';
+
+// const smtp = nodemailer.createTransport({
+//   // host: 'smtp.someprovider.com',
+//   // port: 587,
+//   service: "gmail",
+//   auth: {
+//     user: '2same1as2@gmail.com',
+//     pass: 'Zbc320098',
+//   },
+// });
+
+// smtp.sendMail({
+//   to: 'mt9686@inbox.ru',
+//   from: '2same1as2@gmail.com',
+//   subject: 'Testing Email Sends',
+//   html: '<p>Sending some HTML to test.</p>',
+// });
+
+// export default (options = {}) => {
+//   return smtp.sendMail(options);
+// }
+
+
+
+
+
+
+
+
+
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiTextField-root": {
@@ -19,6 +54,7 @@ export default function InputForNewWorker() {
   const classes = useStyles();
   let history = useHistory();
   const dispatch = useDispatch();
+  
 
   const {
     register,
@@ -34,6 +70,13 @@ export default function InputForNewWorker() {
 
   return (
     <form
+    style={{
+      display: "inline-grid",
+      justifyContent: "center",
+      alignItems: "center",
+      width: "100%",
+      height: "270px",
+    }}
       onSubmit={handleSubmit(onSubmit)}
       className={classes.root}
       noValidate

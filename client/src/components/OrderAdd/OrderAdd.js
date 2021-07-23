@@ -26,9 +26,34 @@ const useStyles = makeStyles((theme) => ({
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
+  color: {
+    "& .MuiFormLabel-root": {
+      color: "white",
+      fontSize: "20px",
+    },
+    "& .MuiInput-input": {
+      color: "transparent",
+    },
+    "& .MuiFormLabel-filled+.MuiInput-formControl .MuiInput-input": {
+      color: "white",
+    },
+    "& .Mui-focused .MuiInput-input": {
+      color: "white",
+    },
+    "& .MuiInputBase-root": {
+      color: "white",
+      fontSize: "20px",
+    },
+    "& :before": {
+      borderColor: "currentColor",
+    },
+    "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
+      borderColor: "currentColor",
+    },
+  },
 }));
 
-export default function OrderAdd() {
+export default function OrderAdd({ client, id }) {
   const classes = useStyles();
   let history = useHistory();
   const dispatch = useDispatch();
@@ -42,7 +67,7 @@ export default function OrderAdd() {
   } = useForm({ mode: "onChange" });
 
   const onSubmit = (data) => {
-    dispatch(getOrder(data, history));
+    dispatch(getOrder(data, id, history));
     reset();
   };
 
@@ -54,11 +79,19 @@ export default function OrderAdd() {
       autoComplete="off"
     >
       <br />
-      <h1>Добавить заказ</h1>
+      <h1>
+        Новый заказ{" "}
+        {client && (
+          <span>
+            для клиента {client.surname} {client.name} {client.patronymic}
+          </span>
+        )}{" "}
+      </h1>
       <br />
       <hr />
       {errors.name && <p>Обязательное поле, не более 15 символов</p>}
       <TextField
+        className={classes.color}
         label="Номер заказа"
         type="text"
         id="standard-required"
@@ -66,6 +99,7 @@ export default function OrderAdd() {
       />
 
       <TextField
+        className={classes.color}
         label="Тип мебели"
         type="text"
         id="standard-required"
@@ -73,12 +107,14 @@ export default function OrderAdd() {
       />
 
       <TextField
+        className={classes.color}
         label="Стоимость мебели"
         type="text"
         id="standard-required"
         {...register("priceFurn")}
       />
       <TextField
+        className={classes.color}
         label="Стоимость доставки"
         type="email"
         id="standard-required"
@@ -86,16 +122,18 @@ export default function OrderAdd() {
       />
 
       <TextField
+        className={classes.color}
         id="standard-required"
         label="Дата доставки"
         type="date"
-        className={classes.textField}
-        InputLabelProps={{
-          shrink: true,
-        }}
+        // className={classes.textField}
+        // InputLabelProps={{
+        //   shrink: true,
+        // }}
         {...register("dateDeliv")}
       />
       <TextField
+        className={classes.color}
         label="Стоимость сборки"
         type="text"
         id="standard-required"
@@ -103,17 +141,19 @@ export default function OrderAdd() {
       />
 
       <TextField
+        className={classes.color}
         id="standard-required"
         label="Дата сборки"
         type="date"
-        className={classes.textField}
-        InputLabelProps={{
-          shrink: true,
-        }}
+        // className={classes.textField}
+        // InputLabelProps={{
+        //   shrink: true,
+        // }}
         {...register("dateConstr")}
       />
 
       <TextField
+        className={classes.color}
         label="Бригада доставки"
         type="text"
         id="standard-required"
@@ -121,6 +161,7 @@ export default function OrderAdd() {
       />
 
       <TextField
+        className={classes.color}
         label="Бригада сборки"
         type="text"
         id="standard-required"
@@ -130,6 +171,7 @@ export default function OrderAdd() {
       <FormControl className={classes.formControl}>
         <InputLabel id="demo-simple-select-label">Статус заказа</InputLabel>
         <Select
+          className={classes.color}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           {...register("status")}
@@ -143,6 +185,7 @@ export default function OrderAdd() {
       </FormControl>
 
       <TextField
+        className={classes.color}
         label="Комментарий к заказу"
         type="text"
         id="standard-required"

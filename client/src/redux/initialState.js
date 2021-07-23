@@ -1,6 +1,10 @@
 const initialState = {
   workers: [],
-  clients: [],
+  clients: {
+    loading: false,
+    error: null,
+    values: [],
+  },
   orders: {
     loading: false,
     error: null,

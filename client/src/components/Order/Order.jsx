@@ -2,17 +2,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { useForm } from "react-hook-form";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { getOrder } from "../../redux/actions/order.action";
 import { useHistory, useLocation } from "react-router";
-
 import {
   getOneOrder,
   deleteCurrentOrder,
   deleteCurrentComment,
+  editCurrentOrder,
 } from "../../redux/actions/currentOrderAction";
 import { addCommentToOrder } from "../../redux/actions/commentsAction";
-
+import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 import Button from "@material-ui/core/Button";
 import Modal from "../Modal/Modal";
 import FormControl from "@material-ui/core/FormControl";
@@ -29,6 +30,10 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(2),
       width: "25ch",
     },
+    "& > *": {
+      margin: theme.spacing(1),
+      width: "25ch",
+    },
   },
   formControl: {
     margin: theme.spacing(1),
@@ -42,9 +47,11 @@ const useStyles = makeStyles((theme) => ({
 export default function Order() {
   const [addComment, setAddComment] = useState(false);
   const [modalActive, setModalActive] = useState(false);
-  const handleSubmitModal = (e) => {
-    e.preventDefault();
-  };
+  const [modalDelete, setModalDelete] = useState(false);
+
+  // const handleSubmitModal = (e) => {
+  //   e.preventDefault();
+  // };
   const classes = useStyles();
 
   const dispatch = useDispatch();
@@ -103,216 +110,341 @@ export default function Order() {
 
   // console.log("COMMMMMENT=>", comment);
   // console.log("0000=>>>", userName);
+
+  const initialForm = useMemo(
+    () => ({
+      number: currentOrder?.number,
+      typeFurn: currentOrder?.typeFurn,
+      priceFurn: currentOrder?.priceFurn,
+      priceDeliv: currentOrder?.priceDeliv,
+      dateDeliv: currentOrder?.dateDeliv,
+      priceConstr: currentOrder?.priceConstr,
+      dateConstr: currentOrder?.dateConstr,
+      teamDeliv: currentOrder?.teamDeliv,
+      teamConstr: currentOrder?.teamConstr,
+      status: currentOrder?.status,
+      commentsWhenCreate: currentOrder?.commentsWhenCreate,
+    }),
+    [currentOrder]
+  );
+  const [formState, setFormState] = useState(initialForm);
+
+  useEffect(() => {
+    setFormState(initialForm);
+  }, [initialForm]);
+
+  function сhangeHandler(e) {
+    setFormState((state) => ({
+      ...state,
+      [e.target.id]: e.target.value,
+    }));
+  }
+  function onSubmitForm(e) {
+    e.preventDefault();
+    // setFormState(initialForm);
+    dispatch(editCurrentOrder(id, formState));
+    setModalActive(false);
+  }
+
+  console.log(formState, currentOrder);
+
   return (
     <div className="orderInfo">
-      <h5>Подробнее о заказе № {currentOrder?.number}</h5>
-      <div>
-        Тип мебели: <b>{currentOrder?.typeFurn}</b>{" "}
-      </div>
-      <div>
-        Стоимость мебели: <b>{currentOrder?.priceFurn}</b>{" "}
-      </div>
-      <div>
-        Стоимость доставки: <b>{currentOrder?.priceDeliv}</b>{" "}
-      </div>
-      <div>
-        Дата доставки: <b>{currentOrder?.dateDeliv}</b>{" "}
-      </div>
-      <div>
-        Дата сборки: <b>{currentOrder?.dateConstr}</b>{" "}
-      </div>
-      <div>
-        Бригада доставки: <b>{currentOrder?.teamDeliv}</b>{" "}
-      </div>
-      <div>
-        Бригада сборки: <b>{currentOrder?.teamConstr}</b>{" "}
-      </div>
-      <div>
-        Статус заказа: <b>{currentOrder?.status}</b>{" "}
-      </div>
-      <div>
-        Комментарий при заказе: <b>{currentOrder?.commentsWhenCreate}</b>{" "}
-      </div>
-      <div>
-        Комментарии сотрудников:{" "}
-        {currentOrder?.comments?.length ? (
-          <ul className="commentsList">
-            {currentOrder?.comments.map((el) => (
-              <li>
-                <p>{el.body}</p>
-                <p>Автор: {el.author}</p>
-                <p>Дата: {el.date}</p>
-                {el.author === userName && (
-                  <Button
-                    onClick={() => dispatch(deleteCurrentComment(el._id, id))}
-                    variant="contained"
-                  >
-                    удалить комментарий
-                  </Button>
-                )}
-                <hr />
-              </li>
-            ))}
-          </ul>
+      <div className="orderInfoSmall">
+        <div className="orderTitle">
+          <h5>
+            Подробнее о заказе № {currentOrder?.number} для клиента{" "}
+            {currentOrder?.client?.surname} {currentOrder?.client?.name}{" "}
+            {currentOrder?.client?.patronymic}
+          </h5>
+          <div className="orderIcons">
+            <DeleteIcon
+              style={{ cursor: "pointer" }}
+              onClick={() => setModalDelete(true)}
+              variant="contained"
+              fontSize="large"
+            />
+            <EditIcon
+              style={{ cursor: "pointer" }}
+              onClick={() => setModalActive(true)}
+              variant="contained"
+              fontSize="large"
+            />
+          </div>
+        </div>
+        <div>
+          Тип мебели: <b>{currentOrder?.typeFurn}</b>{" "}
+        </div>
+        <div>
+          Стоимость мебели: <b>{currentOrder?.priceFurn}</b>{" "}
+        </div>
+        <div>
+          Стоимость доставки: <b>{currentOrder?.priceDeliv}</b>{" "}
+        </div>
+        <div>
+          Дата доставки: <b>{currentOrder?.dateDeliv}</b>{" "}
+        </div>
+        <div>
+          Дата сборки: <b>{currentOrder?.dateConstr}</b>{" "}
+        </div>
+        <div>
+          Бригада доставки: <b>{currentOrder?.teamDeliv}</b>{" "}
+        </div>
+        <div>
+          Бригада сборки: <b>{currentOrder?.teamConstr}</b>{" "}
+        </div>
+        <div>
+          Статус заказа: <b>{currentOrder?.status}</b>{" "}
+        </div>
+        <div>
+          Комментарий при заказе: <b>{currentOrder?.commentsWhenCreate}</b>{" "}
+        </div>
+        <hr />
+        {addComment ? (
+          <form
+            className={classes.root}
+            noValidate
+            autoComplete="off"
+            onSubmit={(e) => handleSubmitComment(e)}
+          >
+            <TextField
+              id="outlined-basic"
+              label="Ваш комментарий"
+              variant="outlined"
+              className="commentOrderInput"
+              value={comment}
+              onChange={handleComment}
+            />
+            <Button type="submit" variant="contained">
+              Подтвердить
+            </Button>{" "}
+          </form>
         ) : (
-          <p>Комментариев пока нет</p>
+          // <form onSubmit={(e) => handleSubmitComment(e)}>
+          //   <input
+          //     className="commentOrderInput"
+          //     placeholder="Ваш комментарий"
+          //     type="text"
+          //     value={comment}
+          //     onChange={handleComment}
+          //   />
+          //   <Button type="submit" variant="contained">
+          //     Подтвердить
+          //   </Button>{" "}
+          // </form>
+          <>
+            <Button variant="contained" onClick={() => addCommentStatus()}>
+              Оставить комментарий
+            </Button>
+            {/* <Button variant="contained" onClick={() => setModalActive(true)}>
+              Редактировать заказ
+            </Button> */}
+          </>
         )}
-      </div>
-      {addComment ? (
-        <form onSubmit={(e) => handleSubmitComment(e)}>
-          <input
-            placeholder="Ваш комментарий"
-            type="text"
-            value={comment}
-            onChange={handleComment}
-          />
-          <Button type="submit" variant="contained">
-            Подтвердить
-          </Button>{" "}
-        </form>
-      ) : (
-        <>
-          {" "}
-          <Button variant="contained" onClick={() => addCommentStatus()}>
-            Оставить комментарий
-          </Button>
-          <Button variant="contained" onClick={() => setModalActive(true)}>
-            Редактировать
-          </Button>
-          <Button variant="contained" onClick={() => deleteOrder(orderId)}>
-            Удалить
-          </Button>{" "}
-        </>
-      )}
+        <div className="ordersCommentsBottom">
+          <h6>Комментарии сотрудников:</h6>{" "}
+          {currentOrder?.comments?.length ? (
+            <ul className="commentsOrderList">
+              {currentOrder?.comments.map((el) => (
+                <li className="commentsOrderItem">
+                  <div className="commentsOrderItemLeft">
+                    <div>
+                      {" "}
+                      <b>{el.body}</b>
+                    </div>
+                    <div style={{ fontSize: "14px" }}>
+                      {el.author}, {el.date}
+                    </div>
+                  </div>
+                  {el.author === userName && (
+                    <div className="commentsOrderItemRight">
+                      <DeleteIcon
+                        style={{ cursor: "pointer" }}
+                        onClick={() =>
+                          dispatch(deleteCurrentComment(el._id, id))
+                        }
+                        variant="contained"
+                        size="small"
+                      />
+                    </div>
+                  )}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>Комментариев пока нет</p>
+          )}
+        </div>
 
-      <Modal active={modalActive} setActive={setModalActive}>
-        <form onSubmit={handleSubmitModal}>
-          <div className="card">
-            <div className="card-header">Редактирование карточки заказа</div>
-            <div className="card-body">
-              <form
-                onSubmit={handleSubmit(onSubmit)}
-                className={classes.root}
-                noValidate
-                autoComplete="off"
-              >
-                <br />
+        {modalActive ? (
+          <Modal active={modalActive} setActive={setModalActive}>
+            <div className="card">
+              <div className="card-header">Редактирование карточки заказа</div>
+              <div className="card-body">
+                <form className={classes.root} onSubmit={onSubmitForm}>
+                  <label htmlFor="number">
+                    Номер заказа
+                    <input
+                      value={formState.number}
+                      onChange={сhangeHandler}
+                      id="number"
+                      type="text"
+                    />
+                  </label>
+                  <label htmlFor="typeFurn">
+                    Тип мебели
+                    <input
+                      value={formState.typeFurn}
+                      onChange={сhangeHandler}
+                      id="typeFurn"
+                      type="text"
+                    />
+                  </label>
+                  <label htmlFor="priceFurn">
+                    Стоимость мебели
+                    <input
+                      value={formState.priceFurn}
+                      onChange={сhangeHandler}
+                      id="priceFurn"
+                      type="text"
+                    />
+                  </label>
+                  <label htmlFor="priceDeliv">
+                    Стоимость доставки
+                    <input
+                      value={formState.priceDeliv}
+                      onChange={сhangeHandler}
+                      id="priceDeliv"
+                      type="text"
+                    />
+                  </label>
+                  <label htmlFor="priceConstr">
+                    Стоимость сборки
+                    <input
+                      value={formState.priceConstr}
+                      onChange={сhangeHandler}
+                      id="priceConstr"
+                      type="text"
+                    />
+                  </label>
+                  <label htmlFor="dateDeliv">
+                    Дата доставки
+                    <input
+                      type="date"
+                      value={formState.dateDeliv}
+                      onChange={сhangeHandler}
+                      id="dateDeliv"
+                    />
+                  </label>
 
-                <br />
-                <hr />
-                {errors.name && <p>Обязательное поле, не более 15 символов</p>}
-                <TextField
-                  label="Номер заказа"
-                  type="text"
-                  id="standard-required"
-                  {...register("number", { required: true, maxLength: 15 })}
-                />
+                  <label htmlFor="dateConstr">
+                    Дата сборки
+                    <input
+                      type="date"
+                      value={formState.dateConstr}
+                      onChange={сhangeHandler}
+                      id="dateConstr"
+                    />
+                  </label>
+                  <label htmlFor="teamDeliv">
+                    Бригада доставки
+                    <input
+                      value={formState.teamDeliv}
+                      onChange={сhangeHandler}
+                      id="teamDeliv"
+                      type="text"
+                    />
+                  </label>
+                  <label htmlFor="teamConstr">
+                    {" "}
+                    Бригада сборки
+                    <input
+                      value={formState.teamConstr}
+                      onChange={сhangeHandler}
+                      id="teamConstr"
+                      type="text"
+                    />
+                  </label>
 
-                <TextField
-                  label="Тип мебели"
-                  type="text"
-                  id="standard-required"
-                  {...register("typeFurn")}
-                />
-
-                <TextField
-                  label="Стоимость мебели"
-                  type="text"
-                  id="standard-required"
-                  {...register("priceFurn")}
-                />
-                <TextField
-                  label="Стоимость доставки"
-                  type="email"
-                  id="standard-required"
-                  {...register("priceDeliv")}
-                />
-
-                <TextField
-                  id="standard-required"
-                  label="Дата доставки"
-                  type="date"
-                  className={classes.textField}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  {...register("dateDeliv")}
-                />
-                <TextField
-                  label="Стоимость сборки"
-                  type="text"
-                  id="standard-required"
-                  {...register("priceConstr")}
-                />
-
-                <TextField
-                  id="standard-required"
-                  label="Дата сборки"
-                  type="date"
-                  className={classes.textField}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  {...register("dateConstr")}
-                />
-
-                <TextField
-                  label="Бригада доставки"
-                  type="text"
-                  id="standard-required"
-                  {...register("teamDeliv")}
-                />
-
-                <TextField
-                  label="Бригада сборки"
-                  type="text"
-                  id="standard-required"
-                  {...register("teamConstr")}
-                />
-
-                <FormControl className={classes.formControl}>
-                  <InputLabel id="demo-simple-select-label">
-                    Статус заказа
-                  </InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    {...register("status")}
+                  <select
+                    value={formState.status}
+                    onChange={сhangeHandler}
+                    id="status"
                   >
-                    <MenuItem value={"Ожидание поставки"}>
-                      Ожидание поставки
-                    </MenuItem>
-                    <MenuItem value={"В работе"}>В работе</MenuItem>
-                    <MenuItem value={"Собран"}>Собран</MenuItem>
-                    <MenuItem value={"Доставлен"}>Доставлен</MenuItem>
-                    <MenuItem value={"Рекламация"}>Рекламация</MenuItem>
-                  </Select>
-                </FormControl>
+                    <option value="Ожидание поставки">Ожидание поставки</option>
+                    <option value="В работе">В работе</option>
+                    <option value="Собран">Собран</option>
+                    <option value="Доставлен">Доставлен</option>
+                    <option value="Рекламация">Рекламация</option>
+                  </select>
 
-                <TextField
-                  label="Комментарий к заказу"
-                  type="text"
-                  id="standard-required"
-                  {...register("commentsWhenCreate")}
-                />
-                <br />
-              </form>
+                  {/* <input
+                    value={formState.status}
+                    onChange={сhangeHandler}
+                    id="status"
+                    type="text"
+                  /> */}
+                  {/* <input
+                    value={formState.commentsWhenCreate}
+                    onChange={сhangeHandler}
+                    id="commentsWhenCreate"
+                    type="text"
+                  /> */}
 
+                  {/* <FormControl className={classes.formControl}>
+                <InputLabel id="demo-simple-select-label">
+                  Статус заказа
+                </InputLabel>
+                <Select
+                  defaultValue={currentOrder?.status}
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  {...register("status")}
+                >
+                  <MenuItem value={"Ожидание поставки"}>
+                    Ожидание поставки
+                  </MenuItem>
+                  <MenuItem value={"В работе"}>В работе</MenuItem>
+                  <MenuItem value={"Собран"}>Собран</MenuItem>
+                  <MenuItem value={"Доставлен"}>Доставлен</MenuItem>
+                  <MenuItem value={"Рекламация"}>Рекламация</MenuItem>
+                </Select>
+              </FormControl> */}
+
+                  <hr />
+
+                  <span>
+                    <Button type="submit" variant="contained" color="primary">
+                      Сохранить изменения
+                    </Button>
+                  </span>
+                </form>
+              </div>
+            </div>
+          </Modal>
+        ) : (
+          <></>
+        )}
+        <Modal active={modalDelete} setActive={setModalDelete}>
+          <div className="card">
+            <div className="card-header"></div>
+            <div className="card-body">
+              Вы уверены, что хотите удалить заказ № {currentOrder?.number} ?
               <hr />
               <span>
                 <Button
-                  onClick={() => setModalActive(false)}
+                  onClick={() => deleteOrder(orderId)}
                   type="submit"
                   variant="contained"
                   color="primary"
                 >
-                  Изменить
+                  Удалить
                 </Button>
               </span>
             </div>
           </div>
-        </form>
-      </Modal>
+        </Modal>
+      </div>
     </div>
   );
 }

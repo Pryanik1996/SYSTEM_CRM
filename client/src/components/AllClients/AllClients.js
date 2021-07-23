@@ -4,6 +4,9 @@ import { getClients } from "../../redux/actions/clients.action";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import "./AllClients.css";
+import Star from "./Star";
+import { setDelStar } from "../../redux/actions/clients.action";
+import { setAddStar } from "../../redux/actions/clients.action";
 
 export default function AllClients() {
   const {
@@ -19,7 +22,7 @@ export default function AllClients() {
 
   //================== SEARCH
 
-  let keyCl = ["surname", "patronymic", "email", "phone", "address"];
+  let keyCl = ["surname", "patronymic", "email", "phone", "address", "addstar"];
 
   function translit(word) {
     var answer = "";
@@ -151,18 +154,76 @@ export default function AllClients() {
   }
 
   const clearInput = () => {
+    //e.preventDefault()
     setValue("");
   };
 
+  //============== STARS
+
+  const currUser = useSelector((state) => state.user?._id);
+
+  let num;
+  let clientId;
+  let clientStarArr;
+
+  const converterStars = (client) => {
+    clientId = client?._id;
+    clientStarArr = client.addstar;
+    if (clientStarArr.length) {
+      if (client.addstar.includes(currUser)) {
+        num = clientStarArr.indexOf(currUser);
+        clientStarArr.splice(num, 1);
+        console.log("зашли на удаление");
+        //     fetch('http://localhost:3001/clients/stardell', {
+        //   method: "PATCH",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify({ clientId, currUser }),
+        // }).then
+        dispatch(setDelStar(client, currUser));
+        return true;
+      }
+      clientStarArr.push(clientId);
+      //   fetch('http://localhost:3001/clients/staradd', {
+      //   method: "PATCH",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({ clientId, currUser }),
+      // }).then(() =>
+      dispatch(setAddStar(client, currUser));
+      return true;
+    }
+    clientStarArr.push(clientId);
+    //   fetch('http://localhost:3001/clients/staradd', {
+    //   method: "PATCH",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({ clientId, currUser }),
+    // }).then(() =>
+    dispatch(setAddStar(client, currUser));
+    return true;
+  };
+
+  function check(client) {
+    if (client.addstar.length) {
+      if (client.addstar.includes(currUser)) return true;
+      return false;
+    }
+    return false;
+  }
+
   return (
     <div className="allClients">
-    <div>
-      <h1>Все клиенты</h1>
+      <div className="conteiner">
+      <h1 className="title-client">Наши клиенты</h1>
       <form onSubmit={() => clearInput()} className="search_form">
         <input
           onChange={(event) => setValue(event.target.value)}
           type="text"
-          placeholder="Поиск клиента..."
+          placeholder="🔎&nbsp;&nbsp; Поиск здесь..."
           className="search_input"
         />
       </form>
@@ -177,11 +238,27 @@ export default function AllClients() {
           ) : (
             <ul className="clientsList">
               {filtredClients?.map((cl) => (
-                <li>
+                <li style={{ position: "relative" }}>
+                  <span className="descr">Подробнее</span>
+                  <Star cl={cl} converterStars={converterStars} check={check} />
                   <Link key={cl._id} to={`/clients/client/${cl._id}`}>
                     <div className="clientsItem">
-                      {cl.surname}&nbsp;{cl.name}&nbsp;{cl.patronymic}&nbsp;
-                      {cl.email} {cl.phone}
+                      <div className="image">
+                        <img
+                          src="/profile.png"
+                          alt=""
+                          style={{ width: 200, height: 200 }}
+                        />
+                      </div>
+                      <div className="clientsInfo">
+                        ФИО:&nbsp;
+                        {cl.surname}&nbsp;{cl.name}
+                        <br /> {cl.patronymic}
+                        <br />
+                        email:&nbsp;{cl.email}
+                        <br />
+                        Номер:&nbsp;{cl.phone}
+                      </div>
                     </div>
                   </Link>
                 </li>
@@ -191,6 +268,6 @@ export default function AllClients() {
         </>
       )}
     </div>
-    </div>
+      </div>
   );
 }

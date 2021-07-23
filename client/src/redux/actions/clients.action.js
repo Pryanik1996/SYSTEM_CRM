@@ -1,9 +1,5 @@
-import {
-  CLIENT_ADD_ALL,
-  CLIENTS_GET_START,
-  CLIENTS_GET_SUCCESS,
-  CLIENTS_GET_ERROR,
-} from "../types";
+import { CLIENT_DELETE, CLIENT_ADD_ALL, CLIENTS_GET_START, CLIENTS_GET_SUCCESS, CLIENTS_GET_ERROR, COMMENTS_ADD, CHANGESTARMINUS, CHANGESTARPLUS } from "../types";
+
 
 export const setAllClient = (clients) => ({
   type: CLIENT_ADD_ALL,
@@ -71,3 +67,73 @@ export const getEditClient = (data, id) => async (dispatch) => {
   const res = await response.json();
   dispatch(setAllClient(res));
 };
+
+
+export const deleteClient = (clients) => ({
+  type: CLIENT_DELETE,
+  payload: clients,
+})
+
+export const getDeleteClient = (id) => async (dispatch) => {
+  const response = await fetch(`http://localhost:3001/clients/delete/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({id})
+  })
+  dispatch(deleteClient(response))
+}
+
+
+export const setComments = (comments) => ({
+  type: COMMENTS_ADD,
+  payload: comments,
+})
+
+export const getComments = (data, id, userId, userName) => async (dispatch) => {
+  const response = await fetch(`http://localhost:3001/clients/${id}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({body: data.comments, userId, userName})
+})
+  const res = await response.json()
+  dispatch(setComments(res))
+}
+
+export const delStar = (client) => ({
+  type: CHANGESTARMINUS,
+  payload: client,
+})
+
+export const setDelStar = (client, currUser) => async (dispatch) => {
+const response = await fetch('http://localhost:3001/clients/stardell', {
+        method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ client, currUser }),
+})
+const res = await response.json()
+dispatch(delStar(res))
+}
+
+
+export const addStar = (client) => ({
+  type: CHANGESTARPLUS,
+  payload: client,
+})
+
+export const setAddStar = (client, currUser) => async (dispatch) => {
+const response = await fetch('http://localhost:3001/clients/staradd', {
+        method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ client, currUser }),
+})
+const res = await response.json()
+dispatch(addStar(res))
+}

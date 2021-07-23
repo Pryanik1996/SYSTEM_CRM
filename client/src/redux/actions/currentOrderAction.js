@@ -3,6 +3,7 @@ import {
   ORDER_DELETE,
   ORDER_COMMENT,
   COMMENT_DELETE,
+  ORDER_EDIT,
 } from "../types";
 
 const oneOrder = (res) => ({
@@ -14,30 +15,51 @@ export const getOneOrder = (id) => async (dispatch) => {
   try {
     const response = await fetch(`http://localhost:3001/orders/${id}`);
     const result = await response.json();
-    console.log("RES=>", result);
     dispatch(oneOrder(result));
   } catch (error) {
     console.log(error);
   }
 };
 
-export const deleteOrder = () => ({
+// export const deleteOrder = () => ({
+//   type: ORDER_DELETE,
+//   payload: null,
+// });
+
+// export const deleteCurrentOrder = (id, history) => async (dispatch) => {
+//   try {
+//     const response = await fetch(`http://localhost:3001/orders/${id}`, {
+//       method: "DELETE",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//     });
+//     if (response.status === 200) {
+//       dispatch(deleteOrder());
+//       history.push("/orders");
+//     }
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
+export const deleteOrder = (deletedOrder) => ({
   type: ORDER_DELETE,
-  payload: null,
+  payload: deletedOrder,
 });
 
 export const deleteCurrentOrder = (id, history) => async (dispatch) => {
   try {
     const response = await fetch(`http://localhost:3001/orders/${id}`, {
-      method: "DELETE",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
     });
-    if (response.status === 200) {
-      dispatch(deleteOrder());
-      history.push("/orders");
-    }
+    const deletedOrder = await response.json();
+    // console.log("deletedOrder==>", deletedOrder);
+    dispatch(deleteOrder(deletedOrder));
+    history.push("/orders");
   } catch (error) {
     console.log(error);
   }
@@ -87,6 +109,27 @@ export const deleteCurrentComment = (commentId, id) => async (dispatch) => {
     );
     const data = await response.json();
     dispatch(deleteComment(data));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const editOrder = (data) => ({
+  type: ORDER_EDIT,
+  payload: data,
+});
+
+export const editCurrentOrder = (id, order) => async (dispatch) => {
+  try {
+    const response = await fetch(`http://localhost:3001/orders/edit/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id, order }),
+    });
+    const data = await response.json();
+    dispatch(editOrder(data));
   } catch (error) {
     console.log(error);
   }

@@ -3,12 +3,13 @@ import {
   ORDER_DELETE,
   ORDER_COMMENT,
   COMMENT_DELETE,
+  ORDER_EDIT,
 } from "../types";
 
 const currentOrderReducer = (state = null, action) => {
-  console.log(1234124123);
+  // console.log(1234124123);
   const { type, payload } = action;
-  console.log("PAYLOAD===>", action);
+  // console.log("PAYLOAD===>", action);
   switch (type) {
     case ORDER_ONE: {
       return payload;
@@ -21,6 +22,13 @@ const currentOrderReducer = (state = null, action) => {
     }
     case COMMENT_DELETE: {
       return payload;
+    }
+    case ORDER_EDIT: {
+      const qwe = {
+        ...payload,
+        comments: state.comments,
+      };
+      return qwe;
     }
     default: {
       return state;

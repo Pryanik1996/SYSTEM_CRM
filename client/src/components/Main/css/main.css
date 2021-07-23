@@ -284,7 +284,6 @@
   position: absolute;
   right: 0;
   top: 50%;
-  background-image: url("../img/pic/arrow_downward_24px.svg");
 }
 
 .hero-scroll:hover {

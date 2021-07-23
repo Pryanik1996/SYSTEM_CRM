@@ -557,7 +557,7 @@ router.delete("/clients/:id", async (req, res) => {
 });
 
 router.get("/orders", async (req, res) => {
-  const allDeletedOrders = await Orders.find({ isDelete: true });
+  const allDeletedOrders = await Orders.find({ isDelete: true }).populate("client");
   return res.json(allDeletedOrders);
 });
 

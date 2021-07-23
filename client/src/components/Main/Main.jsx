@@ -64,10 +64,10 @@ export default function Main() {
 
       <div className="article" >
         <div className="article-text" data-number="01">
-      <div className="article-subtitle" id="scroll"> Get Started</div>
-      <div className="article-title">Собирайте и анализируйте комментарии</div>
+      <div className="article-subtitle" id="scroll"> Комментарии</div>
+      <div className="article-title">Новая функция - информативные комментарии</div>
       <p>
-          Предоставляем возможность оставить комментарий при работе с клиентом 
+      Появилась возможность прокомментировать карту клиента и карту заказа с сохранением автора и даты комментария 
       </p>
         </div>
         <div className="article-img">
@@ -79,15 +79,19 @@ export default function Main() {
 
 <div className="article" >
   <div className="article-text" data-number="02">
-<div className="article-subtitle"> Get Started</div>
-<div className="article-title">Собирайте и анализируйте комментарии</div>
+<div className="article-subtitle"> Регистрация Google</div>
+<div className="article-title">Новый алгоритм регистрации</div>
 <p>
-    Предоставляем возможность оставить комментарий при работе с клиентом 
+    Теперь ваши данные надёжно защищены. Алгоритмы защиты и авторизация через Google. 
 </p>
   </div>
+
   <div className="article-img">
-    <div className="art-img3"></div>
+    <div className="art-img"></div>
   </div>
+
+
+  
 </div>
   </section>
 
@@ -95,15 +99,18 @@ export default function Main() {
 
 <div className="article" >
   <div className="article-text" data-number="03">
-<div className="article-subtitle"> Get Started</div>
-<div className="article-title">Собирайте и анализируйте комментарии</div>
+<div className="article-subtitle"> Администратор</div>
+<div className="article-title">Проработанный кабинет администратора </div>
 <p>
-    Предоставляем возможность оставить комментарий при работе с клиентом 
+    Теперь все операции находятся под контролем администратора, в том числе все зарегистрированные пользователи
 </p>
   </div>
   <div className="article-img">
-    <div className="art-img"></div>
+    <div className="art-img3"></div>
   </div>
+
+
+  
 </div>
   </section>
 
